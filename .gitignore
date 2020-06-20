@@ -62,3 +62,9 @@
 *.out
 *.app
 
+debug
+release
+*.gch
+*.layout
+*.depend
+*cscope_file_list
