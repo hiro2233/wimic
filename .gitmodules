@@ -1,0 +1,6 @@
+[submodule "modules/umurmur"]
+	path = modules/umurmur
+	url = https://github.com/hiro2233/umurmur.git
+[submodule "modules/mumpi"]
+	path = modules/mumpi
+	url = https://github.com/hiro2233/mumpi.git
