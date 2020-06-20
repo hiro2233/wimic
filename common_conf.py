@@ -8,7 +8,7 @@
 disable_non_local_image_warnings=True
 
 
-wiki_base_url=''
+wiki_base_url='https://hiro2233.github.io/wimic/docs/'
 intersphinx_base_url=wiki_base_url+'%s/'
 
 
