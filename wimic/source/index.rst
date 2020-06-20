@@ -11,6 +11,6 @@
 Welcome to WiMic's documentation!
 =================================
 
-    `Privacy Policy <../../docs/privacy/>`__
+    `Privacy Policy <../../wimic/docs/privacy/>`__
 
 .. toctree::
