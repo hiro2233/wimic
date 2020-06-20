@@ -62,3 +62,15 @@
 *.out
 *.app
 
+# Any build directory
+*/build/*
+.buildinfo
+
+# Logs
+*.log
+
+# Build outputs
+
+*.pyc
+
+src
