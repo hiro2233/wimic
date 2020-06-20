@@ -1,12 +1,16 @@
-.. test_wiki documentation master file, created by
-   sphinx-quickstart on Fri Jun 19 21:58:37 2020.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+.. _home:
+
+..  raw:: html
+
+    <table>
+    <tr>
+    <td width="27%">
+
+--------------
 
 Welcome to WiMic's documentation!
-=====================================
+=================================
+
+    `Privacy Policy <../../privacy/>`__
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
-
