@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<UrusStudio_workspace_file>
+	<Workspace title="Workspace">
+		<Project filename="wimic.usp" />
+		<Project filename="modules/mumpi/deps/mumlib/mumlib.usp" />
+		<Project filename="modules/mumpi/mumpi.usp" />
+		<Project filename="modules/umurmur/umurmur.usp" />
+	</Workspace>
+</UrusStudio_workspace_file>

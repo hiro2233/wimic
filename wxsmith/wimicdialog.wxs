@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<wxsmith>
+	<object class="wxDialog" name="wimicDialog">
+		<title>Urus GUI app</title>
+		<centered>1</centered>
+		<size>367,265</size>
+	</object>
+</wxsmith>
