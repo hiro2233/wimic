@@ -1,6 +1,6 @@
 # makefile for building docs incrementally
 
-ALL_WIKIS=wimic
+ALL_WIKIS=wimic privacy
 
 ALL_CLEAN=$(addsuffix _clean,$(ALL_WIKIS))
 ALL_HTML=$(addsuffix _html,$(ALL_WIKIS))

@@ -31,8 +31,8 @@ from codecs import open
 import subprocess
 
 
-DEFAULT_COPY_WIKIS =['wimic']
-ALL_WIKIS =['wimic']
+DEFAULT_COPY_WIKIS =['wimic', 'privacy']
+ALL_WIKIS =['wimic', 'privacy']
 COMMON_DIR='common'
 COPY_TARGET_DIR_BASE='docs/'
 
