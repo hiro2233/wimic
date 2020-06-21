@@ -3,6 +3,91 @@
 	<object class="wxDialog" name="wimicDialog">
 		<title>Urus GUI app</title>
 		<centered>1</centered>
-		<size>367,265</size>
+		<object class="wxBoxSizer" variable="BoxSizer1" member="yes">
+			<object class="sizeritem">
+				<object class="wxNotebook" name="ID_NOTEBOOK1" variable="Notebook1" member="no">
+					<object class="notebookpage">
+						<object class="wxPanel" name="ID_PANEL1" variable="Panel1" member="yes">
+							<object class="wxGridBagSizer" variable="GridBagSizer1" member="yes">
+								<growablecols>1</growablecols>
+								<growablerows>1</growablerows>
+								<object class="sizeritem">
+									<object class="wxBoxSizer" variable="BoxSizer3" member="yes">
+										<object class="sizeritem">
+											<object class="wxPanel" name="ID_PANEL2" variable="Panel2" member="yes">
+												<object class="wxPanel" name="ID_PANEL3" variable="Panel3" member="yes">
+													<pos>0,0</pos>
+													<size>296,120</size>
+												</object>
+											</object>
+											<flag>wxALL|wxALIGN_TOP</flag>
+											<border>5</border>
+											<option>1</option>
+										</object>
+									</object>
+									<colspan>2</colspan>
+									<rowspan>2</rowspan>
+									<col>0</col>
+									<row>0</row>
+									<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+									<border>5</border>
+									<option>1</option>
+								</object>
+								<object class="sizeritem">
+									<object class="wxBoxSizer" variable="BoxSizer2" member="yes">
+										<object class="sizeritem">
+											<object class="wxButton" name="ID_BUTTON1" variable="close" member="yes">
+												<label>close</label>
+												<handler function="OnQuit" entry="EVT_BUTTON" />
+											</object>
+											<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+											<border>5</border>
+											<option>1</option>
+										</object>
+									</object>
+									<col>1</col>
+									<row>2</row>
+									<flag>wxALL|wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL</flag>
+									<border>5</border>
+									<option>1</option>
+								</object>
+								<object class="sizeritem">
+									<object class="wxBoxSizer" variable="BoxSizer4" member="yes">
+										<object class="sizeritem">
+											<object class="wxButton" name="ID_BUTTON2" variable="start_server" member="yes">
+												<label>Start</label>
+												<handler function="Onstart_serverClick" entry="EVT_BUTTON" />
+											</object>
+											<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+											<border>5</border>
+											<option>1</option>
+										</object>
+										<object class="sizeritem">
+											<object class="wxButton" name="ID_BUTTON3" variable="stop_server" member="yes">
+												<label>stop</label>
+												<handler function="Onstop_serverClick" entry="EVT_BUTTON" />
+											</object>
+											<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+											<border>5</border>
+											<option>1</option>
+										</object>
+									</object>
+									<col>0</col>
+									<row>2</row>
+									<flag>wxALL|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
+									<border>5</border>
+									<option>1</option>
+								</object>
+							</object>
+						</object>
+						<label>Main</label>
+						<selected>1</selected>
+					</object>
+				</object>
+				<flag>wxALL|wxALIGN_TOP</flag>
+				<border>5</border>
+				<option>1</option>
+			</object>
+		</object>
 	</object>
 </wxsmith>
