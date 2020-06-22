@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <wxsmith>
 	<object class="wxDialog" name="wimicDialog">
-		<title>Urus GUI app</title>
+		<title>WiMic Server/Client</title>
 		<centered>1</centered>
+		<style>wxDEFAULT_DIALOG_STYLE|wxCLOSE_BOX|wxTAB_TRAVERSAL|wxMINIMIZE_BOX</style>
 		<object class="wxBoxSizer" variable="BoxSizer1" member="yes">
 			<object class="sizeritem">
-				<object class="wxNotebook" name="ID_NOTEBOOK1" variable="Notebook1" member="no">
+				<object class="wxNotebook" name="ID_NOTEBOOK1" variable="Notebook1" member="yes">
+					<focused>1</focused>
+					<style>wxTAB_TRAVERSAL</style>
 					<object class="notebookpage">
 						<object class="wxPanel" name="ID_PANEL1" variable="Panel1" member="yes">
 							<object class="wxGridBagSizer" variable="GridBagSizer1" member="yes">
@@ -14,22 +17,30 @@
 								<object class="sizeritem">
 									<object class="wxBoxSizer" variable="BoxSizer3" member="yes">
 										<object class="sizeritem">
-											<object class="wxPanel" name="ID_PANEL2" variable="Panel2" member="yes">
-												<object class="wxPanel" name="ID_PANEL3" variable="Panel3" member="yes">
-													<pos>0,0</pos>
-													<size>296,120</size>
-												</object>
+											<object class="wxStaticText" name="ID_STATICTEXT1" variable="lblstatconnection" member="yes">
+												<label>Server:</label>
+												<size>62,15</size>
 											</object>
-											<flag>wxALL|wxALIGN_TOP</flag>
+											<flag>wxALL|wxALIGN_CENTER_VERTICAL</flag>
+											<border>5</border>
+											<option>1</option>
+										</object>
+										<object class="sizeritem">
+											<object class="wxLed" name="ID_LED1" variable="Led1" member="yes">
+												<disable_colour>#808080</disable_colour>
+												<on_colour>#00FF00</on_colour>
+												<off_colour>#FF0000</off_colour>
+												<on_or_off>0</on_or_off>
+											</object>
+											<flag>wxALL|wxALIGN_CENTER_VERTICAL</flag>
 											<border>5</border>
 											<option>1</option>
 										</object>
 									</object>
-									<colspan>2</colspan>
 									<rowspan>2</rowspan>
 									<col>0</col>
 									<row>0</row>
-									<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+									<flag>wxALL|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL</flag>
 									<border>5</border>
 									<option>1</option>
 								</object>
@@ -38,6 +49,7 @@
 										<object class="sizeritem">
 											<object class="wxButton" name="ID_BUTTON1" variable="close" member="yes">
 												<label>close</label>
+												<style>wxTAB_TRAVERSAL</style>
 												<handler function="OnQuit" entry="EVT_BUTTON" />
 											</object>
 											<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
@@ -54,9 +66,10 @@
 								<object class="sizeritem">
 									<object class="wxBoxSizer" variable="BoxSizer4" member="yes">
 										<object class="sizeritem">
-											<object class="wxButton" name="ID_BUTTON2" variable="start_server" member="yes">
-												<label>Start</label>
-												<handler function="Onstart_serverClick" entry="EVT_BUTTON" />
+											<object class="wxButton" name="ID_BUTTON2" variable="start_client" member="yes">
+												<label>start</label>
+												<style>wxTAB_TRAVERSAL</style>
+												<handler function="Onstart_clientClick" entry="EVT_BUTTON" />
 											</object>
 											<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 											<border>5</border>
@@ -65,7 +78,8 @@
 										<object class="sizeritem">
 											<object class="wxButton" name="ID_BUTTON3" variable="stop_server" member="yes">
 												<label>stop</label>
-												<handler function="Onstop_serverClick" entry="EVT_BUTTON" />
+												<style>wxTAB_TRAVERSAL</style>
+												<handler function="Onstop_clientClick" entry="EVT_BUTTON" />
 											</object>
 											<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 											<border>5</border>
@@ -88,6 +102,9 @@
 				<border>5</border>
 				<option>1</option>
 			</object>
+		</object>
+		<object class="wxTimer" name="ID_TIMER1" variable="timer_connect_status" member="yes">
+			<handler function="Ontimer_connect_statusTrigger" entry="EVT_TIMER" />
 		</object>
 	</object>
 </wxsmith>
