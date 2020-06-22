@@ -19,6 +19,10 @@
 				<Linker>
 					<Add option="`wx-config  --version=2.8 --static=no --unicode=yes --debug=no --libs`" />
 					<Add library="boost_system" />
+					<Add library="mumpi" />
+					<Add library="umurmur" />
+					<Add directory="modules/mumpi/bin/Release" />
+					<Add directory="modules/umurmur/bin/Release" />
 				</Linker>
 			</Target>
 			<Target title="Release_unix">
@@ -34,26 +38,56 @@
 				<Linker>
 					<Add option="-s" />
 					<Add option="`wx-config  --version=2.8 --static=no --unicode=yes --debug=no --libs`" />
-					<Add library="boost_system" />
 					<Add library="mumpi" />
+					<Add library="umurmur" />
+					<Add library="portaudio" />
+					<Add library="log4cpp" />
+					<Add library="mumlib" />
+					<Add library="config" />
+					<Add library="protobuf-c" />
+					<Add library="protobuf" />
+					<Add library="opus" />
+					<Add library="speexdsp" />
+					<Add library="boost_system" />
 					<Add directory="modules/mumpi/bin/Release" />
+					<Add directory="modules/umurmur/bin/Release" />
+					<Add directory="modules/mumpi/deps/mumlib/bin/Release" />
 				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add option="-std=c++11" />
-			<Add option="-fPIC" />
 			<Add option="-Wno-unused-local-typedefs" />
 			<Add option="-Wno-format" />
 			<Add option="-Wno-sequence-point" />
 			<Add option="-fpermissive" />
+			<Add option="-fno-exceptions" />
+			<Add option="-ffunction-sections" />
+			<Add option="-fdata-sections" />
+			<Add option="-fsigned-char" />
+			<Add option="-Wpointer-arith" />
+			<Add option="-Wno-missing-field-initializers" />
+			<Add option="-Wno-unused-parameter" />
+			<Add option="-Wno-redundant-decls" />
+			<Add option="-Wno-unknown-pragmas" />
+			<Add option="-Wno-trigraphs" />
+			<Add option="-std=gnu++11" />
+			<Add option="-Werror=shadow" />
+			<Add option="-Werror=return-type" />
+			<Add option="-Werror=parentheses" />
+			<Add option="-Werror=ignored-qualifiers" />
+			<Add option="-Werror=narrowing" />
+			<Add option="-msse" />
 			<Add directory="modules/mumpi/include" />
 			<Add directory="modules/mumpi/deps/mumlib/include" />
+			<Add directory="$(#URUSSTOOL.base)/include/urusstudio/wxContribItems/wxled/led/include" />
 		</Compiler>
 		<Linker>
+			<Add option='-Wl,-rpath=&quot;.:/system/urus/lib/urusstudio/wxContribItems&quot;' />
 			<Add library="ssl" />
 			<Add library="crypto" />
+			<Add library="wxled" />
+			<Add directory="$(#URUSSTOOL.lib)/urusstudio/wxContribItems" />
 		</Linker>
 		<Unit filename="wimicApp.cpp" />
 		<Unit filename="wimicApp.h" />
