@@ -54,6 +54,139 @@
 					<Add directory="modules/mumpi/deps/mumlib/bin/Release" />
 				</Linker>
 			</Target>
+			<Target title="Debug_win32">
+				<Option platforms="Windows;" />
+				<Option output="build/Debug/wimic" prefix_auto="1" extension_auto="1" />
+				<Option object_output="build/.obj/Debug/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-Winvalid-pch" />
+					<Add option="-D__WXMSW__" />
+					<Add option="-D_FILE_OFFSET_BITS=64" />
+					<Add option="-DwxDEBUG_LEVEL=0" />
+					<Add option="-DLOG4CPP_FIX_ERROR_COLLISION=1" />
+					<Add option="-D__USE_W32_SOCKETS" />
+					<Add directory="$(#wxsetup.include)" />
+					<Add directory="$(#wx.include)" />
+					<Add directory="$(HOME)/UrusStudio/src/plugins/contrib/wxContribItems/wxled/led/include" />
+				</Compiler>
+				<Linker>
+					<Add option="-static" />
+					<Add option="-Wl,--no-undefined" />
+					<Add option="-Wl,--allow-multiple-definition" />
+					<Add library="$(#wx.wxlibs)" />
+					<Add library="wxled" />
+					<Add library="wxscintilla_urus-3.1" />
+					<Add library="wxtiff_urus-3.1" />
+					<Add library="wxjpeg_urus-3.1" />
+					<Add library="wxpng_urus-3.1" />
+					<Add library="wxregexu_urus-3.1" />
+					<Add library="wxexpat_urus-3.1" />
+					<Add library="z" />
+					<Add library="rpcrt4" />
+					<Add library="oleaut32" />
+					<Add library="ole32" />
+					<Add library="uuid" />
+					<Add library="uxtheme" />
+					<Add library="winspool" />
+					<Add library="winmm" />
+					<Add library="shell32" />
+					<Add library="shlwapi" />
+					<Add library="comdlg32" />
+					<Add library="advapi32" />
+					<Add library="version" />
+					<Add library="wsock32" />
+					<Add library="gdi32" />
+					<Add library="oleacc" />
+					<Add library="kernel32" />
+					<Add library="user32" />
+					<Add library="lzma" />
+					<Add library="umurmur" />
+					<Add library="ssl" />
+					<Add library="crypto" />
+					<Add library="config" />
+					<Add library="log4cpp" />
+					<Add library="speexdsp" />
+					<Add library="opus" />
+					<Add library="protobuf" />
+					<Add library="ws2_32" />
+					<Add library="protobuf-c" />
+					<Add library="comctl32" />
+					<Add directory="$(#wx.lib)" />
+					<Add directory="modules/mumpi/bin/Release" />
+					<Add directory="modules/umurmur/bin/Release" />
+					<Add directory="modules/mumpi/deps/mumlib/bin/Release" />
+				</Linker>
+			</Target>
+			<Target title="Release_win32">
+				<Option platforms="Windows;" />
+				<Option output="build/Release/wimic" prefix_auto="1" extension_auto="1" />
+				<Option object_output="build/.obj/Release/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-D__WXMSW__" />
+					<Add option="-D_FILE_OFFSET_BITS=64" />
+					<Add option="-DwxDEBUG_LEVEL=0" />
+					<Add option="-DLOG4CPP_FIX_ERROR_COLLISION=1" />
+					<Add option="-D__USE_W32_SOCKETS" />
+					<Add directory="$(#wxsetup.include)" />
+					<Add directory="$(#wx.include)" />
+					<Add directory="$(HOME)/UrusStudio/src/plugins/contrib/wxContribItems/wxled/led/include" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add option="-static" />
+					<Add option="-Wl,--no-undefined" />
+					<Add option="-Wl,--allow-multiple-definition" />
+					<Add option="-mthreads" />
+					<Add library="$(#wx.wxlibs)" />
+					<Add library="wxled" />
+					<Add library="wxscintilla_urus-3.1" />
+					<Add library="wxtiff_urus-3.1" />
+					<Add library="wxjpeg_urus-3.1" />
+					<Add library="wxpng_urus-3.1" />
+					<Add library="wxregexu_urus-3.1" />
+					<Add library="wxexpat_urus-3.1" />
+					<Add library="z" />
+					<Add library="rpcrt4" />
+					<Add library="oleaut32" />
+					<Add library="ole32" />
+					<Add library="uuid" />
+					<Add library="uxtheme" />
+					<Add library="winspool" />
+					<Add library="winmm" />
+					<Add library="shell32" />
+					<Add library="shlwapi" />
+					<Add library="comctl32" />
+					<Add library="comdlg32" />
+					<Add library="advapi32" />
+					<Add library="version" />
+					<Add library="wsock32" />
+					<Add library="gdi32" />
+					<Add library="oleacc" />
+					<Add library="kernel32" />
+					<Add library="user32" />
+					<Add library="lzma" />
+					<Add library="umurmur" />
+					<Add library="ssl" />
+					<Add library="crypto" />
+					<Add library="config" />
+					<Add library="log4cpp" />
+					<Add library="speexdsp" />
+					<Add library="opus" />
+					<Add library="protobuf" />
+					<Add library="ws2_32" />
+					<Add library="protobuf-c" />
+					<Add directory="$(#wx.lib)" />
+					<Add directory="modules/mumpi/bin/Release" />
+					<Add directory="modules/umurmur/bin/Release" />
+					<Add directory="modules/mumpi/deps/mumlib/bin/Release" />
+				</Linker>
+			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
@@ -61,34 +194,110 @@
 			<Add option="-Wno-format" />
 			<Add option="-Wno-sequence-point" />
 			<Add option="-fpermissive" />
-			<Add option="-fno-exceptions" />
-			<Add option="-ffunction-sections" />
-			<Add option="-fdata-sections" />
-			<Add option="-fsigned-char" />
 			<Add option="-Wpointer-arith" />
 			<Add option="-Wno-missing-field-initializers" />
 			<Add option="-Wno-unused-parameter" />
 			<Add option="-Wno-redundant-decls" />
 			<Add option="-Wno-unknown-pragmas" />
 			<Add option="-Wno-trigraphs" />
-			<Add option="-std=gnu++11" />
-			<Add option="-Werror=shadow" />
-			<Add option="-Werror=return-type" />
-			<Add option="-Werror=parentheses" />
-			<Add option="-Werror=ignored-qualifiers" />
-			<Add option="-Werror=narrowing" />
 			<Add option="-msse" />
-			<Add directory="modules/mumpi/include" />
+			<Add option="-ffunction-sections" />
+			<Add option="-fdata-sections" />
+			<Add option="-D__URUSSTUDIO__" />
+			<Add option="-D__LIB_URUSSTUDIO__" />
+			<Add directory="$(HOME)/boost_1_72_0" />
 			<Add directory="modules/mumpi/deps/mumlib/include" />
+			<Add directory="modules/mumpi/include" />
 			<Add directory="$(#URUSSTOOL.base)/include/urusstudio/wxContribItems/wxled/led/include" />
+			<Add directory="modules/mumpi/deps/mumlib" />
+			<Add directory="$(WORKSPACEDIR)" />
 		</Compiler>
 		<Linker>
-			<Add option='-Wl,-rpath=&quot;.:/system/urus/lib/urusstudio/wxContribItems&quot;' />
-			<Add library="ssl" />
-			<Add library="crypto" />
-			<Add library="wxled" />
+			<Add library="portaudio" />
+			<Add library="config" />
 			<Add directory="$(#URUSSTOOL.lib)/urusstudio/wxContribItems" />
 		</Linker>
+		<Unit filename="modules/mumpi/deps/mumlib/Mumble.pb-msys.cc">
+			<Option target="Debug_win32" />
+			<Option target="Release_win32" />
+		</Unit>
+		<Unit filename="modules/mumpi/deps/mumlib/include/mumlib.hpp">
+			<Option target="Debug_win32" />
+			<Option target="Release_win32" />
+		</Unit>
+		<Unit filename="modules/mumpi/deps/mumlib/include/mumlib/Audio.hpp">
+			<Option target="Debug_win32" />
+			<Option target="Release_win32" />
+		</Unit>
+		<Unit filename="modules/mumpi/deps/mumlib/include/mumlib/Callback.hpp">
+			<Option target="Debug_win32" />
+			<Option target="Release_win32" />
+		</Unit>
+		<Unit filename="modules/mumpi/deps/mumlib/include/mumlib/CryptState.hpp">
+			<Option target="Debug_win32" />
+			<Option target="Release_win32" />
+		</Unit>
+		<Unit filename="modules/mumpi/deps/mumlib/include/mumlib/Transport.hpp">
+			<Option target="Debug_win32" />
+			<Option target="Release_win32" />
+		</Unit>
+		<Unit filename="modules/mumpi/deps/mumlib/include/mumlib/VarInt.hpp">
+			<Option target="Debug_win32" />
+			<Option target="Release_win32" />
+		</Unit>
+		<Unit filename="modules/mumpi/deps/mumlib/include/mumlib/enums.hpp">
+			<Option target="Debug_win32" />
+			<Option target="Release_win32" />
+		</Unit>
+		<Unit filename="modules/mumpi/deps/mumlib/src/Audio.cpp">
+			<Option target="Debug_win32" />
+			<Option target="Release_win32" />
+		</Unit>
+		<Unit filename="modules/mumpi/deps/mumlib/src/Callback.cpp">
+			<Option target="Debug_win32" />
+			<Option target="Release_win32" />
+		</Unit>
+		<Unit filename="modules/mumpi/deps/mumlib/src/CryptState.cpp">
+			<Option target="Debug_win32" />
+			<Option target="Release_win32" />
+		</Unit>
+		<Unit filename="modules/mumpi/deps/mumlib/src/Transport.cpp">
+			<Option target="Debug_win32" />
+			<Option target="Release_win32" />
+		</Unit>
+		<Unit filename="modules/mumpi/deps/mumlib/src/VarInt.cpp">
+			<Option target="Debug_win32" />
+			<Option target="Release_win32" />
+		</Unit>
+		<Unit filename="modules/mumpi/deps/mumlib/src/mumlib.cpp">
+			<Option target="Debug_win32" />
+			<Option target="Release_win32" />
+		</Unit>
+		<Unit filename="modules/mumpi/include/EmptyBufferException.hpp">
+			<Option target="Debug_win32" />
+			<Option target="Release_win32" />
+		</Unit>
+		<Unit filename="modules/mumpi/include/MumpiCallback.hpp">
+			<Option target="Debug_win32" />
+			<Option target="Release_win32" />
+		</Unit>
+		<Unit filename="modules/mumpi/include/RingBuffer.hpp">
+			<Option target="Debug_win32" />
+			<Option target="Release_win32" />
+		</Unit>
+		<Unit filename="modules/mumpi/src/MumpiCallback.cpp">
+			<Option target="Debug_win32" />
+			<Option target="Release_win32" />
+		</Unit>
+		<Unit filename="modules/mumpi/src/RingBuffer.cpp">
+			<Option target="Debug_win32" />
+			<Option target="Release_win32" />
+		</Unit>
+		<Unit filename="modules/mumpi/src/main.cpp">
+			<Option target="Debug_win32" />
+			<Option target="Release_win32" />
+		</Unit>
+		<Unit filename="typedef_ext.h" />
 		<Unit filename="wimicApp.cpp" />
 		<Unit filename="wimicApp.h" />
 		<Unit filename="wimicMain.cpp" />
