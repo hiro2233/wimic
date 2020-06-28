@@ -75,6 +75,9 @@ const long wimicDialog::ID_LED1 = wxNewId();
 const long wimicDialog::ID_STATICTEXT4 = wxNewId();
 const long wimicDialog::ID_STATICTEXT5 = wxNewId();
 const long wimicDialog::ID_PANEL1 = wxNewId();
+const long wimicDialog::ID_TEXTCTRL1 = wxNewId();
+const long wimicDialog::ID_HYPERLINKCTRL1 = wxNewId();
+const long wimicDialog::ID_PANEL2 = wxNewId();
 const long wimicDialog::ID_NOTEBOOK1 = wxNewId();
 const long wimicDialog::ID_TIMER1 = wxNewId();
 //*)
@@ -142,7 +145,20 @@ wimicDialog::wimicDialog(wxWindow* parent,wxWindowID id)
     Panel1->SetSizer(GridBagSizer1);
     GridBagSizer1->Fit(Panel1);
     GridBagSizer1->SetSizeHints(Panel1);
+    about_panel = new wxPanel(Notebook1, ID_PANEL2, wxDefaultPosition, wxDefaultSize, 0, _T("ID_PANEL2"));
+    BoxSizer9 = new wxBoxSizer(wxVERTICAL);
+    GridSizer1 = new wxGridSizer(1, 1, 0, 0);
+    text_about = new wxTextCtrl(about_panel, ID_TEXTCTRL1, _("text_about"), wxDefaultPosition, wxDefaultSize, wxTE_NO_VSCROLL|wxTE_MULTILINE|wxTE_READONLY|wxTE_AUTO_URL|wxTE_CENTRE|wxNO_BORDER, wxDefaultValidator, _T("ID_TEXTCTRL1"));
+    text_about->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_MENUBAR));
+    GridSizer1->Add(text_about, 1, wxALL|wxALIGN_LEFT|wxALIGN_BOTTOM, 1);
+    hyper_link_license = new wxHyperlinkCtrl(about_panel, ID_HYPERLINKCTRL1, _("hyper_link_license"), wxEmptyString, wxDefaultPosition, wxDefaultSize, wxHL_CONTEXTMENU|wxHL_ALIGN_CENTRE|wxNO_BORDER, _T("ID_HYPERLINKCTRL1"));
+    GridSizer1->Add(hyper_link_license, 1, wxALL|wxALIGN_LEFT|wxALIGN_TOP, 1);
+    BoxSizer9->Add(GridSizer1, 1, wxALL|wxEXPAND, 5);
+    about_panel->SetSizer(BoxSizer9);
+    BoxSizer9->Fit(about_panel);
+    BoxSizer9->SetSizeHints(about_panel);
     Notebook1->AddPage(Panel1, _("Main"), true);
+    Notebook1->AddPage(about_panel, _("About"), false);
     BoxSizer1->Add(Notebook1, 1, wxALL|wxALIGN_TOP, 5);
     SetSizer(BoxSizer1);
     timer_connect_status.SetOwner(this, ID_TIMER1);
@@ -165,6 +181,7 @@ wimicDialog::wimicDialog(wxWindow* parent,wxWindowID id)
     timer_connect_status.Stop();
     Led1->SetOnOrOff(false);
     _detect_devices();
+    _make_about();
 }
 
 wimicDialog::~wimicDialog()
@@ -422,4 +439,14 @@ const char *wimicDialog::_get_local_ip()
 
     freeifaddrs(ifaddr);
     return hostip;
+}
+
+void wimicDialog::_make_about()
+{
+    text_about->SetLabel(_("\n\n\n\nWiMic, remote wireless microphone server and client.\n"
+                           "Copyright (c) 2020 Hiroshi Takey F. <htakey@gmail.com>\n"
+                           "Licensed under GPLv3."));
+    text_about->SetSize(Notebook1->GetSize().GetWidth() - 10, -1);
+    hyper_link_license->SetLabel(_("https://github.com/hiro2233/wimic/"));
+    hyper_link_license->SetSize(Notebook1->GetSize().GetWidth() - 10, -1);
 }

@@ -2,17 +2,21 @@
 #ifndef WIMICMAIN_H
 #define WIMICMAIN_H
 
+#include <wx/textctrl.h>
+#include <wx/hyperlink.h>
 
 //(*Headers(wimicDialog)
 #include <wx/button.h>
 #include <wx/dialog.h>
 #include <wx/gbsizer.h>
+#include <wx/hyperlink.h>
 #include <wx/led.h>
 #include <wx/listbox.h>
 #include <wx/notebook.h>
 #include <wx/panel.h>
 #include <wx/sizer.h>
 #include <wx/stattext.h>
+#include <wx/textctrl.h>
 #include <wx/timer.h>
 //*)
 
@@ -35,6 +39,7 @@ class wimicDialog: public wxDialog
         void _make_dir(const char *dir, int perm);
         void _detect_devices();
         const char *_get_local_ip();
+        void _make_about();
 
         //(*Handlers(wimicDialog)
         void OnQuit(wxCommandEvent& event);
@@ -60,6 +65,9 @@ class wimicDialog: public wxDialog
         static const long ID_STATICTEXT4;
         static const long ID_STATICTEXT5;
         static const long ID_PANEL1;
+        static const long ID_TEXTCTRL1;
+        static const long ID_HYPERLINKCTRL1;
+        static const long ID_PANEL2;
         static const long ID_NOTEBOOK1;
         static const long ID_TIMER1;
         //*)
@@ -73,21 +81,26 @@ class wimicDialog: public wxDialog
         wxBoxSizer* BoxSizer6;
         wxBoxSizer* BoxSizer7;
         wxBoxSizer* BoxSizer8;
+        wxBoxSizer* BoxSizer9;
         wxButton* close;
         wxButton* select_dev;
         wxButton* start_client;
         wxButton* stop_server;
         wxFlexGridSizer* FlexGridSizer1;
         wxGridBagSizer* GridBagSizer1;
+        wxGridSizer* GridSizer1;
+        wxHyperlinkCtrl* hyper_link_license;
         wxLed* Led1;
         wxListBox* ListBox1;
         wxNotebook* Notebook1;
         wxPanel* Panel1;
+        wxPanel* about_panel;
         wxStaticText* StaticText1;
         wxStaticText* StaticText2;
         wxStaticText* dev_label_sel;
         wxStaticText* lblstatconnection;
         wxStaticText* local_ip_label;
+        wxTextCtrl* text_about;
         wxTimer timer_connect_status;
         //*)
 
