@@ -78,6 +78,7 @@
 				<Compiler>
 					<Add option="-g" />
 					<Add option="-Winvalid-pch" />
+					<Add option="-std=gnu++11" />
 					<Add option="-D__WXMSW__" />
 					<Add option="-D_FILE_OFFSET_BITS=64" />
 					<Add option="-DwxDEBUG_LEVEL=0" />
@@ -143,6 +144,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add option="-std=gnu++11" />
 					<Add option="-D__WXMSW__" />
 					<Add option="-D_FILE_OFFSET_BITS=64" />
 					<Add option="-DwxDEBUG_LEVEL=0" />
