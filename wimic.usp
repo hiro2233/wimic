@@ -16,6 +16,7 @@
 					<Add option="-g" />
 					<Add option="`wx-config  --version=2.8 --static=no --unicode=yes --debug=no --cflags`" />
 					<Add option="-std=gnu++11" />
+					<Add option="-DBOOST_ERROR_CODE_HEADER_ONLY" />
 				</Compiler>
 				<Linker>
 					<Add option="`wx-config  --version=2.8 --static=no --unicode=yes --debug=no --libs`" />
@@ -46,6 +47,7 @@
 					<Add option="-O2" />
 					<Add option="`wx-config  --version=2.8 --static=no --unicode=yes --debug=no --cflags`" />
 					<Add option="-std=gnu++11" />
+					<Add option="-DBOOST_ERROR_CODE_HEADER_ONLY" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -60,7 +62,6 @@
 					<Add library="protobuf" />
 					<Add library="opus" />
 					<Add library="speexdsp" />
-					<Add library="boost_system" />
 					<Add library="ssl" />
 					<Add library="crypto" />
 					<Add directory="modules/mumpi/bin/Release" />
