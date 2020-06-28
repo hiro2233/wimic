@@ -309,7 +309,6 @@ void wimicDialog::OnPaint(wxPaintEvent& event)
 
 void wimicDialog::_make_dir(const char *dir, int perm)
 {
-    struct dirent *de;
     DIR *dr = opendir(dir);
     if (dr == NULL) {
         mkdir(dir, perm);
@@ -329,8 +328,8 @@ void wimicDialog::OnPanel1KillFocus(wxFocusEvent& event)
 void wimicDialog::OnButton1Click(wxCommandEvent& event)
 {
     uint8_t sel = ListBox1->GetSelection();
-    wmdev.default_dev = sel;
-    dev_label_sel->SetLabel(wxString::FromUTF8(wmdev.name[wmdev.default_dev]));
+    wmdev.default_dev = wmdev.index_tmp_out[sel];
+    dev_label_sel->SetLabel(wxString::FromAscii(wmdev.name[wmdev.default_dev]));
     printf("Device Nr:%d Name: %s\n", wmdev.default_dev, wmdev.name[wmdev.default_dev]);
 }
 
@@ -340,14 +339,17 @@ void wimicDialog::_detect_devices()
 
     WIMIC::detect_devices();
 
+    uint8_t indextmp = 0;
     for (uint8_t i = 0; i < wmdev.dev_count; i++) {
-        if (wmdev.inout_dev == INOUT_DEV::OUTPUT_DEV) {
+        if (wmdev.inout_dev[i] == INOUT_DEV::OUTPUT_DEV) {
             s1.Add(wxString::FromAscii(wmdev.name[i]));
+            wmdev.index_tmp_out[indextmp] = i;
+            indextmp++;
         }
     }
 
     ListBox1->Clear();
     ListBox1->InsertItems(s1, 0);
-    ListBox1->SetSelection(wmdev.default_dev);
+    ListBox1->SetSelection(indextmp);
     dev_label_sel->SetLabel(wxString::FromAscii(wmdev.name[wmdev.default_dev]));
 }
