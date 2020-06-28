@@ -2,6 +2,8 @@
 #ifndef WIMICMAIN_H
 #define WIMICMAIN_H
 
+#include <wx/taskbar.h>
+
 //(*Headers(wimicDialog)
 #include <wx/button.h>
 #include <wx/dialog.h>

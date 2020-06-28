@@ -19,6 +19,8 @@
 
 #define ARGVCNT 4
 
+#include "resources/logo_wimic.xpm"
+
 extern wmdevices_t wmdev;
 
 bool wimicDialog::_started = false;
@@ -435,14 +437,21 @@ const char *wimicDialog::_get_local_ip()
 
 void wimicDialog::_make_about()
 {
-    text_about->SetValue(_("\n\n\n\nWiMic, remote wireless microphone server and client.\n"
+    SetIcon(
+            #ifdef __WXMSW__
+                wxICON(WIMIC_ICON)
+            #else
+                wxIcon(logo_wimic_xpm)
+            #endif // __WXMSW__
+            );
+
+    text_about->SetValue(_("\n\n\n\nWiMic, remote wireless microphone server & client.\n"
                            "Copyright (c) 2020 Hiroshi Takey F. <htakey@gmail.com>\n"
-                           "Licensed under GPLv3."));
+                           "Licensed under GPLv3 License."));
 
     text_about->SetPosition(wxPoint(0,0));
     text_about->SetSize(Panel1->GetSize().GetWidth(), 120);
     text_about->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_BTNFACE));
-    text_about->SetCaret(NULL);
 
     hyper_link_license->SetLabel(_("https://github.com/hiro2233/wimic/"));
     hyper_link_license->SetPosition(wxPoint(0, text_about->GetSize().GetHeight()));
