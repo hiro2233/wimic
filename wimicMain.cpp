@@ -342,12 +342,12 @@ void wimicDialog::_detect_devices()
 
     for (uint8_t i = 0; i < wmdev.dev_count; i++) {
         if (wmdev.inout_dev == INOUT_DEV::OUTPUT_DEV) {
-            s1.Add(wxString::FromUTF8(wmdev.name[i]));
+            s1.Add(wxString::FromAscii(wmdev.name[i]));
         }
     }
 
     ListBox1->Clear();
     ListBox1->InsertItems(s1, 0);
     ListBox1->SetSelection(wmdev.default_dev);
-    dev_label_sel->SetLabel(wxString::FromUTF8(wmdev.name[wmdev.default_dev]));
+    dev_label_sel->SetLabel(wxString::FromAscii(wmdev.name[wmdev.default_dev]));
 }
