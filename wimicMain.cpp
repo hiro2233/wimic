@@ -5,6 +5,17 @@
 #include "typedef_ext.h"
 #include <pthread.h>
 #include <unistd.h>
+#include <stdio.h>
+#include <sys/socket.h>
+#include <stdlib.h>
+#include <netinet/in.h>
+#include <string.h>
+#include <ifaddrs.h>
+#include <errno.h>
+#include <netdb.h>
+#include <sys/types.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
 
 #define ARGVCNT 4
 
@@ -46,13 +57,12 @@ extern "C" {
 //(*InternalHeaders(wimicDialog)
 #include <wx/font.h>
 #include <wx/intl.h>
+#include <wx/settings.h>
 #include <wx/string.h>
 //*)
 
 
 //(*IdInit(wimicDialog)
-const long wimicDialog::ID_STATICTEXT1 = wxNewId();
-const long wimicDialog::ID_LED1 = wxNewId();
 const long wimicDialog::ID_BUTTON1 = wxNewId();
 const long wimicDialog::ID_BUTTON2 = wxNewId();
 const long wimicDialog::ID_BUTTON3 = wxNewId();
@@ -60,6 +70,10 @@ const long wimicDialog::ID_LISTBOX1 = wxNewId();
 const long wimicDialog::ID_BUTTON4 = wxNewId();
 const long wimicDialog::ID_STATICTEXT2 = wxNewId();
 const long wimicDialog::ID_STATICTEXT3 = wxNewId();
+const long wimicDialog::ID_STATICTEXT1 = wxNewId();
+const long wimicDialog::ID_LED1 = wxNewId();
+const long wimicDialog::ID_STATICTEXT4 = wxNewId();
+const long wimicDialog::ID_STATICTEXT5 = wxNewId();
 const long wimicDialog::ID_PANEL1 = wxNewId();
 const long wimicDialog::ID_NOTEBOOK1 = wxNewId();
 const long wimicDialog::ID_TIMER1 = wxNewId();
@@ -77,16 +91,9 @@ wimicDialog::wimicDialog(wxWindow* parent,wxWindowID id)
     BoxSizer1 = new wxBoxSizer(wxHORIZONTAL);
     Notebook1 = new wxNotebook(this, ID_NOTEBOOK1, wxDefaultPosition, wxDefaultSize, 0, _T("ID_NOTEBOOK1"));
     Panel1 = new wxPanel(Notebook1, ID_PANEL1, wxDefaultPosition, wxDefaultSize, 0, _T("ID_PANEL1"));
-    GridBagSizer1 = new wxGridBagSizer(1, 1);
-    GridBagSizer1->AddGrowableCol(0);
-    GridBagSizer1->AddGrowableRow(0);
-    BoxSizer3 = new wxBoxSizer(wxHORIZONTAL);
-    lblstatconnection = new wxStaticText(Panel1, ID_STATICTEXT1, _("Server:"), wxDefaultPosition, wxSize(51,15), 0, _T("ID_STATICTEXT1"));
-    BoxSizer3->Add(lblstatconnection, 1, wxTOP|wxBOTTOM|wxLEFT|wxALIGN_TOP, 5);
-    Led1 = new wxLed(Panel1,ID_LED1,wxColour(255,0,0),wxColour(0,255,0),wxColour(255,0,0),wxDefaultPosition,wxDefaultSize);
-    Led1->SwitchOff();
-    BoxSizer3->Add(Led1, 1, wxALL|wxSHAPED, 5);
-    GridBagSizer1->Add(BoxSizer3, wxGBPosition(0, 1), wxDefaultSpan, wxALL|wxALIGN_LEFT|wxALIGN_TOP, 5);
+    GridBagSizer1 = new wxGridBagSizer(0, 0);
+    GridBagSizer1->AddGrowableCol(3);
+    GridBagSizer1->AddGrowableRow(3);
     BoxSizer2 = new wxBoxSizer(wxHORIZONTAL);
     close = new wxButton(Panel1, ID_BUTTON1, _("close"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON1"));
     BoxSizer2->Add(close, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
@@ -116,6 +123,22 @@ wimicDialog::wimicDialog(wxWindow* parent,wxWindowID id)
     BoxSizer6->Add(BoxSizer7, 1, wxALIGN_TOP, 5);
     BoxSizer5->Add(BoxSizer6, 0, wxALIGN_LEFT, 5);
     GridBagSizer1->Add(BoxSizer5, wxGBPosition(0, 0), wxDefaultSpan, wxALIGN_LEFT|wxALIGN_TOP, 5);
+    FlexGridSizer1 = new wxFlexGridSizer(2, 1, 0, 0);
+    BoxSizer3 = new wxBoxSizer(wxHORIZONTAL);
+    lblstatconnection = new wxStaticText(Panel1, ID_STATICTEXT1, _("Server:"), wxDefaultPosition, wxSize(51,15), 0, _T("ID_STATICTEXT1"));
+    BoxSizer3->Add(lblstatconnection, 1, wxTOP|wxBOTTOM|wxLEFT|wxALIGN_TOP, 5);
+    Led1 = new wxLed(Panel1,ID_LED1,wxColour(255,0,0),wxColour(0,255,0),wxColour(255,0,0),wxDefaultPosition,wxDefaultSize);
+    Led1->SwitchOff();
+    BoxSizer3->Add(Led1, 1, wxALL|wxSHAPED, 5);
+    FlexGridSizer1->Add(BoxSizer3, 1, wxALL|wxALIGN_LEFT|wxALIGN_TOP, 5);
+    BoxSizer8 = new wxBoxSizer(wxHORIZONTAL);
+    StaticText2 = new wxStaticText(Panel1, ID_STATICTEXT4, _("IP:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT4"));
+    BoxSizer8->Add(StaticText2, 0, wxTOP|wxBOTTOM|wxLEFT|wxALIGN_TOP, 5);
+    local_ip_label = new wxStaticText(Panel1, ID_STATICTEXT5, _("local_ip_label"), wxDefaultPosition, wxSize(89,13), 0, _T("ID_STATICTEXT5"));
+    local_ip_label->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_HOTLIGHT));
+    BoxSizer8->Add(local_ip_label, 1, wxALL|wxALIGN_TOP, 5);
+    FlexGridSizer1->Add(BoxSizer8, 1, wxALL|wxALIGN_LEFT|wxALIGN_TOP, 5);
+    GridBagSizer1->Add(FlexGridSizer1, wxGBPosition(0, 1), wxDefaultSpan, wxALL|wxALIGN_LEFT|wxALIGN_TOP, 5);
     Panel1->SetSizer(GridBagSizer1);
     GridBagSizer1->Fit(Panel1);
     GridBagSizer1->SetSizeHints(Panel1);
@@ -348,6 +371,55 @@ void wimicDialog::_detect_devices()
 
     ListBox1->Clear();
     ListBox1->InsertItems(s1, 0);
-    ListBox1->SetSelection(indextmp);
+    ListBox1->SetSelection(indextmp - 1);
     dev_label_sel->SetLabel(wxString::FromAscii(wmdev.name[wmdev.default_dev]));
+
+    const char *localip = _get_local_ip();
+    local_ip_label->SetLabel(wxString::FromAscii(localip));
+}
+
+const char *wimicDialog::_get_local_ip()
+{
+    struct ifaddrs *ifaddr, *ifa;
+    int s;
+    static char hostip[NI_MAXHOST];
+
+    if (getifaddrs(&ifaddr) == -1) {
+        perror("getifaddrs");
+        exit(EXIT_FAILURE);
+    }
+
+    for (ifa = ifaddr; ifa != NULL; ifa = ifa->ifa_next) {
+        if (ifa->ifa_addr == NULL)
+            continue;
+
+        s = getnameinfo(ifa->ifa_addr, sizeof(struct sockaddr_in), hostip, NI_MAXHOST, NULL, 0, NI_NUMERICHOST);
+
+        switch(ifa->ifa_addr->sa_family) {
+            case AF_INET:
+                printf("Device: %s Family: IPV4 %s\n", ifa->ifa_name, hostip);
+                break;
+
+            case AF_INET6:
+                printf("Device: %s Family: IPV6 %s\n", ifa->ifa_name, hostip);
+                break;
+
+            default:
+                printf("Unknown AF\n");
+        }
+
+        if (!(strstr(hostip, "127.")) && (ifa->ifa_addr->sa_family == AF_INET)) {
+            if (s != 0) {
+                printf("getnameinfo() failed: %s\n", gai_strerror(s));
+                exit(EXIT_FAILURE);
+            }
+
+            printf("\n\tInterface : <%s>\n", ifa->ifa_name);
+            printf("\tAddress   : <%s>\n\n", hostip);
+            return hostip;
+        }
+    }
+
+    freeifaddrs(ifaddr);
+    return hostip;
 }

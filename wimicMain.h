@@ -34,6 +34,7 @@ class wimicDialog: public wxDialog
         void _start_client();
         void _make_dir(const char *dir, int perm);
         void _detect_devices();
+        const char *_get_local_ip();
 
         //(*Handlers(wimicDialog)
         void OnQuit(wxCommandEvent& event);
@@ -47,8 +48,6 @@ class wimicDialog: public wxDialog
         //*)
 
         //(*Identifiers(wimicDialog)
-        static const long ID_STATICTEXT1;
-        static const long ID_LED1;
         static const long ID_BUTTON1;
         static const long ID_BUTTON2;
         static const long ID_BUTTON3;
@@ -56,6 +55,10 @@ class wimicDialog: public wxDialog
         static const long ID_BUTTON4;
         static const long ID_STATICTEXT2;
         static const long ID_STATICTEXT3;
+        static const long ID_STATICTEXT1;
+        static const long ID_LED1;
+        static const long ID_STATICTEXT4;
+        static const long ID_STATICTEXT5;
         static const long ID_PANEL1;
         static const long ID_NOTEBOOK1;
         static const long ID_TIMER1;
@@ -69,18 +72,22 @@ class wimicDialog: public wxDialog
         wxBoxSizer* BoxSizer5;
         wxBoxSizer* BoxSizer6;
         wxBoxSizer* BoxSizer7;
+        wxBoxSizer* BoxSizer8;
         wxButton* close;
         wxButton* select_dev;
         wxButton* start_client;
         wxButton* stop_server;
+        wxFlexGridSizer* FlexGridSizer1;
         wxGridBagSizer* GridBagSizer1;
         wxLed* Led1;
         wxListBox* ListBox1;
         wxNotebook* Notebook1;
         wxPanel* Panel1;
         wxStaticText* StaticText1;
+        wxStaticText* StaticText2;
         wxStaticText* dev_label_sel;
         wxStaticText* lblstatconnection;
+        wxStaticText* local_ip_label;
         wxTimer timer_connect_status;
         //*)
 

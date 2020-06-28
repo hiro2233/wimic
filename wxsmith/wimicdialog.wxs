@@ -15,39 +15,8 @@
 							<style>0</style>
 							<handler function="OnPanel1KillFocus" entry="EVT_KILL_FOCUS" />
 							<object class="wxGridBagSizer" variable="GridBagSizer1" member="yes">
-								<vgap>1</vgap>
-								<hgap>1</hgap>
-								<growablecols>0</growablecols>
-								<growablerows>0</growablerows>
-								<object class="sizeritem">
-									<object class="wxBoxSizer" variable="BoxSizer3" member="yes">
-										<object class="sizeritem">
-											<object class="wxStaticText" name="ID_STATICTEXT1" variable="lblstatconnection" member="yes">
-												<label>Server:</label>
-												<size>51,15</size>
-											</object>
-											<flag>wxTOP|wxBOTTOM|wxLEFT|wxALIGN_TOP</flag>
-											<border>5</border>
-											<option>1</option>
-										</object>
-										<object class="sizeritem">
-											<object class="wxLed" name="ID_LED1" variable="Led1" member="yes">
-												<disable_colour>#FF0000</disable_colour>
-												<on_colour>#00FF00</on_colour>
-												<off_colour>#FF0000</off_colour>
-												<on_or_off>0</on_or_off>
-											</object>
-											<flag>wxALL|wxSHAPED</flag>
-											<border>5</border>
-											<option>1</option>
-										</object>
-									</object>
-									<col>1</col>
-									<row>0</row>
-									<flag>wxALL|wxALIGN_LEFT|wxALIGN_TOP</flag>
-									<border>5</border>
-									<option>1</option>
-								</object>
+								<growablecols>3</growablecols>
+								<growablerows>3</growablerows>
 								<object class="sizeritem">
 									<object class="wxBoxSizer" variable="BoxSizer2" member="yes">
 										<object class="sizeritem">
@@ -164,6 +133,68 @@
 									<col>0</col>
 									<row>0</row>
 									<flag>wxALIGN_LEFT|wxALIGN_TOP</flag>
+									<border>5</border>
+									<option>1</option>
+								</object>
+								<object class="sizeritem">
+									<object class="wxFlexGridSizer" variable="FlexGridSizer1" member="yes">
+										<cols>1</cols>
+										<rows>2</rows>
+										<object class="sizeritem">
+											<object class="wxBoxSizer" variable="BoxSizer3" member="yes">
+												<object class="sizeritem">
+													<object class="wxStaticText" name="ID_STATICTEXT1" variable="lblstatconnection" member="yes">
+														<label>Server:</label>
+														<size>51,15</size>
+													</object>
+													<flag>wxTOP|wxBOTTOM|wxLEFT|wxALIGN_TOP</flag>
+													<border>5</border>
+													<option>1</option>
+												</object>
+												<object class="sizeritem">
+													<object class="wxLed" name="ID_LED1" variable="Led1" member="yes">
+														<disable_colour>#FF0000</disable_colour>
+														<on_colour>#00FF00</on_colour>
+														<off_colour>#FF0000</off_colour>
+														<on_or_off>0</on_or_off>
+													</object>
+													<flag>wxALL|wxSHAPED</flag>
+													<border>5</border>
+													<option>1</option>
+												</object>
+											</object>
+											<flag>wxALL|wxALIGN_LEFT|wxALIGN_TOP</flag>
+											<border>5</border>
+											<option>1</option>
+										</object>
+										<object class="sizeritem">
+											<object class="wxBoxSizer" variable="BoxSizer8" member="yes">
+												<object class="sizeritem">
+													<object class="wxStaticText" name="ID_STATICTEXT4" variable="StaticText2" member="yes">
+														<label>IP:</label>
+													</object>
+													<flag>wxTOP|wxBOTTOM|wxLEFT|wxALIGN_TOP</flag>
+													<border>5</border>
+												</object>
+												<object class="sizeritem">
+													<object class="wxStaticText" name="ID_STATICTEXT5" variable="local_ip_label" member="yes">
+														<label>local__ip__label</label>
+														<size>89,13</size>
+														<fg>wxSYS_COLOUR_HOTLIGHT</fg>
+													</object>
+													<flag>wxALL|wxALIGN_TOP</flag>
+													<border>5</border>
+													<option>1</option>
+												</object>
+											</object>
+											<flag>wxALL|wxALIGN_LEFT|wxALIGN_TOP</flag>
+											<border>5</border>
+											<option>1</option>
+										</object>
+									</object>
+									<col>1</col>
+									<row>0</row>
+									<flag>wxALL|wxALIGN_LEFT|wxALIGN_TOP</flag>
 									<border>5</border>
 									<option>1</option>
 								</object>
