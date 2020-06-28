@@ -73,13 +73,13 @@ END_EVENT_TABLE()
 wimicDialog::wimicDialog(wxWindow* parent,wxWindowID id)
 {
     //(*Initialize(wimicDialog)
-    wxBoxSizer* BoxSizer7;
-
     Create(parent, wxID_ANY, _("WiMic Server/Client"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE|wxCLOSE_BOX|wxMINIMIZE_BOX, _T("wxID_ANY"));
     BoxSizer1 = new wxBoxSizer(wxHORIZONTAL);
     Notebook1 = new wxNotebook(this, ID_NOTEBOOK1, wxDefaultPosition, wxDefaultSize, 0, _T("ID_NOTEBOOK1"));
     Panel1 = new wxPanel(Notebook1, ID_PANEL1, wxDefaultPosition, wxDefaultSize, 0, _T("ID_PANEL1"));
     GridBagSizer1 = new wxGridBagSizer(1, 1);
+    GridBagSizer1->AddGrowableCol(0);
+    GridBagSizer1->AddGrowableRow(0);
     BoxSizer3 = new wxBoxSizer(wxHORIZONTAL);
     lblstatconnection = new wxStaticText(Panel1, ID_STATICTEXT1, _("Server:"), wxDefaultPosition, wxSize(51,15), 0, _T("ID_STATICTEXT1"));
     BoxSizer3->Add(lblstatconnection, 1, wxTOP|wxBOTTOM|wxLEFT|wxALIGN_TOP, 5);
@@ -116,8 +116,6 @@ wimicDialog::wimicDialog(wxWindow* parent,wxWindowID id)
     BoxSizer6->Add(BoxSizer7, 1, wxALIGN_TOP, 5);
     BoxSizer5->Add(BoxSizer6, 0, wxALIGN_LEFT, 5);
     GridBagSizer1->Add(BoxSizer5, wxGBPosition(0, 0), wxDefaultSpan, wxALIGN_LEFT|wxALIGN_TOP, 5);
-    GridBagSizer1->AddGrowableCol(0);
-    GridBagSizer1->AddGrowableRow(0);
     Panel1->SetSizer(GridBagSizer1);
     GridBagSizer1->Fit(Panel1);
     GridBagSizer1->SetSizeHints(Panel1);

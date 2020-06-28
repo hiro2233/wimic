@@ -117,7 +117,7 @@
 													<border>5</border>
 												</object>
 												<object class="sizeritem">
-													<object class="wxBoxSizer" variable="BoxSizer7" member="no">
+													<object class="wxBoxSizer" variable="BoxSizer7" member="yes">
 														<orient>wxVERTICAL</orient>
 														<object class="sizeritem">
 															<object class="wxStaticText" name="ID_STATICTEXT2" variable="StaticText1" member="yes">

@@ -68,6 +68,7 @@ class wimicDialog: public wxDialog
         wxBoxSizer* BoxSizer4;
         wxBoxSizer* BoxSizer5;
         wxBoxSizer* BoxSizer6;
+        wxBoxSizer* BoxSizer7;
         wxButton* close;
         wxButton* select_dev;
         wxButton* start_client;
