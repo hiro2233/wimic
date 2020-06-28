@@ -80,11 +80,9 @@ wimicDialog::wimicDialog(wxWindow* parent,wxWindowID id)
     Notebook1 = new wxNotebook(this, ID_NOTEBOOK1, wxDefaultPosition, wxDefaultSize, 0, _T("ID_NOTEBOOK1"));
     Panel1 = new wxPanel(Notebook1, ID_PANEL1, wxDefaultPosition, wxDefaultSize, 0, _T("ID_PANEL1"));
     GridBagSizer1 = new wxGridBagSizer(1, 1);
-    GridBagSizer1->AddGrowableCol(0);
-    GridBagSizer1->AddGrowableRow(0);
     BoxSizer3 = new wxBoxSizer(wxHORIZONTAL);
-    lblstatconnection = new wxStaticText(Panel1, ID_STATICTEXT1, _("Server:"), wxDefaultPosition, wxSize(38,15), 0, _T("ID_STATICTEXT1"));
-    BoxSizer3->Add(lblstatconnection, 1, wxTOP|wxBOTTOM|wxLEFT, 5);
+    lblstatconnection = new wxStaticText(Panel1, ID_STATICTEXT1, _("Server:"), wxDefaultPosition, wxSize(51,15), 0, _T("ID_STATICTEXT1"));
+    BoxSizer3->Add(lblstatconnection, 1, wxTOP|wxBOTTOM|wxLEFT|wxALIGN_TOP, 5);
     Led1 = new wxLed(Panel1,ID_LED1,wxColour(255,0,0),wxColour(0,255,0),wxColour(255,0,0),wxDefaultPosition,wxDefaultSize);
     Led1->SwitchOff();
     BoxSizer3->Add(Led1, 1, wxALL|wxSHAPED, 5);
@@ -100,8 +98,7 @@ wimicDialog::wimicDialog(wxWindow* parent,wxWindowID id)
     BoxSizer4->Add(stop_server, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     GridBagSizer1->Add(BoxSizer4, wxGBPosition(2, 0), wxDefaultSpan, wxALIGN_LEFT|wxALIGN_BOTTOM, 5);
     BoxSizer5 = new wxBoxSizer(wxVERTICAL);
-    ListBox1 = new wxListBox(Panel1, ID_LISTBOX1, wxDefaultPosition, wxSize(350,100), 0, 0, wxVSCROLL|wxHSCROLL, wxDefaultValidator, _T("ID_LISTBOX1"));
-    ListBox1->SetMinSize(wxSize(250,100));
+    ListBox1 = new wxListBox(Panel1, ID_LISTBOX1, wxDefaultPosition, wxSize(300,100), 0, 0, wxVSCROLL|wxHSCROLL, wxDefaultValidator, _T("ID_LISTBOX1"));
     BoxSizer5->Add(ListBox1, 1, wxALL|wxALIGN_LEFT, 5);
     BoxSizer6 = new wxBoxSizer(wxHORIZONTAL);
     select_dev = new wxButton(Panel1, ID_BUTTON4, _("select"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON4"));
@@ -119,6 +116,8 @@ wimicDialog::wimicDialog(wxWindow* parent,wxWindowID id)
     BoxSizer6->Add(BoxSizer7, 1, wxALIGN_TOP, 5);
     BoxSizer5->Add(BoxSizer6, 0, wxALIGN_LEFT, 5);
     GridBagSizer1->Add(BoxSizer5, wxGBPosition(0, 0), wxDefaultSpan, wxALIGN_LEFT|wxALIGN_TOP, 5);
+    GridBagSizer1->AddGrowableCol(0);
+    GridBagSizer1->AddGrowableRow(0);
     Panel1->SetSizer(GridBagSizer1);
     GridBagSizer1->Fit(Panel1);
     GridBagSizer1->SetSizeHints(Panel1);
@@ -331,7 +330,7 @@ void wimicDialog::OnButton1Click(wxCommandEvent& event)
 {
     uint8_t sel = ListBox1->GetSelection();
     wmdev.default_dev = sel;
-    dev_label_sel->SetLabel(_(wmdev.name[wmdev.default_dev]));
+    dev_label_sel->SetLabel(wxString::FromUTF8(wmdev.name[wmdev.default_dev]));
     printf("Device Nr:%d Name: %s\n", wmdev.default_dev, wmdev.name[wmdev.default_dev]);
 }
 
@@ -343,12 +342,12 @@ void wimicDialog::_detect_devices()
 
     for (uint8_t i = 0; i < wmdev.dev_count; i++) {
         if (wmdev.inout_dev == INOUT_DEV::OUTPUT_DEV) {
-            s1.Add(_(wmdev.name[i]));
+            s1.Add(wxString::FromUTF8(wmdev.name[i]));
         }
     }
 
     ListBox1->Clear();
     ListBox1->InsertItems(s1, 0);
     ListBox1->SetSelection(wmdev.default_dev);
-    dev_label_sel->SetLabel(_(wmdev.name[wmdev.default_dev]));
+    dev_label_sel->SetLabel(wxString::FromUTF8(wmdev.name[wmdev.default_dev]));
 }
