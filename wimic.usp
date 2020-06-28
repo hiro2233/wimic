@@ -15,14 +15,25 @@
 				<Compiler>
 					<Add option="-g" />
 					<Add option="`wx-config  --version=2.8 --static=no --unicode=yes --debug=no --cflags`" />
+					<Add option="-std=gnu++11" />
 				</Compiler>
 				<Linker>
 					<Add option="`wx-config  --version=2.8 --static=no --unicode=yes --debug=no --libs`" />
+					<Add option="-Wl,-rpath=.:/system/urus/lib/urusstudio/wxContribItems" />
 					<Add library="boost_system" />
-					<Add library="mumpi" />
 					<Add library="umurmur" />
+					<Add library="mumlib" />
+					<Add library="wxled" />
+					<Add library="ssl" />
+					<Add library="crypto" />
+					<Add library="protobuf-c" />
+					<Add library="protobuf" />
+					<Add library="opus" />
+					<Add library="speexdsp" />
+					<Add library="log4cpp" />
 					<Add directory="modules/mumpi/bin/Release" />
 					<Add directory="modules/umurmur/bin/Release" />
+					<Add directory="modules/mumpi/deps/mumlib/bin/Debug" />
 				</Linker>
 			</Target>
 			<Target title="Release_unix">
@@ -34,21 +45,24 @@
 				<Compiler>
 					<Add option="-O2" />
 					<Add option="`wx-config  --version=2.8 --static=no --unicode=yes --debug=no --cflags`" />
+					<Add option="-std=gnu++11" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
 					<Add option="`wx-config  --version=2.8 --static=no --unicode=yes --debug=no --libs`" />
-					<Add library="mumpi" />
+					<Add option="-Wl,-rpath=.:/system/urus/lib/urusstudio/wxContribItems" />
 					<Add library="umurmur" />
+					<Add library="wxled" />
 					<Add library="portaudio" />
 					<Add library="log4cpp" />
-					<Add library="mumlib" />
 					<Add library="config" />
 					<Add library="protobuf-c" />
 					<Add library="protobuf" />
 					<Add library="opus" />
 					<Add library="speexdsp" />
 					<Add library="boost_system" />
+					<Add library="ssl" />
+					<Add library="crypto" />
 					<Add directory="modules/mumpi/bin/Release" />
 					<Add directory="modules/umurmur/bin/Release" />
 					<Add directory="modules/mumpi/deps/mumlib/bin/Release" />
@@ -221,82 +235,85 @@
 			<Option target="Debug_win32" />
 			<Option target="Release_win32" />
 		</Unit>
+		<Unit filename="modules/mumpi/deps/mumlib/Mumble.pb.cc">
+			<Option target="Debug_unix" />
+			<Option target="Release_unix" />
+		</Unit>
+		<Unit filename="modules/mumpi/deps/mumlib/Mumble.pb.h">
+			<Option target="Debug_unix" />
+			<Option target="Release_unix" />
+		</Unit>
 		<Unit filename="modules/mumpi/deps/mumlib/include/mumlib.hpp">
 			<Option target="Debug_win32" />
 			<Option target="Release_win32" />
+			<Option target="Release_unix" />
 		</Unit>
 		<Unit filename="modules/mumpi/deps/mumlib/include/mumlib/Audio.hpp">
 			<Option target="Debug_win32" />
 			<Option target="Release_win32" />
+			<Option target="Release_unix" />
 		</Unit>
 		<Unit filename="modules/mumpi/deps/mumlib/include/mumlib/Callback.hpp">
 			<Option target="Debug_win32" />
 			<Option target="Release_win32" />
+			<Option target="Release_unix" />
 		</Unit>
 		<Unit filename="modules/mumpi/deps/mumlib/include/mumlib/CryptState.hpp">
 			<Option target="Debug_win32" />
 			<Option target="Release_win32" />
+			<Option target="Release_unix" />
 		</Unit>
 		<Unit filename="modules/mumpi/deps/mumlib/include/mumlib/Transport.hpp">
 			<Option target="Debug_win32" />
 			<Option target="Release_win32" />
+			<Option target="Release_unix" />
 		</Unit>
 		<Unit filename="modules/mumpi/deps/mumlib/include/mumlib/VarInt.hpp">
 			<Option target="Debug_win32" />
 			<Option target="Release_win32" />
+			<Option target="Release_unix" />
 		</Unit>
 		<Unit filename="modules/mumpi/deps/mumlib/include/mumlib/enums.hpp">
 			<Option target="Debug_win32" />
 			<Option target="Release_win32" />
+			<Option target="Release_unix" />
 		</Unit>
 		<Unit filename="modules/mumpi/deps/mumlib/src/Audio.cpp">
 			<Option target="Debug_win32" />
 			<Option target="Release_win32" />
+			<Option target="Release_unix" />
 		</Unit>
 		<Unit filename="modules/mumpi/deps/mumlib/src/Callback.cpp">
 			<Option target="Debug_win32" />
 			<Option target="Release_win32" />
+			<Option target="Release_unix" />
 		</Unit>
 		<Unit filename="modules/mumpi/deps/mumlib/src/CryptState.cpp">
 			<Option target="Debug_win32" />
 			<Option target="Release_win32" />
+			<Option target="Release_unix" />
 		</Unit>
 		<Unit filename="modules/mumpi/deps/mumlib/src/Transport.cpp">
 			<Option target="Debug_win32" />
 			<Option target="Release_win32" />
+			<Option target="Release_unix" />
 		</Unit>
 		<Unit filename="modules/mumpi/deps/mumlib/src/VarInt.cpp">
 			<Option target="Debug_win32" />
 			<Option target="Release_win32" />
+			<Option target="Release_unix" />
 		</Unit>
 		<Unit filename="modules/mumpi/deps/mumlib/src/mumlib.cpp">
 			<Option target="Debug_win32" />
 			<Option target="Release_win32" />
+			<Option target="Release_unix" />
 		</Unit>
-		<Unit filename="modules/mumpi/include/EmptyBufferException.hpp">
-			<Option target="Debug_win32" />
-			<Option target="Release_win32" />
-		</Unit>
-		<Unit filename="modules/mumpi/include/MumpiCallback.hpp">
-			<Option target="Debug_win32" />
-			<Option target="Release_win32" />
-		</Unit>
-		<Unit filename="modules/mumpi/include/RingBuffer.hpp">
-			<Option target="Debug_win32" />
-			<Option target="Release_win32" />
-		</Unit>
-		<Unit filename="modules/mumpi/src/MumpiCallback.cpp">
-			<Option target="Debug_win32" />
-			<Option target="Release_win32" />
-		</Unit>
-		<Unit filename="modules/mumpi/src/RingBuffer.cpp">
-			<Option target="Debug_win32" />
-			<Option target="Release_win32" />
-		</Unit>
-		<Unit filename="modules/mumpi/src/main.cpp">
-			<Option target="Debug_win32" />
-			<Option target="Release_win32" />
-		</Unit>
+		<Unit filename="modules/mumpi/include/EmptyBufferException.hpp" />
+		<Unit filename="modules/mumpi/include/MumpiCallback.hpp" />
+		<Unit filename="modules/mumpi/include/RingBuffer.hpp" />
+		<Unit filename="modules/mumpi/src/MumpiCallback.cpp" />
+		<Unit filename="modules/mumpi/src/RingBuffer.cpp" />
+		<Unit filename="modules/mumpi/src/main.cpp" />
 		<Unit filename="typedef_ext.h" />
 		<Unit filename="wimicApp.cpp" />
 		<Unit filename="wimicApp.h" />
