@@ -24,9 +24,9 @@
 										<object class="sizeritem">
 											<object class="wxStaticText" name="ID_STATICTEXT1" variable="lblstatconnection" member="yes">
 												<label>Server:</label>
-												<size>38,15</size>
+												<size>51,15</size>
 											</object>
-											<flag>wxTOP|wxBOTTOM|wxLEFT</flag>
+											<flag>wxTOP|wxBOTTOM|wxLEFT|wxALIGN_TOP</flag>
 											<border>5</border>
 											<option>1</option>
 										</object>
@@ -99,8 +99,7 @@
 										<object class="sizeritem">
 											<object class="wxListBox" name="ID_LISTBOX1" variable="ListBox1" member="yes">
 												<default>-1</default>
-												<size>350,100</size>
-												<minsize>250,100</minsize>
+												<size>300,100</size>
 												<style>wxVSCROLL|wxHSCROLL</style>
 											</object>
 											<flag>wxALL|wxALIGN_LEFT</flag>
