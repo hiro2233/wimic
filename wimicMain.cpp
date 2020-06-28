@@ -95,8 +95,8 @@ wimicDialog::wimicDialog(wxWindow* parent,wxWindowID id)
     Notebook1 = new wxNotebook(this, ID_NOTEBOOK1, wxDefaultPosition, wxDefaultSize, 0, _T("ID_NOTEBOOK1"));
     Panel1 = new wxPanel(Notebook1, ID_PANEL1, wxDefaultPosition, wxDefaultSize, 0, _T("ID_PANEL1"));
     GridBagSizer1 = new wxGridBagSizer(0, 0);
-    GridBagSizer1->AddGrowableCol(3);
-    GridBagSizer1->AddGrowableRow(3);
+    GridBagSizer1->AddGrowableCol(2);
+    GridBagSizer1->AddGrowableRow(2);
     BoxSizer2 = new wxBoxSizer(wxHORIZONTAL);
     close = new wxButton(Panel1, ID_BUTTON1, _("close"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON1"));
     BoxSizer2->Add(close, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
@@ -146,17 +146,9 @@ wimicDialog::wimicDialog(wxWindow* parent,wxWindowID id)
     GridBagSizer1->Fit(Panel1);
     GridBagSizer1->SetSizeHints(Panel1);
     about_panel = new wxPanel(Notebook1, ID_PANEL2, wxDefaultPosition, wxDefaultSize, 0, _T("ID_PANEL2"));
-    BoxSizer9 = new wxBoxSizer(wxVERTICAL);
-    GridSizer1 = new wxGridSizer(1, 1, 0, 0);
-    text_about = new wxTextCtrl(about_panel, ID_TEXTCTRL1, _("text_about"), wxDefaultPosition, wxDefaultSize, wxTE_NO_VSCROLL|wxTE_MULTILINE|wxTE_READONLY|wxTE_AUTO_URL|wxTE_CENTRE|wxNO_BORDER, wxDefaultValidator, _T("ID_TEXTCTRL1"));
-    text_about->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_MENUBAR));
-    GridSizer1->Add(text_about, 1, wxALL|wxALIGN_LEFT|wxALIGN_BOTTOM, 1);
-    hyper_link_license = new wxHyperlinkCtrl(about_panel, ID_HYPERLINKCTRL1, _("hyper_link_license"), wxEmptyString, wxDefaultPosition, wxDefaultSize, wxHL_CONTEXTMENU|wxHL_ALIGN_CENTRE|wxNO_BORDER, _T("ID_HYPERLINKCTRL1"));
-    GridSizer1->Add(hyper_link_license, 1, wxALL|wxALIGN_LEFT|wxALIGN_TOP, 1);
-    BoxSizer9->Add(GridSizer1, 1, wxALL|wxEXPAND, 5);
-    about_panel->SetSizer(BoxSizer9);
-    BoxSizer9->Fit(about_panel);
-    BoxSizer9->SetSizeHints(about_panel);
+    text_about = new wxTextCtrl(about_panel, ID_TEXTCTRL1, _("text_about"), wxPoint(128,80), wxSize(112,32), wxTE_NO_VSCROLL|wxTE_MULTILINE|wxTE_READONLY|wxTE_RICH|wxTE_AUTO_URL|wxTE_CENTRE|wxNO_BORDER, wxDefaultValidator, _T("ID_TEXTCTRL1"));
+    text_about->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_BTNFACE));
+    hyper_link_license = new wxHyperlinkCtrl(about_panel, ID_HYPERLINKCTRL1, _("hyper_link_license"), wxEmptyString, wxPoint(136,136), wxDefaultSize, wxHL_CONTEXTMENU|wxHL_ALIGN_CENTRE|wxNO_BORDER|wxTRANSPARENT_WINDOW, _T("ID_HYPERLINKCTRL1"));
     Notebook1->AddPage(Panel1, _("Main"), true);
     Notebook1->AddPage(about_panel, _("About"), false);
     BoxSizer1->Add(Notebook1, 1, wxALL|wxALIGN_TOP, 5);
@@ -443,10 +435,16 @@ const char *wimicDialog::_get_local_ip()
 
 void wimicDialog::_make_about()
 {
-    text_about->SetLabel(_("\n\n\n\nWiMic, remote wireless microphone server and client.\n"
+    text_about->SetValue(_("\n\n\n\nWiMic, remote wireless microphone server and client.\n"
                            "Copyright (c) 2020 Hiroshi Takey F. <htakey@gmail.com>\n"
                            "Licensed under GPLv3."));
-    text_about->SetSize(Notebook1->GetSize().GetWidth() - 10, -1);
+
+    text_about->SetPosition(wxPoint(0,0));
+    text_about->SetSize(Panel1->GetSize().GetWidth(), 120);
+    text_about->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_BTNFACE));
+    text_about->SetCaret(NULL);
+
     hyper_link_license->SetLabel(_("https://github.com/hiro2233/wimic/"));
-    hyper_link_license->SetSize(Notebook1->GetSize().GetWidth() - 10, -1);
+    hyper_link_license->SetPosition(wxPoint(0, text_about->GetSize().GetHeight()));
+    hyper_link_license->SetSize(Panel1->GetSize().GetWidth(), 20);
 }

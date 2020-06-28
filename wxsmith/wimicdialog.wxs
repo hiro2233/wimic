@@ -15,8 +15,8 @@
 							<style>0</style>
 							<handler function="OnPanel1KillFocus" entry="EVT_KILL_FOCUS" />
 							<object class="wxGridBagSizer" variable="GridBagSizer1" member="yes">
-								<growablecols>3</growablecols>
-								<growablerows>3</growablerows>
+								<growablecols>2</growablecols>
+								<growablerows>2</growablerows>
 								<object class="sizeritem">
 									<object class="wxBoxSizer" variable="BoxSizer2" member="yes">
 										<object class="sizeritem">
@@ -206,35 +206,17 @@
 					<object class="notebookpage">
 						<object class="wxPanel" name="ID_PANEL2" variable="about_panel" member="yes">
 							<style>0</style>
-							<object class="wxBoxSizer" variable="BoxSizer9" member="yes">
-								<orient>wxVERTICAL</orient>
-								<object class="sizeritem">
-									<object class="wxGridSizer" variable="GridSizer1" member="yes">
-										<cols>1</cols>
-										<rows>1</rows>
-										<object class="sizeritem">
-											<object class="wxTextCtrl" name="ID_TEXTCTRL1" variable="text_about" member="yes">
-												<value>text__about</value>
-												<bg>wxSYS_COLOUR_MENUBAR</bg>
-												<style>wxTE_NO_VSCROLL|wxTE_MULTILINE|wxTE_READONLY|wxTE_AUTO_URL|wxTE_CENTRE|wxNO_BORDER</style>
-											</object>
-											<flag>wxALL|wxALIGN_LEFT|wxALIGN_BOTTOM</flag>
-											<border>1</border>
-											<option>1</option>
-										</object>
-										<object class="sizeritem">
-											<object class="wxHyperlinkCtrl" name="ID_HYPERLINKCTRL1" variable="hyper_link_license" member="yes">
-												<label>hyper__link__license</label>
-											</object>
-											<flag>wxALL|wxALIGN_LEFT|wxALIGN_TOP</flag>
-											<border>1</border>
-											<option>1</option>
-										</object>
-									</object>
-									<flag>wxALL|wxEXPAND</flag>
-									<border>5</border>
-									<option>1</option>
-								</object>
+							<object class="wxTextCtrl" name="ID_TEXTCTRL1" variable="text_about" member="yes">
+								<value>text__about</value>
+								<pos>128,80</pos>
+								<size>112,32</size>
+								<bg>wxSYS_COLOUR_BTNFACE</bg>
+								<style>wxTE_NO_VSCROLL|wxTE_MULTILINE|wxTE_READONLY|wxTE_RICH|wxTE_AUTO_URL|wxTE_CENTRE|wxNO_BORDER</style>
+							</object>
+							<object class="wxHyperlinkCtrl" name="ID_HYPERLINKCTRL1" variable="hyper_link_license" member="yes">
+								<label>hyper__link__license</label>
+								<pos>136,136</pos>
+								<style>wxHL_CONTEXTMENU|wxHL_ALIGN_CENTRE|wxNO_BORDER|wxTRANSPARENT_WINDOW</style>
 							</object>
 						</object>
 						<label>About</label>

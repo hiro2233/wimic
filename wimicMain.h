@@ -2,9 +2,6 @@
 #ifndef WIMICMAIN_H
 #define WIMICMAIN_H
 
-#include <wx/textctrl.h>
-#include <wx/hyperlink.h>
-
 //(*Headers(wimicDialog)
 #include <wx/button.h>
 #include <wx/dialog.h>
@@ -81,14 +78,12 @@ class wimicDialog: public wxDialog
         wxBoxSizer* BoxSizer6;
         wxBoxSizer* BoxSizer7;
         wxBoxSizer* BoxSizer8;
-        wxBoxSizer* BoxSizer9;
         wxButton* close;
         wxButton* select_dev;
         wxButton* start_client;
         wxButton* stop_server;
         wxFlexGridSizer* FlexGridSizer1;
         wxGridBagSizer* GridBagSizer1;
-        wxGridSizer* GridSizer1;
         wxHyperlinkCtrl* hyper_link_license;
         wxLed* Led1;
         wxListBox* ListBox1;
