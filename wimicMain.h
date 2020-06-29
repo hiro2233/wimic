@@ -3,6 +3,7 @@
 #define WIMICMAIN_H
 
 #include <wx/taskbar.h>
+#include <wx/xrc/xmlres.h>
 
 //(*Headers(wimicDialog)
 #include <wx/button.h>

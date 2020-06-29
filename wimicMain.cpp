@@ -19,7 +19,9 @@
 
 #define ARGVCNT 4
 
+#ifdef __WXGTK__
 #include "resources/logo_wimic.xpm"
+#endif
 
 extern wmdevices_t wmdev;
 
@@ -437,13 +439,7 @@ const char *wimicDialog::_get_local_ip()
 
 void wimicDialog::_make_about()
 {
-    SetIcon(
-            #ifdef __WXMSW__
-                wxICON(WIMIC_ICON)
-            #else
-                wxIcon(logo_wimic_xpm)
-            #endif // __WXMSW__
-            );
+    SetIcon(wxICON(logo_wimic));
 
     text_about->SetValue(_("\n\n\n\nWiMic, remote wireless microphone server & client.\n"
                            "Copyright (c) 2020 Hiroshi Takey F. <htakey@gmail.com>\n"
