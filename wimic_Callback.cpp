@@ -96,6 +96,7 @@ void *wimic_Callback::_timer_buf(void *arg)
     while (_started) {
         uint8_t spkcnt = 0;
         uint8_t sessid = 0;
+        uint16_t remainbuf = 0;
         for (uint8_t i = 0; i < MAX_SESSION; i++) {
             if ((_chan_speak_cnt >> (uint8_t)i) & 0x01) {
                 spkcnt++;
@@ -107,6 +108,7 @@ void *wimic_Callback::_timer_buf(void *arg)
                     _chan_speak_cnt = 0;
                     break;
                 }
+                remainbuf = _out_buf_tmp[sessid]->getRemaining();
                 uint16_t ret = _out_buf_tmp[sessid]->top(_pcmbuf_out, 0, PCM_FRAME);
 #if DEBUG_WIMIC == 1
                 if (ret > 0) {
@@ -129,8 +131,11 @@ void *wimic_Callback::_timer_buf(void *arg)
             }
         }
 
-        _out_buf->push(_pcmbuf_out, 0, PCM_FRAME);
-        std::this_thread::sleep_for(std::chrono::milliseconds(20));
+        if (remainbuf >= PCM_FRAME) {
+            _out_buf->push(_pcmbuf_out, 0, PCM_FRAME);
+            std::this_thread::sleep_for(std::chrono::milliseconds(15));
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(5));
     }
 
     _started = false;
