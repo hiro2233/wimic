@@ -222,6 +222,7 @@
 			<Add option="-fdata-sections" />
 			<Add option="-D__URUSSTUDIO__" />
 			<Add option="-D__LIB_URUSSTUDIO__" />
+			<Add option="-DINPUT_STREAM_DISABLED" />
 			<Add directory="$(HOME)/boost_1_72_0" />
 			<Add directory="modules/mumpi/deps/mumlib/include" />
 			<Add directory="modules/mumpi/include" />
