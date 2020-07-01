@@ -327,6 +327,8 @@
 		<Unit filename="wimicApp.h" />
 		<Unit filename="wimicMain.cpp" />
 		<Unit filename="wimicMain.h" />
+		<Unit filename="wimic_Callback.cpp" />
+		<Unit filename="wimic_Callback.h" />
 		<Unit filename="wxsmith/wimicdialog.wxs" />
 		<Extensions>
 			<envvars />
