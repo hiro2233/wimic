@@ -56,6 +56,8 @@ public:
         return _instance;
     }
 
+    void stop();
+
 private:
 
     static wimic_Callback *_instance;

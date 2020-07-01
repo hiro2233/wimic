@@ -36,12 +36,14 @@ wimic_Callback::wimic_Callback()
 
 wimic_Callback::~wimic_Callback() {
     _started = false;
+    _initialized = false;
     usleep(50000);
 }
 
 void wimic_Callback::init(std::shared_ptr<RingBuffer<int16_t>> out_buf)
 {
     if (_initialized) {
+        printf("Wimic Callback already initialized!\n");
         return;
     }
 
@@ -49,7 +51,6 @@ void wimic_Callback::init(std::shared_ptr<RingBuffer<int16_t>> out_buf)
 
     for (uint8_t i = 0; i < MAX_SESSION; i++) {
         _out_buf_tmp[i] = std::make_shared<RingBuffer<int16_t>>((uint16_t)-1);
-
     }
 
     pthread_t timer_buf_thread;
@@ -148,6 +149,12 @@ int16_t wimic_Callback::mix_pcm(int16_t pcm_one, int16_t pcm_two)
         return rlimit::min();
     else
         return result;
+}
+
+void wimic_Callback::stop()
+{
+    _started = false;
+    _initialized = false;
 }
 
 const wimic_Callback &WIMIC::get_instance()
