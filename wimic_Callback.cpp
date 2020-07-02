@@ -133,9 +133,8 @@ void *wimic_Callback::_timer_buf(void *arg)
 
         if (remainbuf >= PCM_FRAME) {
             _out_buf->push(_pcmbuf_out, 0, PCM_FRAME);
-            std::this_thread::sleep_for(std::chrono::milliseconds(15));
         }
-        std::this_thread::sleep_for(std::chrono::milliseconds(5));
+        std::this_thread::sleep_for(std::chrono::milliseconds(PCM_FRAME / 16));
     }
 
     _started = false;

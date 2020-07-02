@@ -30,7 +30,9 @@
 
 #define MAX_SESSION               10    // Client sessions.
 #define MAX_PCM_INTERNAL_BUF    5000    // Auxliar internal frame buffers.
+#ifndef PCM_FRAME
 #define PCM_FRAME                320    // Frame for incomming PCM buffer stream from decoded opus data.
+#endif
 
 class wimic_Callback;
 
