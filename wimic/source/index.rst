@@ -230,10 +230,10 @@ Links:
 ======
 
 
-    `Política de  <../../wimic/docs/privacy/>`__
+    `Política de Privacidad  <../../wimic/docs/privacy/>`__
 
 
 .. toctree::
    :hidden:
 
-   Privacy Policy <https://hiro2233.github.io/wimic/wimic/docs/privacy/>
+   Política de Privacidad <https://hiro2233.github.io/wimic/wimic/docs/privacy/>
