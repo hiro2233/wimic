@@ -179,7 +179,7 @@
 												<object class="sizeritem">
 													<object class="wxStaticText" name="ID_STATICTEXT5" variable="local_ip_label" member="yes">
 														<label>local__ip__label</label>
-														<size>89,13</size>
+														<size>101,13</size>
 														<fg>wxSYS_COLOUR_HOTLIGHT</fg>
 													</object>
 													<flag>wxALL|wxALIGN_TOP</flag>

@@ -158,7 +158,7 @@ wimicDialog::wimicDialog(wxWindow* parent,wxWindowID id)
     BoxSizer8 = new wxBoxSizer(wxHORIZONTAL);
     StaticText2 = new wxStaticText(Panel1, ID_STATICTEXT4, _("IP:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT4"));
     BoxSizer8->Add(StaticText2, 0, wxTOP|wxBOTTOM|wxLEFT|wxALIGN_TOP, 5);
-    local_ip_label = new wxStaticText(Panel1, ID_STATICTEXT5, _("local_ip_label"), wxDefaultPosition, wxSize(89,13), 0, _T("ID_STATICTEXT5"));
+    local_ip_label = new wxStaticText(Panel1, ID_STATICTEXT5, _("local_ip_label"), wxDefaultPosition, wxSize(101,13), 0, _T("ID_STATICTEXT5"));
     local_ip_label->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_HOTLIGHT));
     BoxSizer8->Add(local_ip_label, 1, wxALL|wxALIGN_TOP, 5);
     FlexGridSizer1->Add(BoxSizer8, 1, wxALL|wxALIGN_LEFT|wxALIGN_TOP, 5);
