@@ -37,7 +37,7 @@
 					<Add directory="modules/mumpi/deps/mumlib/bin/Debug" />
 				</Linker>
 				<ExtraCommands>
-					<Add before="protoc --cpp_out=modules/mumpi/deps/mumlib modules/mumpi/deps/mumlib/Mumble.proto" />
+					<Add before="protoc --cpp_out=. modules/mumpi/deps/mumlib/Mumble.proto" />
 				</ExtraCommands>
 			</Target>
 			<Target title="Release_unix">
@@ -72,7 +72,7 @@
 					<Add directory="modules/mumpi/deps/mumlib/bin/Release" />
 				</Linker>
 				<ExtraCommands>
-					<Add before="protoc --cpp_out=modules/mumpi/deps/mumlib modules/mumpi/deps/mumlib/Mumble.proto" />
+					<Add before="protoc --cpp_out=. modules/mumpi/deps/mumlib/Mumble.proto" />
 				</ExtraCommands>
 			</Target>
 			<Target title="Debug_win32">
