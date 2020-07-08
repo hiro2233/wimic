@@ -17,6 +17,7 @@
  */
 
 #include "wimic_Callback.h"
+#include <speex/speex_resampler.h>
 
 bool wimic_Callback::_initialized = false;
 wimic_Callback *wimic_Callback::_instance = nullptr;
@@ -132,7 +133,10 @@ void *wimic_Callback::_timer_buf(void *arg)
         }
 
         if (remainbuf >= PCM_FRAME) {
-            _out_buf->push(_pcmbuf_out, 0, PCM_FRAME);
+            static int16_t pcmout[MAX_PCM_INTERNAL_BUF];
+            uint16_t nrframe = 0;
+            _resampler(16000, 16000, 1, PCM_FRAME, &_pcmbuf_out[0], nrframe, &pcmout[0]);
+            _out_buf->push(pcmout, 0, nrframe);
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(PCM_FRAME / 16));
     }
@@ -159,6 +163,25 @@ void wimic_Callback::stop()
 {
     _started = false;
     _initialized = false;
+}
+
+void wimic_Callback::_resampler(uint16_t inputSr, uint16_t outputSr, uint16_t channels, uint16_t frames, int16_t* data, uint16_t &out_length, int16_t* out_data)
+{
+	int err;
+	auto resampler = speex_resampler_init(channels, inputSr, outputSr, SPEEX_RESAMPLER_QUALITY_VOIP, &err);
+
+	spx_uint32_t out_len = (channels * (outputSr / 1000.0) * 20 * 2);
+	spx_uint32_t in_len = (channels * frames);
+
+	spx_int16_t *data_in = data;
+	spx_int16_t *data_out = out_data;
+    speex_resampler_process_int(resampler, 0, data_in, &in_len, data_out, &out_len);
+#if DEBUG_WIMIC == 1
+	printf("written %d - readed %d Lenframes: %d\n", (uint32_t)out_len, (uint32_t)in_len, (uint32_t)(channels * frames));
+#endif // DEBUG_WIMIC
+
+	out_length = (uint16_t)out_len;
+	speex_resampler_destroy(resampler);
 }
 
 const wimic_Callback &WIMIC::get_instance()
