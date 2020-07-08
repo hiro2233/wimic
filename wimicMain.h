@@ -57,6 +57,7 @@ class wimicDialog: public wxDialog
         void _detect_devices();
         const char *_get_local_ip();
         void _make_about();
+        int lookup_host(const char *host);
 
         //(*Handlers(wimicDialog)
         void OnQuit(wxCommandEvent& event);
