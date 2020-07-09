@@ -20,6 +20,7 @@
 # pragma once
 
 #include "RingBuffer.hpp"
+#include <speex/speex_echo.h>
 
 #include <inttypes.h>
 #include <string>
@@ -78,4 +79,5 @@ private:
     static void *_timer_buf(void *arg);
     static int16_t mix_pcm(int16_t pcm_one, int16_t pcm_two);
     static void _resampler(uint16_t inputSr, uint16_t outputSr, uint16_t channels, uint16_t frames, int16_t* data, uint16_t &out_length, int16_t* out_data);
+    static void _resampler_float(uint16_t inputSr, uint16_t outputSr, uint16_t channels, uint16_t frames, int16_t* in_data, uint16_t &out_length, int16_t* out_data);
 };
