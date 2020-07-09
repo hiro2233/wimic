@@ -33,6 +33,16 @@ int16_t wimic_Callback::_pcmbuf_out[MAX_PCM_INTERNAL_BUF] = {0};
 int16_t wimic_Callback::_pcmbuf_in[MAX_PCM_INTERNAL_BUF] = {0};
 int16_t wimic_Callback::_pcmbuf_aux[MAX_PCM_INTERNAL_BUF] = {0};
 
+wimic_Callback::wimic_Callback()
+{
+}
+
+wimic_Callback::~wimic_Callback() {
+    _started = false;
+    _initialized = false;
+    usleep(50000);
+}
+
 void wimic_Callback::_resampler_float(uint16_t inputSr, uint16_t outputSr, uint16_t channels, uint16_t frames, int16_t* in_data, uint16_t &out_length, int16_t* out_data)
 {
     typedef std::numeric_limits<int16_t> rlimit;
@@ -93,16 +103,6 @@ void wimic_Callback::_resampler_float(uint16_t inputSr, uint16_t outputSr, uint1
 	speex_echo_state_destroy(echo_state);
 
 	out_length = output_frames;
-}
-
-wimic_Callback::wimic_Callback()
-{
-}
-
-wimic_Callback::~wimic_Callback() {
-    _started = false;
-    _initialized = false;
-    usleep(50000);
 }
 
 void wimic_Callback::init(std::shared_ptr<RingBuffer<int16_t>> out_buf)
