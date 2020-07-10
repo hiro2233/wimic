@@ -62,6 +62,11 @@ void wimic_Callback::_resampler_float(uint16_t inputSr, uint16_t outputSr, uint1
 
 	const int expected_samples_written = output_frames;
 
+	if (inputSr == outputSr) {
+        memcpy(out_data, in_data, sizeof(int16_t) * output_frames);
+        goto equal_sr;
+	}
+
     for (uint16_t i = 0; i < input_frames; i++) {
         inbuffer[i] = (float)in_data[i] / rlimit::max();
     }
@@ -88,6 +93,8 @@ void wimic_Callback::_resampler_float(uint16_t inputSr, uint16_t outputSr, uint1
         out_data[i] = (int16_t)(outbuffer_feed[cntbuf] * rlimit::max());
         cntbuf++;
     }
+
+equal_sr:
 
     memcpy(in_out_datatmp, out_data, sizeof(int16_t) * output_frames);
 
@@ -170,7 +177,6 @@ void *wimic_Callback::_timer_buf(void *arg)
 #if DEBUG_WIMIC == 1
                     printf("chan %d\n", spkcnt);
 #endif // DEBUG_WIMIC
-                    _chan_speak_cnt = 0;
                     break;
                 }
                 remainbuf = _out_buf_tmp[sessid]->getRemaining();
@@ -193,10 +199,14 @@ void *wimic_Callback::_timer_buf(void *arg)
                 for (uint16_t i = 0; i < PCM_FRAME; ++i) {
                     _pcmbuf_aux[i] = _pcmbuf_in[i];
                 }
+
+                if (_out_buf_tmp[i1]->getRemaining() == 0) {
+                    _chan_speak_cnt = _chan_speak_cnt & ~(1 << (uint8_t)i1);
+                }
             }
         }
 
-        if (remainbuf >= PCM_FRAME) {
+        if ((remainbuf >= PCM_FRAME) || (spkcnt > 1)) {
             static int16_t pcmout[MAX_PCM_INTERNAL_BUF];
             uint16_t nrframe = 0;
             _resampler_float(16000, 16000, 1, PCM_FRAME, &_pcmbuf_out[0], nrframe, &pcmout[0]);
