@@ -43,7 +43,7 @@ wimic_Callback::~wimic_Callback() {
     usleep(50000);
 }
 
-void wimic_Callback::_resampler_float(uint16_t inputSr, uint16_t outputSr, uint16_t channels, uint16_t frames, int16_t* in_data, uint16_t &out_length, int16_t* out_data)
+void wimic_Callback::_resampler_float(uint16_t inputSr, uint16_t outputSr, uint16_t channels, uint16_t frames, int16_t* in_data, uint16_t &out_length, int16_t* out_data, bool resample_float)
 {
     typedef std::numeric_limits<int16_t> rlimit;
 	int resampler_err = 0;
@@ -68,17 +68,30 @@ void wimic_Callback::_resampler_float(uint16_t inputSr, uint16_t outputSr, uint1
 	}
 
     for (uint16_t i = 0; i < input_frames; i++) {
-        inbuffer[i] = (float)in_data[i] / rlimit::max();
+        if (resample_float) {
+            inbuffer[i] = (float)in_data[i] / rlimit::max();
+        } else {
+            inbuffer[i] = (float)in_data[i];
+        }
     }
 
 	uint32_t in_processed = input_frames;
 	uint32_t out_processed = output_frames;
 
-	speex_resampler_process_float(resampler_state, 0, inbuffer, &in_processed, outbuffer, &out_processed);
+	if (resample_float) {
+        speex_resampler_process_float(resampler_state, 0, inbuffer, &in_processed, outbuffer, &out_processed);
+	} else {
+	    speex_resampler_process_int(resampler_state, 0, (int16_t*)inbuffer, &in_processed, (int16_t*)outbuffer, &out_processed);
+	}
+
 	total_samples_written += out_processed;
 
     for (uint16_t i = 0; i < output_frames; i++) {
-        out_data[i] = (int16_t)(outbuffer[i] * rlimit::max());
+        if (resample_float) {
+            out_data[i] = (int16_t)(outbuffer[i] * rlimit::max());
+        } else {
+            out_data[i] = (int16_t)outbuffer[i];
+        }
     }
 
     const uint16_t samplesneeded = expected_samples_written - total_samples_written;
@@ -86,11 +99,19 @@ void wimic_Callback::_resampler_float(uint16_t inputSr, uint16_t outputSr, uint1
     in_processed = samplesneeded;
     out_processed = samplesneeded;
 
-    speex_resampler_process_float(resampler_state, 0, inbuffer + (input_frames - samplesneeded), &in_processed, outbuffer_feed, &out_processed);
+    if (resample_float) {
+        speex_resampler_process_float(resampler_state, 0, inbuffer + (input_frames - samplesneeded), &in_processed, outbuffer_feed, &out_processed);
+    } else {
+        speex_resampler_process_int(resampler_state, 0, (int16_t*)inbuffer + (input_frames - samplesneeded), &in_processed, (int16_t*)outbuffer_feed, &out_processed);
+    }
 
     uint16_t cntbuf = 0;
     for (uint16_t i = (output_frames - samplesneeded); i < output_frames; i++) {
-        out_data[i] = (int16_t)(outbuffer_feed[cntbuf] * rlimit::max());
+        if (resample_float) {
+            out_data[i] = (int16_t)(outbuffer_feed[cntbuf] * rlimit::max());
+        } else {
+            out_data[i] = (int16_t)outbuffer_feed[cntbuf];
+        }
         cntbuf++;
     }
 
