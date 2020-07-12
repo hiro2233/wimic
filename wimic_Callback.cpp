@@ -47,31 +47,41 @@ void wimic_Callback::_resampler_float(uint16_t inputSr, uint16_t outputSr, uint1
 {
     typedef std::numeric_limits<int16_t> rlimit;
 	int resampler_err = 0;
-	int total_samples_written = 0;
+	uint32_t total_samples_written = 0;
+
+	/* It's improvised, we solve it with a memory storage
+     * allocator or something like that.
+	 */
 	float inbuffer[MAX_PCM_INTERNAL_BUF];
 	float outbuffer[MAX_PCM_INTERNAL_BUF];
 	float outbuffer_feed[MAX_PCM_INTERNAL_BUF];
+	int16_t inbuffer_int[MAX_PCM_INTERNAL_BUF];
+	int16_t outbuffer_int[MAX_PCM_INTERNAL_BUF];
+	int16_t outbuffer_feed_int[MAX_PCM_INTERNAL_BUF];
+#ifndef __ARM_EABI__
     static int16_t echo_buffer[MAX_PCM_INTERNAL_BUF];
+#endif // __ARM_EABI__
     static int16_t in_out_datatmp[MAX_PCM_INTERNAL_BUF];
 
-	SpeexResamplerState *resampler_state = speex_resampler_init(channels, inputSr, outputSr, SPEEX_RESAMPLER_QUALITY_DEFAULT, &resampler_err);
-	speex_resampler_skip_zeros(resampler_state);
+	uint16_t output_frames = (channels * (outputSr / 1000) * 20 * (frames / 320));
+	uint16_t input_frames = (channels * (inputSr / 1000) * 20 * (frames / 320));
 
-	uint16_t output_frames = (channels * (outputSr / 1000.0) * 20 * (frames / 320));
-	uint16_t input_frames = (channels * (inputSr / 1000.0) * 20 * (frames / 320));
-
-	const int expected_samples_written = output_frames;
+	const uint32_t expected_samples_written = output_frames;
 
 	if (inputSr == outputSr) {
         memcpy(out_data, in_data, sizeof(int16_t) * output_frames);
         goto equal_sr;
+        return;
 	}
+
+	SpeexResamplerState *resampler_state = speex_resampler_init(channels, inputSr, outputSr, SPEEX_RESAMPLER_QUALITY_DEFAULT, &resampler_err);
+	speex_resampler_skip_zeros(resampler_state);
 
     for (uint16_t i = 0; i < input_frames; i++) {
         if (resample_float) {
             inbuffer[i] = (float)in_data[i] / rlimit::max();
         } else {
-            inbuffer[i] = (float)in_data[i];
+            inbuffer_int[i] = in_data[i];
         }
     }
 
@@ -81,20 +91,20 @@ void wimic_Callback::_resampler_float(uint16_t inputSr, uint16_t outputSr, uint1
 	if (resample_float) {
         speex_resampler_process_float(resampler_state, 0, inbuffer, &in_processed, outbuffer, &out_processed);
 	} else {
-	    speex_resampler_process_int(resampler_state, 0, (int16_t*)inbuffer, &in_processed, (int16_t*)outbuffer, &out_processed);
+	    speex_resampler_process_int(resampler_state, 0, inbuffer_int, &in_processed, outbuffer_int, &out_processed);
 	}
 
 	total_samples_written += out_processed;
 
-    for (uint16_t i = 0; i < output_frames; i++) {
+    for (uint16_t i = 0; i < total_samples_written; i++) {
         if (resample_float) {
-            out_data[i] = (int16_t)(outbuffer[i] * rlimit::max());
+            out_data[i] = (int16_t)outbuffer[i] * rlimit::max();
         } else {
-            out_data[i] = (int16_t)outbuffer[i];
+            out_data[i] = outbuffer_int[i];
         }
     }
 
-    const uint16_t samplesneeded = expected_samples_written - total_samples_written;
+    const uint16_t samplesneeded = (uint16_t)(expected_samples_written - total_samples_written);
 
     in_processed = samplesneeded;
     out_processed = samplesneeded;
@@ -102,21 +112,23 @@ void wimic_Callback::_resampler_float(uint16_t inputSr, uint16_t outputSr, uint1
     if (resample_float) {
         speex_resampler_process_float(resampler_state, 0, inbuffer + (input_frames - samplesneeded), &in_processed, outbuffer_feed, &out_processed);
     } else {
-        speex_resampler_process_int(resampler_state, 0, (int16_t*)inbuffer + (input_frames - samplesneeded), &in_processed, (int16_t*)outbuffer_feed, &out_processed);
+        speex_resampler_process_int(resampler_state, 0, inbuffer_int + (input_frames - samplesneeded), &in_processed, outbuffer_feed_int, &out_processed);
     }
 
     uint16_t cntbuf = 0;
     for (uint16_t i = (output_frames - samplesneeded); i < output_frames; i++) {
         if (resample_float) {
-            out_data[i] = (int16_t)(outbuffer_feed[cntbuf] * rlimit::max());
+            out_data[i] = (int16_t)outbuffer_feed[cntbuf] * rlimit::max();
         } else {
-            out_data[i] = (int16_t)outbuffer_feed[cntbuf];
+            out_data[i] = outbuffer_feed_int[cntbuf];
         }
         cntbuf++;
     }
 
-equal_sr:
+    speex_resampler_destroy(resampler_state);
 
+equal_sr:
+#ifndef __ARM_EABI__ // we do not make echo canceller on eabi meanwhile.
     memcpy(in_out_datatmp, out_data, sizeof(int16_t) * output_frames);
 
     uint32_t sampling_rate_echo;
@@ -127,10 +139,12 @@ equal_sr:
 
     memcpy(echo_buffer, out_data, sizeof(int16_t) * output_frames);
 
-	speex_resampler_destroy(resampler_state);
 	speex_echo_state_destroy(echo_state);
 
+#endif // __ARM_EABI__
+
 	out_length = output_frames;
+    return;
 }
 
 void wimic_Callback::init(std::shared_ptr<RingBuffer<int16_t>> out_buf)
