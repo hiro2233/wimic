@@ -1,0 +1,2 @@
+This folder contains a script to create an installer for windows.
+It uses 'CreateInstall Free'(http://www.createinstall.com), a little software allowing to make simple installers.
