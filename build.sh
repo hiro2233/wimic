@@ -1,6 +1,9 @@
 #! /bin/sh
 
-if [ "$NO_BUILD_ALL" = "no" ] ; then
-	export NO_BUILD_ALL=""
+if [ "$NO_URUSSTUDIO_MAKE_CMD" = "no" ] ; then
+	export NO_URUSSTUDIO_MAKE_CMD=""
+else
+	export NO_URUSSTUDIO_MAKE_CMD="yes"
 fi
 
+cd UrusStudio && ./build-ci.sh
