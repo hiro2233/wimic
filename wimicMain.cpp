@@ -120,14 +120,14 @@ wimicDialog::wimicDialog(wxWindow* parent,wxWindowID id)
     GridBagSizer1->AddGrowableRow(2);
     BoxSizer2 = new wxBoxSizer(wxHORIZONTAL);
     close = new wxButton(Panel1, ID_BUTTON1, _("close"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON1"));
-    BoxSizer2->Add(close, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    GridBagSizer1->Add(BoxSizer2, wxGBPosition(2, 1), wxDefaultSpan, wxALIGN_RIGHT|wxALIGN_BOTTOM, 5);
+    BoxSizer2->Add(close, 1, wxALL|wxALIGN_TOP, 5);
+    GridBagSizer1->Add(BoxSizer2, wxGBPosition(2, 1), wxDefaultSpan, wxBOTTOM|wxALIGN_RIGHT|wxALIGN_BOTTOM, 5);
     BoxSizer4 = new wxBoxSizer(wxHORIZONTAL);
     start_client = new wxButton(Panel1, ID_BUTTON2, _("start"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON2"));
-    BoxSizer4->Add(start_client, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+    BoxSizer4->Add(start_client, 1, wxALL|wxALIGN_TOP, 5);
     stop_server = new wxButton(Panel1, ID_BUTTON3, _("stop"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_BUTTON3"));
-    BoxSizer4->Add(stop_server, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
-    GridBagSizer1->Add(BoxSizer4, wxGBPosition(2, 0), wxDefaultSpan, wxALIGN_LEFT|wxALIGN_BOTTOM, 5);
+    BoxSizer4->Add(stop_server, 1, wxALL|wxALIGN_TOP, 5);
+    GridBagSizer1->Add(BoxSizer4, wxGBPosition(2, 0), wxDefaultSpan, wxBOTTOM, 5);
     BoxSizer5 = new wxBoxSizer(wxVERTICAL);
     ListBox1 = new wxListBox(Panel1, ID_LISTBOX1, wxDefaultPosition, wxSize(300,100), 0, 0, wxVSCROLL|wxHSCROLL, wxDefaultValidator, _T("ID_LISTBOX1"));
     BoxSizer5->Add(ListBox1, 1, wxALL|wxALIGN_LEFT, 5);
@@ -149,7 +149,7 @@ wimicDialog::wimicDialog(wxWindow* parent,wxWindowID id)
     GridBagSizer1->Add(BoxSizer5, wxGBPosition(0, 0), wxDefaultSpan, wxALIGN_LEFT|wxALIGN_TOP, 5);
     FlexGridSizer1 = new wxFlexGridSizer(2, 1, 0, 0);
     BoxSizer3 = new wxBoxSizer(wxHORIZONTAL);
-    lblstatconnection = new wxStaticText(Panel1, ID_STATICTEXT1, _("Server:"), wxDefaultPosition, wxSize(51,15), 0, _T("ID_STATICTEXT1"));
+    lblstatconnection = new wxStaticText(Panel1, ID_STATICTEXT1, _("Server:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT1"));
     BoxSizer3->Add(lblstatconnection, 1, wxTOP|wxBOTTOM|wxLEFT|wxALIGN_TOP, 5);
     Led1 = new wxLed(Panel1,ID_LED1,wxColour(255,0,0),wxColour(0,255,0),wxColour(255,0,0),wxDefaultPosition,wxDefaultSize);
     Led1->SwitchOff();
@@ -158,7 +158,7 @@ wimicDialog::wimicDialog(wxWindow* parent,wxWindowID id)
     BoxSizer8 = new wxBoxSizer(wxHORIZONTAL);
     StaticText2 = new wxStaticText(Panel1, ID_STATICTEXT4, _("IP:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT4"));
     BoxSizer8->Add(StaticText2, 0, wxTOP|wxBOTTOM|wxLEFT|wxALIGN_TOP, 5);
-    local_ip_label = new wxStaticText(Panel1, ID_STATICTEXT5, _("local_ip_label"), wxDefaultPosition, wxSize(101,13), 0, _T("ID_STATICTEXT5"));
+    local_ip_label = new wxStaticText(Panel1, ID_STATICTEXT5, _("local_ip_label"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT5"));
     local_ip_label->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_HOTLIGHT));
     BoxSizer8->Add(local_ip_label, 1, wxALL|wxALIGN_TOP, 5);
     FlexGridSizer1->Add(BoxSizer8, 1, wxALL|wxALIGN_LEFT|wxALIGN_TOP, 5);
@@ -458,7 +458,7 @@ void wimicDialog::_make_about()
 {
     SetIcon(wxICON(logo_wimic));
 
-    text_about->SetValue(_("\n\n\n\nWiMic, remote wireless microphone server & client.\n"
+    text_about->SetValue(_("\n\nWiMic, remote wireless microphone server & client.\n"
                            "Copyright (c) 2020 Hiroshi Takey F. <htakey@gmail.com>\n"
                            "Licensed under GPLv3 License."));
 

@@ -24,14 +24,14 @@
 												<label>close</label>
 												<handler function="OnQuit" entry="EVT_BUTTON" />
 											</object>
-											<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+											<flag>wxALL|wxALIGN_TOP</flag>
 											<border>5</border>
 											<option>1</option>
 										</object>
 									</object>
 									<col>1</col>
 									<row>2</row>
-									<flag>wxALIGN_RIGHT|wxALIGN_BOTTOM</flag>
+									<flag>wxBOTTOM|wxALIGN_RIGHT|wxALIGN_BOTTOM</flag>
 									<border>5</border>
 									<option>1</option>
 								</object>
@@ -42,7 +42,7 @@
 												<label>start</label>
 												<handler function="Onstart_clientClick" entry="EVT_BUTTON" />
 											</object>
-											<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+											<flag>wxALL|wxALIGN_TOP</flag>
 											<border>5</border>
 											<option>1</option>
 										</object>
@@ -51,14 +51,14 @@
 												<label>stop</label>
 												<handler function="Onstop_clientClick" entry="EVT_BUTTON" />
 											</object>
-											<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+											<flag>wxALL|wxALIGN_TOP</flag>
 											<border>5</border>
 											<option>1</option>
 										</object>
 									</object>
 									<col>0</col>
 									<row>2</row>
-									<flag>wxALIGN_LEFT|wxALIGN_BOTTOM</flag>
+									<flag>wxBOTTOM</flag>
 									<border>5</border>
 									<option>1</option>
 								</object>
@@ -145,7 +145,6 @@
 												<object class="sizeritem">
 													<object class="wxStaticText" name="ID_STATICTEXT1" variable="lblstatconnection" member="yes">
 														<label>Server:</label>
-														<size>51,15</size>
 													</object>
 													<flag>wxTOP|wxBOTTOM|wxLEFT|wxALIGN_TOP</flag>
 													<border>5</border>
@@ -179,7 +178,6 @@
 												<object class="sizeritem">
 													<object class="wxStaticText" name="ID_STATICTEXT5" variable="local_ip_label" member="yes">
 														<label>local__ip__label</label>
-														<size>101,13</size>
 														<fg>wxSYS_COLOUR_HOTLIGHT</fg>
 													</object>
 													<flag>wxALL|wxALIGN_TOP</flag>
