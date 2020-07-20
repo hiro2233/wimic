@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0.2
+Type=Application
+Name=WiMic Server/Client
+GenericName=WiMic
+Comment=Wireless microphone remote Server/client
+Exec=/system/urus/bin/wimic %F
+Icon=wimic
+Terminal=false
+X-MultipleArgs=false
+Categories=Network;WebBrowser;
+StartupNotify=true
