@@ -4,6 +4,8 @@ URUSSTOOL_LIB=/system/urus/lib
 WORKSPACEDIR=$(WORKDIR)
 URUSSTOOL_BASE=/system/urus
 
+export PATH := /system/urus/bin:$(PATH)
+
 CC = gcc
 CXX = g++
 AR = ar
