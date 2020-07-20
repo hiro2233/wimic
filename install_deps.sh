@@ -8,7 +8,7 @@
 #./update_fstab.sh
 
 BASEPKG="automake libtool autoconf pkgconf libgtk2.0-dev libgamin-dev zip libprotobuf-dev libprotobuf-c-dev protobuf-c-compiler \
-		libconfig-dev protobuf-compiler libboost-system-dev liblog4cpp5-dev libopus-dev libspeexdsp-dev portaudio19-dev libssl1.0-dev"
+		libconfig-dev protobuf-compiler libboost-system-dev liblog4cpp5-dev libopus-dev libspeexdsp-dev portaudio19-dev "
 
 YESNOCMD=""
 SCOWPWRCMD=""
@@ -16,18 +16,20 @@ SCOWPWRCMD=""
 BUILDARCH=`uname -m`
 PLATOS=$(cat /etc/os-release | grep -ri - -e "ID")
 
-if [ `printf "$PLATOS" | grep -ri - -e "debian" | wc -l` -gt 0 ] ; then
+if [ `printf "$PLATOS" | grep -ri - -e "raspbian" | wc -l` -gt 0 ] ; then
     SCOWPWRCMD="apt-get"
     YESNOCMD="-qy"
+	BASEPKG="libssl1.0-dev "$BASEPKG
     #sudo add-apt-repository ppa:openjdk-r/ppa -y
     #sudo apt-get update $YESNOCMD
     #sudo apt-get install openjdk-8-jdk $YESNOCMD
     #sudo dpkg --add-architecture i386
     #apt-get update $YESNOCMD
-    echo debian
+    echo raspbian
 elif [ `printf "$PLATOS" | grep -ri - -e "ubuntu" | wc -l` -gt 0 ] ; then
     COWPWRCMD="apt-get"
     YESNOCMD="-qy"
+	BASEPKG="libssl-dev "$BASEPKG
     #sudo apt-get update $YESNOCMD
     #sudo apt-get install openjdk-8-jdk $YESNOCMD
     #sudo dpkg --add-architecture i386
