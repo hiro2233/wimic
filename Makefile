@@ -12,6 +12,9 @@ AR = ar
 LD = g++
 WINDRES = 
 
+ARFLAGS="cr"
+AR_FLAGS="cr"
+
 INC = -I$(HOME)/boost_1_72_0 -Imodules/mumpi/deps/mumlib/include -Imodules/mumpi/include -I$(URUSSTOOL_BASE)/include/urusstudio/wxContribItems/wxled/led/include -Imodules/mumpi/deps/mumlib -I$(WORKSPACEDIR) -I../wimic
 CFLAGS = -Wall -Wno-unused-variable -Wno-reorder -Wno-sign-compare -Wno-unused-local-typedefs -Wno-format -Wno-sequence-point -fpermissive -Wpointer-arith -Wno-missing-field-initializers -Wno-unused-parameter -Wno-redundant-decls -Wno-unknown-pragmas -Wno-trigraphs -ffunction-sections -fdata-sections -Wno-write-strings -D__URUSSTUDIO__ -D__LIB_URUSSTUDIO__ -DINPUT_STREAM_DISABLED -DPCM_FRAME=640
 RESINC = 
@@ -48,10 +51,10 @@ after_release_unix:
 
 release_unix: before_release_unix out_release_unix after_release_unix
 
-umurmur_unix:
+umurmur_unix: 
 	$(shell cd modules/umurmur/ && make -f Makefile.lib)
 
-urusstudio_unix:
+urusstudio_unix: 
 	$(shell sh -c ./build.sh)
 
 out_release_unix: before_release_unix $(OBJ_RELEASE_UNIX) $(DEP_RELEASE_UNIX)
@@ -104,7 +107,7 @@ clean_release_unix:
 	rm -rf $(OBJDIR_RELEASE_UNIX)/modules/mumpi/src
 	rm -rf $(OBJDIR_RELEASE_UNIX)/modules/mumpi/deps/mumlib
 
-clean_umurmur_unix:
+clean_umurmur_unix: 
 	 $(shell cd modules/umurmur/ && make -f Makefile.lib clean)
 
 .PHONY: urusstudio_unix umurmur_unix before_release_unix after_release_unix clean_release_unix clean_umurmur_unix
