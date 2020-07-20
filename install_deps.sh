@@ -37,6 +37,7 @@ elif [ `printf "$PLATOS" | grep -ri - -e "ubuntu" | wc -l` -gt 0 ] ; then
     echo ubuntu
 fi
 
+sudo $SCOWPWRCMD $YESNOCMD update
 sudo $SCOWPWRCMD $YESNOCMD install $BASEPKG
 #sudo useradd -r wimic
 #sudo usermod -a -G wimic $USER
