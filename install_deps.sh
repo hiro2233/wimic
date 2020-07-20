@@ -73,9 +73,16 @@ fi
 if [ `printf "$PLATOS" | grep -ri - -e "raspbian" | wc -l` -gt 0 ] ; then
 	if [ ! -e /etc/alsa/conf.d/10-wimic-device.conf ] ; then
 		sudo mkdir -p /etc/alsa/conf.d
-		sudo cp ./10-wimic-device.conf /etc/alsa/conf.d/10-wimic-device.conf
+		sudo cp -f ./10-wimic-device.conf /etc/alsa/conf.d/10-wimic-device.conf
 		echo "Installed wimic alsa device conf."
 	fi
+fi
+
+if [ ! -e "/usr/share/applications/wimic.desktop" ] || [ ! -e "/usr/share/pixmaps/logo_wimic.xpm" ] ; then
+sudo cp -f ./resources/wimic.desktop /usr/share/applications/
+sudo cp -f ./resources/logo_wimic.xpm /usr/share/pixmaps/
+sudo update-desktop-database
+echo "Installed mimes"
 fi
 
 exit 0
