@@ -27,7 +27,7 @@ if [ `printf "$PLATOS" | grep -ri - -e "raspbian" | wc -l` -gt 0 ] ; then
     #apt-get update $YESNOCMD
     echo raspbian
 elif [ `printf "$PLATOS" | grep -ri - -e "ubuntu" | wc -l` -gt 0 ] ; then
-    COWPWRCMD="apt-get"
+    SCOWPWRCMD="apt-get"
     YESNOCMD="-qy"
 	BASEPKG="libssl-dev "$BASEPKG
     #sudo apt-get update $YESNOCMD
