@@ -50,7 +50,7 @@ umurmur_unix:
 	$(shell cd modules/umurmur/ && make -f Makefile.lib)
 
 urusstudio_unix:
-	$(shell ./build.sh)
+	$(shell sh -c ./build.sh)
 
 out_release_unix: before_release_unix $(OBJ_RELEASE_UNIX) $(DEP_RELEASE_UNIX)
 	$(LD) $(LIBDIR_RELEASE_UNIX) -o $(OUT_RELEASE_UNIX) $(OBJ_RELEASE_UNIX)  $(LDFLAGS_RELEASE_UNIX) $(LIB_RELEASE_UNIX)
