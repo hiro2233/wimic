@@ -30,7 +30,7 @@ OUT_RELEASE_UNIX = bin/Release/wimic
 
 OBJ_RELEASE_UNIX = $(OBJDIR_RELEASE_UNIX)/modules/mumpi/deps/mumlib/src/mumlib.o $(OBJDIR_RELEASE_UNIX)/wimic_Callback.o $(OBJDIR_RELEASE_UNIX)/wimicMain.o $(OBJDIR_RELEASE_UNIX)/wimicApp.o $(OBJDIR_RELEASE_UNIX)/modules/mumpi/src/main.o $(OBJDIR_RELEASE_UNIX)/modules/mumpi/src/RingBuffer.o $(OBJDIR_RELEASE_UNIX)/modules/mumpi/src/MumpiCallback.o $(OBJDIR_RELEASE_UNIX)/modules/mumpi/deps/mumlib/src/VarInt.o $(OBJDIR_RELEASE_UNIX)/modules/mumpi/deps/mumlib/src/Transport.o $(OBJDIR_RELEASE_UNIX)/modules/mumpi/deps/mumlib/src/CryptState.o $(OBJDIR_RELEASE_UNIX)/modules/mumpi/deps/mumlib/src/Callback.o $(OBJDIR_RELEASE_UNIX)/modules/mumpi/deps/mumlib/src/Audio.o $(OBJDIR_RELEASE_UNIX)/modules/mumpi/deps/mumlib/Mumble.pb.o
 
-all: umurmur_unix release_unix
+all: urusstudio_unix umurmur_unix release_unix
 
 clean: clean_umurmur_unix clean_release_unix
 
@@ -48,6 +48,9 @@ release_unix: before_release_unix out_release_unix after_release_unix
 
 umurmur_unix:
 	$(shell cd modules/umurmur/ && make -f Makefile.lib)
+
+urusstudio_unix:
+	$(shell ./build.sh)
 
 out_release_unix: before_release_unix $(OBJ_RELEASE_UNIX) $(DEP_RELEASE_UNIX)
 	$(LD) $(LIBDIR_RELEASE_UNIX) -o $(OUT_RELEASE_UNIX) $(OBJ_RELEASE_UNIX)  $(LDFLAGS_RELEASE_UNIX) $(LIB_RELEASE_UNIX)
@@ -102,4 +105,4 @@ clean_release_unix:
 clean_umurmur_unix:
 	 $(shell cd modules/umurmur/ && make -f Makefile.lib clean)
 
-.PHONY: umurmur_unix before_release_unix after_release_unix clean_release_unix clean_umurmur_unix
+.PHONY: urusstudio_unix umurmur_unix before_release_unix after_release_unix clean_release_unix clean_umurmur_unix
