@@ -10,8 +10,7 @@ CC = gcc
 CXX = g++
 AR = ar
 LD = g++
-WINDRES = 
-
+WINDRES =
 ARFLAGS="cr"
 AR_FLAGS="cr"
 
@@ -23,7 +22,7 @@ LIB = -lportaudio -lconfig
 LDFLAGS = 
 
 INC_RELEASE_UNIX = $(INC)
-CFLAGS_RELEASE_UNIX = $(CFLAGS) -O2 `wx-config --static=no --unicode=yes --debug=no --cflags` -std=gnu++11 -DBOOST_ERROR_CODE_HEADER_ONLY
+CFLAGS_RELEASE_UNIX = $(CFLAGS) -O2 `wx-config --static=no --unicode=yes --debug=no --cflags` -std=gnu++11 -DBOOST_SYSTEM_NO_DEPRECATED -DBOOST_ERROR_CODE_HEADER_ONLY
 RESINC_RELEASE_UNIX = $(RESINC)
 RCFLAGS_RELEASE_UNIX = $(RCFLAGS)
 LIBDIR_RELEASE_UNIX = $(LIBDIR) -Lmodules/mumpi/bin/Release -Lmodules/umurmur/bin/Release -Lmodules/mumpi/deps/mumlib/bin/Release
@@ -54,8 +53,8 @@ release_unix: before_release_unix out_release_unix after_release_unix
 umurmur_unix: 
 	$(shell cd modules/umurmur/ && make -f Makefile.lib)
 
-urusstudio_unix: 
-	$(shell sh -c ./build.sh)
+urusstudio_unix:
+	./build.sh
 
 out_release_unix: before_release_unix $(OBJ_RELEASE_UNIX) $(DEP_RELEASE_UNIX)
 	$(LD) $(LIBDIR_RELEASE_UNIX) -o $(OUT_RELEASE_UNIX) $(OBJ_RELEASE_UNIX)  $(LDFLAGS_RELEASE_UNIX) $(LIB_RELEASE_UNIX)
