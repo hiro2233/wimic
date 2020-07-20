@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/sh
 
 PATH=/system/urus/bin:$PATH
 export PATH
@@ -13,3 +13,5 @@ fi
 
 cd UrusStudio && ./build-ci.sh
 cd UrusStudio/buildustd/src/plugins/contrib/wxContribItems/wxled/ && make -j2 && make install
+
+exit 0
