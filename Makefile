@@ -20,12 +20,12 @@ LIB = -lportaudio -lconfig
 LDFLAGS = 
 
 INC_RELEASE_UNIX = $(INC)
-CFLAGS_RELEASE_UNIX = $(CFLAGS) -shared -O2 `wx-config --static=no --unicode=yes --debug=no --cflags` -std=gnu++11 -DBOOST_SYSTEM_NO_DEPRECATED -DBOOST_ERROR_CODE_HEADER_ONLY
+CFLAGS_RELEASE_UNIX = $(CFLAGS) -O2 `wx-config --static=no --unicode=yes --debug=no --cflags` -std=gnu++11 -DBOOST_SYSTEM_NO_DEPRECATED -DBOOST_ERROR_CODE_HEADER_ONLY
 RESINC_RELEASE_UNIX = $(RESINC)
 RCFLAGS_RELEASE_UNIX = $(RCFLAGS)
 LIBDIR_RELEASE_UNIX = $(LIBDIR) -Lmodules/mumpi/bin/Release -Lmodules/umurmur/bin/Release -Lmodules/mumpi/deps/mumlib/bin/Release
-LIB_RELEASE_UNIX = $(LIB) -lprotobuf-lite -pthread  -lpthread -lumurmur -lwxled -lportaudio -llog4cpp -lconfig -lprotobuf-c -lprotobuf -lopus -lspeexdsp -lssl -lcrypto
-LDFLAGS_RELEASE_UNIX =  -s `wx-config  --version=2.8 --static=no --unicode=yes --debug=no --libs` -Wl,-rpath=.:/system/urus/lib/urusstudio/wxContribItems:/system/urus/lib $(LDFLAGS)
+LIB_RELEASE_UNIX = $(LIB) -lumurmur -lwxled -lportaudio -llog4cpp -lconfig -lprotobuf-c -lprotobuf -lopus -lspeexdsp -lssl -lcrypto
+LDFLAGS_RELEASE_UNIX = `wx-config  --version=2.8 --static=no --unicode=yes --debug=no --libs` -Wl,-rpath=.:/system/urus/lib/urusstudio/wxContribItems:/system/urus/lib $(LDFLAGS)
 OBJDIR_RELEASE_UNIX = obj/Release
 DEP_RELEASE_UNIX = 
 OUT_RELEASE_UNIX = bin/Release/wimic
@@ -55,7 +55,7 @@ urusstudio_unix:
 	./build.sh
 
 out_release_unix: before_release_unix $(OBJ_RELEASE_UNIX) $(DEP_RELEASE_UNIX)
-	$(LD) $(LIBDIR_RELEASE_UNIX) -o $(OUT_RELEASE_UNIX) $(OBJ_RELEASE_UNIX)  $(LDFLAGS_RELEASE_UNIX) $(LIB_RELEASE_UNIX)
+	$(LD) -o $(OUT_RELEASE_UNIX) $(OBJ_RELEASE_UNIX) $(LIBDIR_RELEASE_UNIX) $(LIB_RELEASE_UNIX) $(LDFLAGS_RELEASE_UNIX)
 
 $(OBJDIR_RELEASE_UNIX)/modules/mumpi/deps/mumlib/src/mumlib.o: modules/mumpi/deps/mumlib/src/mumlib.cpp
 	$(CXX) $(CFLAGS_RELEASE_UNIX) $(INC_RELEASE_UNIX) -c modules/mumpi/deps/mumlib/src/mumlib.cpp -o $(OBJDIR_RELEASE_UNIX)/modules/mumpi/deps/mumlib/src/mumlib.o
