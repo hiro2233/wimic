@@ -1,7 +1,6 @@
 #!/bin/sh
 
-PATH=/system/urus/bin:$PATH
-export PATH
+export PATH=/system/urus/bin:$PATH
 
 git submodule sync
 git submodule update --init --recursive
@@ -14,11 +13,12 @@ else
 	export NO_URUSSTUDIO_MAKE_CMD="yes"
 fi
 
-WXCONFURUS=$(wx-config --version)
+WXCONFURUS=$(wx-config --selected-config 2>/dev/null)
 
 echo $WXCONFURUS
 
-if [ `printf "$WXCONFURUS" | grep -ri - | wc -l` -eq 0 ] ; then
+if [ `printf "$WXCONFURUS" | grep -ri - -e "urus\|unicode" | wc -l` -eq 0 ] || [ ! -d /system/urus/include/urusstudio ] ; then
+#if [ ! -d UrusStudio/buildustd ] ; then
 	PUSHD=$(pwd)
 	cd UrusStudio && ./build-ci.sh
 	cd $PUSHD
