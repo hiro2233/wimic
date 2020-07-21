@@ -14,10 +14,16 @@ else
 	export NO_URUSSTUDIO_MAKE_CMD="yes"
 fi
 
-PUSHD=$(pwd)
-cd UrusStudio && ./build-ci.sh
-cd $PUSHD
-cd ./UrusStudio/buildustd/src/plugins/contrib/wxContribItems/wxled && make -j2 && make install
-cd $PUSHD
+WXCONFURUS=$(wx-config --version)
+
+echo $WXCONFURUS
+
+if [ `printf "$WXCONFURUS" | grep -ri - | wc -l` -eq 0 ] ; then
+	PUSHD=$(pwd)
+	cd UrusStudio && ./build-ci.sh
+	cd $PUSHD
+	cd ./UrusStudio/buildustd/src/plugins/contrib/wxContribItems/wxled && make -j2 && make install
+	cd $PUSHD
+fi
 
 exit 0
