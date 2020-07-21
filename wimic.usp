@@ -226,6 +226,7 @@
 			<Add option="-ffunction-sections" />
 			<Add option="-fdata-sections" />
 			<Add option="-Wno-write-strings" />
+			<Add option="-funroll-loops" />
 			<Add option="-D__URUSSTUDIO__" />
 			<Add option="-D__LIB_URUSSTUDIO__" />
 			<Add option="-DINPUT_STREAM_DISABLED" />
