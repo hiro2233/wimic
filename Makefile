@@ -6,10 +6,10 @@ URUSSTOOL_BASE=/system/urus
 
 export PATH := /system/urus/bin:$(PATH)
 
-CC = gcc
-CXX = g++
-AR = ar
-LD = g++
+CC ?= $(CC)
+CXX ?= $(CXX)
+AR ?= $(AR)
+LD = $(CXX)
 WINDRES =
 
 INC = -I$(HOME)/boost_1_72_0 -Imodules/mumpi/deps/mumlib/include -Imodules/mumpi/include -I$(URUSSTOOL_BASE)/include/urusstudio/wxContribItems/wxled/led/include -Imodules/mumpi/deps/mumlib -I$(WORKSPACEDIR) -I../wimic
