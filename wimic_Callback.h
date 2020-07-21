@@ -67,17 +67,17 @@ private:
     static bool _initialized;
 
     static bool _started;
-    static uint8_t _chan_speak_cnt;
+    static uint16_t _chan_speak_cnt;
 
     static std::shared_ptr<RingBuffer<int16_t>> _out_buf;
     static std::shared_ptr<RingBuffer<int16_t>> _out_buf_tmp[MAX_SESSION];
 
     static int16_t _pcmbuf_out[MAX_PCM_INTERNAL_BUF];
     static int16_t _pcmbuf_in[MAX_PCM_INTERNAL_BUF];
-    static int16_t _pcmbuf_aux[MAX_PCM_INTERNAL_BUF];
 
     static void *_timer_buf(void *arg);
     static int16_t mix_pcm(int16_t pcm_one, int16_t pcm_two);
     static void _resampler(uint16_t inputSr, uint16_t outputSr, uint16_t channels, uint16_t frames, int16_t* data, uint16_t &out_length, int16_t* out_data);
     static void _resampler_float(uint16_t inputSr, uint16_t outputSr, uint16_t channels, uint16_t frames, int16_t* in_data, uint16_t &out_length, int16_t* out_data, bool resample_float = false);
+    static void _update_echo_canceller(int16_t *in_out_datatmp, int16_t *out_data, int16_t *echo, uint16_t outputSr, uint16_t output_frames);
 };
