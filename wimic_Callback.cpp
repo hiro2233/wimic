@@ -71,7 +71,9 @@ void wimic_Callback::_resampler_float(uint16_t inputSr, uint16_t outputSr, uint1
         for (uint16_t i = 0; i < input_frames; i++) {
             out_data[i] = in_data[i];
         }
+#ifndef __ARM_EABI__ // we do not make echo canceller on eabi meanwhile.
         _update_echo_canceller(&in_out_datatmp[0], &out_data[0], &echo_buffer[0], outputSr, output_frames);
+#endif
         out_length = output_frames;
         return;
 	}
@@ -136,7 +138,9 @@ void wimic_Callback::_resampler_float(uint16_t inputSr, uint16_t outputSr, uint1
         cntbuf++;
     }
 
+#ifndef __ARM_EABI__ // we do not make echo canceller on eabi meanwhile.
     _update_echo_canceller(&in_out_datatmp[0], &out_data[0], &echo_buffer[0], outputSr, output_frames);
+#endif // __ARM_EABI__
     out_length = output_frames;
     speex_resampler_destroy(resampler_state);
 }
