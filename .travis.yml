@@ -20,9 +20,7 @@ addons:
 
 before_install:
     - ./install_deps.sh
-
-install:
-    make
+    - make
 
 compiler:
   - gcc
