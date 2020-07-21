@@ -11,8 +11,6 @@ CXX = g++
 AR = ar
 LD = g++
 WINDRES =
-ARFLAGS="cr"
-AR_FLAGS="cr"
 
 INC = -I$(HOME)/boost_1_72_0 -Imodules/mumpi/deps/mumlib/include -Imodules/mumpi/include -I$(URUSSTOOL_BASE)/include/urusstudio/wxContribItems/wxled/led/include -Imodules/mumpi/deps/mumlib -I$(WORKSPACEDIR) -I../wimic
 CFLAGS = -Wall -Wno-unused-variable -Wno-reorder -Wno-sign-compare -Wno-unused-local-typedefs -Wno-format -Wno-sequence-point -fpermissive -Wpointer-arith -Wno-missing-field-initializers -Wno-unused-parameter -Wno-redundant-decls -Wno-unknown-pragmas -Wno-trigraphs -ffunction-sections -fdata-sections -Wno-write-strings -D__URUSSTUDIO__ -D__LIB_URUSSTUDIO__ -DINPUT_STREAM_DISABLED -DPCM_FRAME=640
@@ -27,7 +25,7 @@ RESINC_RELEASE_UNIX = $(RESINC)
 RCFLAGS_RELEASE_UNIX = $(RCFLAGS)
 LIBDIR_RELEASE_UNIX = $(LIBDIR) -Lmodules/mumpi/bin/Release -Lmodules/umurmur/bin/Release -Lmodules/mumpi/deps/mumlib/bin/Release
 LIB_RELEASE_UNIX = $(LIB) -lumurmur -lwxled -lportaudio -llog4cpp -lconfig -lprotobuf-c -lprotobuf -lopus -lspeexdsp -lssl -lcrypto
-LDFLAGS_RELEASE_UNIX =  -s `wx-config  --version=2.8 --static=no --unicode=yes --debug=no --libs` -Wl,-rpath=.:/system/urus/lib/urusstudio/wxContribItems:/system/urus/lib $(LDFLAGS)
+LDFLAGS_RELEASE_UNIX = `wx-config  --version=2.8 --static=no --unicode=yes --debug=no --libs` -Wl,-rpath=.:/system/urus/lib/urusstudio/wxContribItems:/system/urus/lib $(LDFLAGS)
 OBJDIR_RELEASE_UNIX = obj/Release
 DEP_RELEASE_UNIX = 
 OUT_RELEASE_UNIX = bin/Release/wimic
