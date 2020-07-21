@@ -1,0 +1,29 @@
+language: cpp
+sudo: false
+
+dist: xenial
+
+cache:
+  ccache: true
+  directories:
+    - $HOME/opt
+
+addons:
+  apt:
+    sources:
+    packages:
+      - build-essential
+      - gawk
+      - ccache
+      - gcc
+      - g++
+
+before_install:
+    - ./install_deps.sh
+
+install:
+    make
+
+compiler:
+  - gcc
+
