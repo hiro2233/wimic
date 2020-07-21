@@ -7,8 +7,7 @@
 
 #./update_fstab.sh
 
-BASEPKG="automake libtool autoconf pkgconf libgtk2.0-dev libgamin-dev zip libprotobuf-dev libprotobuf-c-dev protobuf-c-compiler \
-		libconfig-dev protobuf-compiler libboost-system-dev liblog4cpp5-dev libopus-dev libspeexdsp-dev portaudio19-dev mime-support shared-mime-info desktop-file-utils "
+BASEPKG="automake libtool autoconf pkgconf libgtk2.0-dev zip libprotobuf-dev libprotobuf-c-dev libconfig-dev protobuf-compiler libboost-system-dev liblog4cpp5-dev libopus-dev libspeexdsp-dev portaudio19-dev mime-support shared-mime-info desktop-file-utils"
 
 YESNOCMD=""
 SCOWPWRCMD=""
