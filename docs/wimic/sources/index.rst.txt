@@ -232,6 +232,12 @@ Links:
     `Política de Privacidad  <../../wimic/docs/privacy/>`__
 
 
+|
+|
+|
+|
+
+
 ..  raw:: html
 
     <style>
