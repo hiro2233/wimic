@@ -247,5 +247,5 @@ Links:
 .. toctree::
    :hidden:
 
-   Política de Privacidad <https://hiro2233.github.io/wimic/wimic/docs/privacy/>
+   Política de Privacidad <https://hiro2233.github.io/wimic/docs/privacy/>
 
