@@ -215,7 +215,6 @@ El **Servidor WiMic** y la aplicación **WiMic Android** (cliente) están desarr
 Estos programas se distribuyen con la esperanza de que sean útiles, y SIN NINGUNA GARANTÍA. Vea la Licencia Pública General de GNU para más detalles, https://www.gnu.org/licenses
 
 
-
 .. _home:
 
 ..  raw:: html
@@ -233,7 +232,20 @@ Links:
     `Política de Privacidad  <../../wimic/docs/privacy/>`__
 
 
+..  raw:: html
+
+    <style>
+    img {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    </style>
+    <img src="https://hitcounter.pythonanywhere.com/count/tag.svg" alt="Hits" class="center">
+
+
 .. toctree::
    :hidden:
 
    Política de Privacidad <https://hiro2233.github.io/wimic/wimic/docs/privacy/>
+
