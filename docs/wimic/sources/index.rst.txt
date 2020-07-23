@@ -4,11 +4,6 @@
 
     <h1 style="text-align:center;">Bienvenidos a la documentación de WiMic!</h1>
 
-..  raw:: html
-
-    <table>
-    <tr>
-    <td width="100%">
 
 ----------
 
@@ -217,11 +212,6 @@ Estos programas se distribuyen con la esperanza de que sean útiles, y SIN NINGU
 
 .. _home:
 
-..  raw:: html
-
-    <table>
-    <tr>
-    <td width="27%">
 
 ------
 
@@ -236,6 +226,9 @@ Links:
 |
 |
 |
+
+
+----
 
 
 ..  raw:: html
