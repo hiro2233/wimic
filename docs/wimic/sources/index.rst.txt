@@ -46,7 +46,7 @@ El uso que se le puede dar al sistema WiMic son numerosas, en ésta documentaci�
 
         o puedes descargarlo directamente con éste link:
 
-        * `Descargar Driver <https://download.vb-audio.com/Download_CABLE/VBCABLE_Driver_Pack43.zip/>`__
+        * `Descargar Driver <https://download.vb-audio.com/Download_CABLE/VBCABLE_Driver_Pack43.zip>`__
 
         Descomprime el archivo y extrae el contenido en cualquier carpeta de tu preferencia, puedes usar aplicaciones como el `7zip <https://www.7-zip.org/>`__ , el `Peazip <https://www.peazip.org/>`__ que se distribuyen libremente, ó WinRar.
 
