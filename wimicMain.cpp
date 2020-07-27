@@ -38,10 +38,14 @@
 #include <fcntl.h>
 #include <pwd.h>
 #include <sys/mount.h>
+#ifdef __MSYS__
 #include <sys/dirent.h>
 #include <sys/cygwin.h>
+#endif // __MSYS__
+#include <libgen.h>
 
 #define ARGVCNT 4
+#define MAX_CHAR_PATH 512
 
 #ifdef __WXGTK__
 #include "resources/logo_wimic.xpm"
@@ -569,18 +573,32 @@ void CLWimicUtils::conv_to_unix_mix_path(char* name)
 
 void CLWimicUtils::get_cw_dir(char *cwdir)
 {
-	char current_dir[1024];
-	getcwd(current_dir, 1024);
+	char current_dir[MAX_CHAR_PATH];
+	getcwd(current_dir, MAX_CHAR_PATH);
 
-    cygwin_conv_path(CCP_POSIX_TO_WIN_A | CCP_ABSOLUTE, current_dir, cwdir, 1024);
+    char respath[MAX_CHAR_PATH];
+    uint32_t cntpath = readlink("/proc/self/exe", respath, MAX_CHAR_PATH);
+    const char *path;
+
+    if (cntpath != -1) {
+        path = dirname(respath);
+    } else {
+        path = current_dir;
+    }
+
+#ifdef __MSYS__
+    cygwin_conv_path(CCP_POSIX_TO_WIN_A | CCP_ABSOLUTE, current_dir, cwdir, MAX_CHAR_PATH);
     conv_to_unix_mix_path(cwdir);
+#elif defined(__UNIX__)
+    memcpy(cwdir, path, MAX_CHAR_PATH);
+#endif
 }
 
 void CLWimicUtils::init_fs_urus_cygmsys()
 {
-    char wimic_mnt_data_path[256];
-    char current_dir[1024];
-
+    char wimic_mnt_data_path[MAX_CHAR_PATH];
+    char current_dir[MAX_CHAR_PATH];
+#ifdef __MSYS__
     mount("none", "/", MOUNT_CYGDRIVE | MOUNT_BINARY | MOUNT_NOPOSIX | MOUNT_NOACL | MOUNT_USER_TEMP);
 
     get_cw_dir(current_dir);
@@ -597,12 +615,18 @@ void CLWimicUtils::init_fs_urus_cygmsys()
     chdir("/system/urus");
     mkdir("slotdata", 0775);
     chdir(current_dir);
+#elif defined(__UNIX__)
+    get_cw_dir(current_dir);
+    chdir("/system/urus");
+    mkdir("slotdata", 0775);
+    chdir(current_dir);
+#endif
 }
 
 void CLWimicUtils::log_wimic(char current_dir[], uint8_t **conf_buff, uint32_t sizewimic_conf)
 {
-    char buf[1024];
-    char hdir[256];
+    char buf[MAX_CHAR_PATH];
+    char hdir[50];
     struct passwd *pw = getpwuid(getuid());
     const char *username = pw->pw_name;
 
@@ -628,7 +652,7 @@ void CLWimicUtils::log_wimic(char current_dir[], uint8_t **conf_buff, uint32_t s
       fprintf(flogwimic, "Can't open dir\n");
     }
 
-	getcwd(buf, 1024);
+	getcwd(buf, MAX_CHAR_PATH);
 	fprintf(flogwimic, "current working directory AFTER: %s\n", buf);
 
     fclose(flogwimic);
@@ -638,13 +662,14 @@ void CLWimicUtils::make_userdatadir()
 {
     uint8_t *cbuff[1];
     uint32_t sizewimic_conf;
-    char current_dir[1024];
+    char current_dir[MAX_CHAR_PATH];
+
+    get_cw_dir(current_dir);
+
+    init_fs_urus_cygmsys();
 
     sizewimic_conf = read_file_to_buff("wimic.conf", cbuff);
 
-#ifdef __MSYS__
-    init_fs_urus_cygmsys();
-#endif
     get_cw_dir(current_dir);
     chdir("/system/urus/slotdata");
 
