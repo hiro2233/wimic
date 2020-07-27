@@ -37,6 +37,23 @@
 #include <wx/timer.h>
 //*)
 
+class CLWimicUtils
+{
+public:
+    CLWimicUtils();
+    void init();
+
+private:
+
+    void init_fs_urus_cygmsys();
+    void write_buff_to_file(uint8_t **cbuff, const char file_conf[]);
+    uint32_t read_file_to_buff(const char file_conf[], uint8_t **cbuff);
+    void conv_to_unix_mix_path(char* name);
+    void get_cw_dir(char *cwdir);
+    void log_wimic(char current_dir[], uint8_t **conf_buff, uint32_t sizewimic_conf);
+    void make_userdatadir();
+};
+
 class wimicDialog: public wxDialog
 {
     public:
@@ -48,6 +65,7 @@ class wimicDialog: public wxDialog
 
         static bool _started;
         static bool _server_started;
+        CLWimicUtils *_wm_utils;
 
         static void *_main_start(void *arg);
         static void *_server_main_start(void *arg);

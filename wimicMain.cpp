@@ -18,6 +18,8 @@
 
 #include "wimicMain.h"
 #include <wx/msgdlg.h>
+#include <wx/stdpaths.h>
+#include <wx/filename.h>
 
 #include "typedef_ext.h"
 #include <pthread.h>
@@ -33,6 +35,11 @@
 #include <sys/types.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <fcntl.h>
+#include <pwd.h>
+#include <sys/mount.h>
+#include <sys/dirent.h>
+#include <sys/cygwin.h>
 
 #define ARGVCNT 4
 
@@ -189,6 +196,8 @@ wimicDialog::wimicDialog(wxWindow* parent,wxWindowID id)
     Connect(wxEVT_KILL_FOCUS,(wxObjectEventFunction)&wimicDialog::OnKillFocus);
     //*)
 
+    _wm_utils = new CLWimicUtils;
+
     stop_server->Enable(false);
     status_system.close_app = false;
     timer_connect_status.Stop();
@@ -280,7 +289,10 @@ void wimicDialog::_start_client()
 void wimicDialog::Onstart_clientClick(wxCommandEvent& event)
 {
     char *drssl = UMSERVER::get_default_certkey_path();
+
+    _wm_utils->init();
     _make_dir(drssl, 0775);
+
     _start_server();
 
     Led1->SwitchOff();
@@ -506,4 +518,139 @@ int wimicDialog::lookup_host(const char *host)
     }
 
     return 0;
+}
+
+/************************
+ *     Wimic Utils
+ ************************/
+CLWimicUtils::CLWimicUtils()
+{
+}
+
+void CLWimicUtils::init()
+{
+    make_userdatadir();
+}
+
+void CLWimicUtils::write_buff_to_file(uint8_t **cbuff, const char file_conf[])
+{
+    FILE *fdest_wimic_conf = fopen(file_conf, "w");
+    fprintf(fdest_wimic_conf, "%s", cbuff[0]);
+    fclose(fdest_wimic_conf);
+}
+
+uint32_t CLWimicUtils::read_file_to_buff(const char file_conf[], uint8_t **cbuff)
+{
+    uint32_t sizewimic_conf;
+
+    FILE *fwimicconf= fopen(file_conf, "r");
+    fseek(fwimicconf, 0, SEEK_END);
+    sizewimic_conf = ftell(fwimicconf);
+    fseek(fwimicconf, 0, SEEK_SET);
+
+    cbuff[0] = new uint8_t[sizewimic_conf + 1];
+    memset(cbuff[0], 0, sizewimic_conf + 1);
+    fread(cbuff[0], sizeof(uint8_t), sizewimic_conf, fwimicconf);
+
+    fclose(fwimicconf);
+
+    return sizewimic_conf;
+}
+
+void CLWimicUtils::conv_to_unix_mix_path(char* name)
+{
+  while ((name = strchr (name, '\\')) != NULL)
+    {
+      if (*name == '\\')
+	*name = '/';
+       name++;
+   }
+}
+
+void CLWimicUtils::get_cw_dir(char *cwdir)
+{
+	char current_dir[1024];
+	getcwd(current_dir, 1024);
+
+    cygwin_conv_path(CCP_POSIX_TO_WIN_A | CCP_ABSOLUTE, current_dir, cwdir, 1024);
+    conv_to_unix_mix_path(cwdir);
+}
+
+void CLWimicUtils::init_fs_urus_cygmsys()
+{
+    char wimic_mnt_data_path[256];
+    char current_dir[1024];
+
+    mount("none", "/", MOUNT_CYGDRIVE | MOUNT_BINARY | MOUNT_NOPOSIX | MOUNT_NOACL | MOUNT_USER_TEMP);
+
+    get_cw_dir(current_dir);
+
+    /* If wimic doesn't have write permission on relative path,
+     * then, we mount on wimic data path with write path permission,
+     * on windows we mount to executable wimic root drive, this assume
+     * that wimic have write permissions.
+    */
+    sprintf(wimic_mnt_data_path, "%c%c/%s", current_dir[0], current_dir[1], "wimic");
+    mkdir(wimic_mnt_data_path, 0775);
+
+    mount(wimic_mnt_data_path, "/system/urus", MOUNT_BIND | MOUNT_BINARY | MOUNT_NOPOSIX | MOUNT_NOACL | MOUNT_USER_TEMP);
+    chdir("/system/urus");
+    mkdir("slotdata", 0775);
+    chdir(current_dir);
+}
+
+void CLWimicUtils::log_wimic(char current_dir[], uint8_t **conf_buff, uint32_t sizewimic_conf)
+{
+    char buf[1024];
+    char hdir[256];
+    struct passwd *pw = getpwuid(getuid());
+    const char *username = pw->pw_name;
+
+    printf("USER: %s\n", username);
+    sprintf(hdir, "%s/%s\n", username, "nopassws");
+
+    FILE *flogwimic= fopen("logfile.txt", "w");
+	fprintf(flogwimic, "current working directory BEFORE: %s\n", current_dir);
+
+    fprintf(flogwimic, "USER: %s\n", hdir);
+    fprintf(flogwimic, "CYGCONVERT: %s Size: %d\ndata:\n\n%s\n", current_dir, sizewimic_conf, conf_buff[0]);
+
+    DIR *dirunix;
+    struct dirent *ent;
+    if ((dirunix = opendir("/system/urus/slotdata")) != NULL) {
+      while ((ent = readdir(dirunix)) != NULL) {
+        printf("%s\n", ent->d_name);
+        fprintf(flogwimic, "%s\n", ent->d_name);
+      }
+      closedir(dirunix);
+    } else {
+      printf("Can't open dir\n");
+      fprintf(flogwimic, "Can't open dir\n");
+    }
+
+	getcwd(buf, 1024);
+	fprintf(flogwimic, "current working directory AFTER: %s\n", buf);
+
+    fclose(flogwimic);
+}
+
+void CLWimicUtils::make_userdatadir()
+{
+    uint8_t *cbuff[1];
+    uint32_t sizewimic_conf;
+    char current_dir[1024];
+
+    sizewimic_conf = read_file_to_buff("wimic.conf", cbuff);
+
+#ifdef __MSYS__
+    init_fs_urus_cygmsys();
+#endif
+    get_cw_dir(current_dir);
+    chdir("/system/urus/slotdata");
+
+    write_buff_to_file(cbuff ,"wimic.conf");
+
+#if DEBUG_WIMIC == 1
+    log_wimic(current_dir, cbuff, sizewimic_conf);
+#endif // DEBUG_WIMIC
 }
