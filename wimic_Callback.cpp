@@ -148,7 +148,10 @@ void wimic_Callback::_resampler_float(uint16_t inputSr, uint16_t outputSr, uint1
 void wimic_Callback::_update_echo_canceller(int16_t *in_out_datatmp, int16_t *out_data, int16_t *echo_buffer, uint16_t outputSr, uint16_t output_frames)
 {
 #ifndef __ARM_EABI__ // we do not make echo canceller on eabi meanwhile.
-    memcpy(in_out_datatmp, out_data, sizeof(int16_t) * output_frames);
+
+    for (uint16_t i = 0; i < output_frames; i++) {
+        in_out_datatmp[i] = out_data[i];
+    }
 
     uint32_t sampling_rate_echo;
     SpeexEchoState *echo_state = speex_echo_state_init(output_frames, output_frames * 5);
@@ -156,7 +159,9 @@ void wimic_Callback::_update_echo_canceller(int16_t *in_out_datatmp, int16_t *ou
     speex_echo_ctl(echo_state, SPEEX_ECHO_SET_SAMPLING_RATE, &sampling_rate_echo);
     speex_echo_cancellation(echo_state, in_out_datatmp, echo_buffer, out_data);
 
-    memcpy(echo_buffer, out_data, sizeof(int16_t) * output_frames);
+    for (uint16_t i = 0; i < output_frames; i++) {
+        echo_buffer[i] = out_data[i];
+    }
 
 	speex_echo_state_destroy(echo_state);
 
