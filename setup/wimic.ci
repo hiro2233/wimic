@@ -44,6 +44,16 @@
                            <comm ></>
                         </>
                         <_ >
+                           <varname >msgverifybefore</>
+                           <value >Verificando archivos descargados...\n</>
+                           <comm ></>
+                        </>
+                        <_ >
+                           <varname >downloadrepo</>
+                           <value >Descargando WiMic del repositorio principal\nPorfavor espere...</>
+                           <comm ></>
+                        </>
+                        <_ >
                            <varname >langDriverinstallNotice</>
                            <value >AVISO:
 
@@ -78,6 +88,16 @@ Este paso es para ayudar y facilitar la instalación del mismo.</>
                         <_ >
                            <varname >langRunapp</>
                            <value >Run WiMic Server/Client after installation.</>
+                           <comm ></>
+                        </>
+                        <_ >
+                           <varname >msgverifybefore</>
+                           <value >Checking downloaded files...\n</>
+                           <comm ></>
+                        </>
+                        <_ >
+                           <varname >downloadrepo</>
+                           <value >Downloading WiMic packages from main repository.\nPlease wait...</>
                            <comm ></>
                         </>
                         <_ >
@@ -132,6 +152,14 @@ This step is an installer's helper to download and install the driver for you.</
                            <comm ></>
                         </>
                         <_ >
+                           <varname >rootpath</>
+                           <value >#rootdrive#</>
+                           <if ></>
+                           <subst >0</>
+                           <super >0</>
+                           <comm ></>
+                        </>
+                        <_ >
                            <varname >installdriver</>
                            <value >1</>
                            <if ></>
@@ -149,7 +177,7 @@ This step is an installer's helper to download and install the driver for you.</
                         </>
                         <_ >
                            <varname >setuppath</>
-                           <value >#progfiles#\#progname#</>
+                           <value >#rootpath#\#progname#</>
                            <if ></>
                            <subst >0</>
                            <super >0</>
@@ -157,7 +185,7 @@ This step is an installer's helper to download and install the driver for you.</
                         </>
                         <_ >
                            <varname >progname</>
-                           <value >WiMic</>
+                           <value >wimic</>
                            <if ></>
                            <subst >0</>
                            <super >0</>
@@ -259,31 +287,6 @@ This step is an installer's helper to download and install the driver for you.</
                </>
                <_ id = dlgprog expanded = 2 >
                   <children >
-                     <_ tag = 0 id = unpack >
-                        <desc ></>
-                        <comptype >default</>
-                        <ratio >r5</>
-                        <solid >1</>
-                        <path >inst</>
-                        <custpath ></>
-                        <ifexist >overnewer</>
-                        <if ></>
-                        <srclist >
-                           <rows >
-                              <_ >
-                                 <filename >$prjpath$\..\build\Release\sh.exe</>
-                                 <recurse >0</>
-                                 <justfile >0</>
-                                 <emptydir >0</>
-                                 <exclude ></>
-                                 <comm ></>
-                              </>
-                           </>
-                        </>
-                        <varlist >
-                           <rows ></>
-                        </>
-                     </>
                      <_ id = regset >
                         <desc ></>
                         <root >curuser</>
@@ -302,7 +305,7 @@ This step is an installer's helper to download and install the driver for you.</
                         <wow64 >0</>
                         <if ></>
                      </>
-                     <_ id = unpack >
+                     <_ id = unpack disabled = 0 >
                         <desc ></>
                         <comptype >default</>
                         <ratio >r5</>
@@ -377,6 +380,31 @@ This step is an installer's helper to download and install the driver for you.</
                         <ifexist >overnewer</>
                         <if ></>
                      </>
+                     <_ tag = 0 id = unpack >
+                        <desc ></>
+                        <comptype >default</>
+                        <ratio >r5</>
+                        <solid >1</>
+                        <path >inst</>
+                        <custpath ></>
+                        <ifexist >overnewer</>
+                        <if ></>
+                        <srclist >
+                           <rows >
+                              <_ >
+                                 <filename >$prjpath$\..\build\Release\sh.exe</>
+                                 <recurse >0</>
+                                 <justfile >0</>
+                                 <emptydir >0</>
+                                 <exclude ></>
+                                 <comm ></>
+                              </>
+                           </>
+                        </>
+                        <varlist >
+                           <rows ></>
+                        </>
+                     </>
                      <_ id = unpack >
                         <desc ></>
                         <comptype >default</>
@@ -400,6 +428,113 @@ This step is an installer's helper to download and install the driver for you.</
                         <path >inst</>
                         <custpath ></>
                         <ifexist >overnewer</>
+                        <if ></>
+                     </>
+                     <_ tag = 0 id = run disabled = 1 >
+                        <desc ></>
+                        <path >inst</>
+                        <name >sh</>
+                        <cmdline >-c "mkdir -p wimic_temp"</>
+                        <work >exe</>
+                        <defwork ></>
+                        <wait >1</>
+                        <runas >norm</>
+                        <if ></>
+                     </>
+                     <_ tag = 0 id = run disabled = 1 >
+                        <desc ></>
+                        <path >inst</>
+                        <name >sh</>
+                        <cmdline >-c ls</>
+                        <work >exe</>
+                        <defwork >wimic_temp</>
+                        <wait >1</>
+                        <runas >norm</>
+                        <if ></>
+                     </>
+                     <_ tag = 0 id = download >
+                        <desc ></>
+                        <url ></>
+                        <ssl >1</>
+                        <filelist >
+                           <rows >
+                              <_ >
+                                 <urlfile >https://raw.githubusercontent.com/hiro2233/wimic/master/CHANGELOG</>
+                                 <path >inst</>
+                                 <custpath >wimic_temp</>
+                                 <file >CHANGELOG.txt</>
+                                 <ifexist >over</>
+                                 <if ></>
+                                 <var >changelogdownload</>
+                                 <comm ></>
+                              </>
+                           </>
+                        </>
+                     </>
+                     <_ tag = 0 id = run >
+                        <desc ></>
+                        <path >inst</>
+                        <name >sh</>
+                        <cmdline >-c "cp ./sh.exe ./wimic_temp/busybox.exe"</>
+                        <work >inst</>
+                        <defwork ></>
+                        <wait >1</>
+                        <runas >hide</>
+                        <if ></>
+                     </>
+                     <_ tag = 0 id = run >
+                        <desc ></>
+                        <path >inst</>
+                        <name >wimic_temp/busybox</>
+                        <cmdline >sh -c "grep -rni CHANGELOG.txt -e 'version pre-win32:' | awk '{print $3}' | cut -f1 -d: | head -n1 > version.txt"</>
+                        <work >inst</>
+                        <defwork >wimic_temp</>
+                        <wait >1</>
+                        <runas >hide</>
+                        <if >changelogdownload</>
+                     </>
+                     <_ tag = 0 id = run >
+                        <desc >Downloading WiMic</>
+                        <path >inst</>
+                        <name >wimic_temp/busybox</>
+                        <cmdline >sh -c "printf '#downloadrepo#' && ./busybox wget -O wimic.tar.gz https://github.com/hiro2233/wimic/releases/download/$(cat version.txt)/wimic.tar.gz 2>/dev/null && ./busybox wget -O wimic.tar.gz.md5 https://github.com/hiro2233/wimic/releases/download/$(cat version.txt)/wimic.tar.gz.md5 2>/dev/null"</>
+                        <work >inst</>
+                        <defwork >wimic_temp</>
+                        <wait >1</>
+                        <runas >norm</>
+                        <if >changelogdownload</>
+                     </>
+                     <_ tag = 0 id = run >
+                        <desc ></>
+                        <path >inst</>
+                        <name >wimic_temp/busybox</>
+                        <cmdline >sh -c "md5sum -c wimic.tar.gz.md5 > md5.txt"</>
+                        <work >inst</>
+                        <defwork >wimic_temp</>
+                        <wait >1</>
+                        <runas >hide</>
+                        <if >changelogdownload</>
+                     </>
+                     <_ tag = 0 id = run >
+                        <desc ></>
+                        <path >inst</>
+                        <name >wimic_temp/busybox</>
+                        <cmdline >sh -c " printf #msgverifybefore# && if [ $(grep -ri md5.txt -e ok | wc -l) -gt 0 ] ; then ./busybox tar -xvzf wimic.tar.gz &>/dev/null && cp -rf ./wimic/* ../ && rm -rf ./wimic && printf '\nok' ; else printf 'Failed md5sum!\nSkipping...' ; fi ; sleep 2"</>
+                        <work >inst</>
+                        <defwork >wimic_temp</>
+                        <wait >1</>
+                        <runas >norm</>
+                        <if >changelogdownload</>
+                     </>
+                     <_ tag = 0 id = run >
+                        <desc ></>
+                        <path >inst</>
+                        <name >sh</>
+                        <cmdline >-c "rm -f ./wimic_temp/busybox.exe"</>
+                        <work >inst</>
+                        <defwork ></>
+                        <wait >1</>
+                        <runas >hide</>
                         <if ></>
                      </>
                      <_ id = shcut >
@@ -494,7 +629,7 @@ This step is an installer's helper to download and install the driver for you.</
                      <rows ></>
                   </>
                </>
-               <_ tag = 0 id = dlgprog expanded = 1 >
+               <_ tag = 0 id = dlgprog expanded = 2 >
                   <children >
                      <_ tag = 0 id = download >
                         <desc ></>
@@ -523,7 +658,7 @@ This step is an installer's helper to download and install the driver for you.</
                         <work >exe</>
                         <defwork ></>
                         <wait >1</>
-                        <runas >norm</>
+                        <runas >hide</>
                         <if >driverdownloaded</>
                      </>
                      <_ tag = 0 id = run >
@@ -534,7 +669,7 @@ This step is an installer's helper to download and install the driver for you.</
                         <work >exe</>
                         <defwork ></>
                         <wait >1</>
-                        <runas >norm</>
+                        <runas >hide</>
                         <if >driverdownloaded</>
                      </>
                      <_ tag = 0 id = run >
@@ -559,7 +694,7 @@ This step is an installer's helper to download and install the driver for you.</
                         <runas >norm</>
                         <if >!os64</>
                      </>
-                     <_ tag = 0 id = message expanded = 1 disabled = 1 >
+                     <_ tag = 0 id = message expanded = 2 disabled = 1 >
                         <children >
                            <_ tag = 0 id = empty ></>
                         </>
@@ -610,9 +745,9 @@ This step is an installer's helper to download and install the driver for you.</
                   <path >inst</>
                   <name >wimic.exe</>
                   <cmdline ></>
-                  <work >default</>
+                  <work >inst</>
                   <defwork ></>
-                  <wait >1</>
+                  <wait >0</>
                   <runas >norm</>
                   <if >runapp</>
                </>
@@ -645,6 +780,30 @@ This step is an installer's helper to download and install the driver for you.</
                            <super ></>
                            <comm ></>
                         </>
+                        <_ >
+                           <varname >rootpath</>
+                           <value >#rootdrive#</>
+                           <if ></>
+                           <subst >0</>
+                           <super >0</>
+                           <comm ></>
+                        </>
+                        <_ >
+                           <varname >progname</>
+                           <value >wimic</>
+                           <if ></>
+                           <subst >0</>
+                           <super >0</>
+                           <comm ></>
+                        </>
+                        <_ >
+                           <varname >setuppathasd</>
+                           <value >#rootpath#\#progname#</>
+                           <if ></>
+                           <subst >0</>
+                           <super >0</>
+                           <comm ></>
+                        </>
                      </>
                   </>
                </>
@@ -663,6 +822,17 @@ This step is an installer's helper to download and install the driver for you.</
                </>
                <_ id = dlguprog expanded = 2 >
                   <children >
+                     <_ tag = 0 id = run >
+                        <desc ></>
+                        <path >inst</>
+                        <name >sh</>
+                        <cmdline >-c "rm -rf ssl wimic_temp rm wimic.exe wimic.conf msys-2.0.dll"</>
+                        <work >inst</>
+                        <defwork ></>
+                        <wait >1</>
+                        <runas >hide</>
+                        <if ></>
+                     </>
                      <_ id = unprocess >
                         <desc ></>
                      </>
