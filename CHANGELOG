@@ -1,0 +1,5 @@
+version pre-win32: v1.0.2-pre-win32
+
+- 16 Khz input by default OPUS decoding
+- 8 kbps bitrate by default OPUS decoding
+- 16 Khz output PCM
