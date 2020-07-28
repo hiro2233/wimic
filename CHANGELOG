@@ -1,3 +1,12 @@
+version pre-win32: v1.0.3-pre-win32
+
+- Added resampling.
+- Added echo canceller.
+- Implemented urus file system structure.
+- Added setup support and downloading 3rd party driver.
+- Improved performance timing and speed on mixing.
+- Fixed input bug on host without audio device input (microphone).
+
 version pre-win32: v1.0.2-pre-win32
 
 - 16 Khz input by default OPUS decoding
