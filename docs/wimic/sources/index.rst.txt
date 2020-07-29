@@ -64,16 +64,16 @@ El uso que se le puede dar al sistema WiMic son numerosas, en ésta documentaci�
 
     ..
 
-        .. image:: https://img.shields.io/github/downloads/hiro2233/wimic/total?style=for-the-badge
+        .. image:: https://img.shields.io/github/downloads/hiro2233/wimic/total?label=Download%20WiMic&style=for-the-badge
             :alt: GitHub All Releases
             :target: https://github.com/hiro2233/wimic/releases/download/v1.0.3-pre-win32/wimic.zip
             :align: left
 
 |
 
-        ..
+    ..
 
-            *Nota: Si deseas verificar el checksum del archivo comprimido, éste se encuentra publicado en la sección Release del repositorio de WiMic server & client* https://github.com/hiro2233/wimic/releases
+         *Nota: Si deseas verificar el checksum del archivo comprimido, éste se encuentra publicado en la sección Release del repositorio de WiMic server & client* https://github.com/hiro2233/wimic/releases
 
 |
 
