@@ -37,8 +37,27 @@ Por el momento el servidor está disponible para los sistemas operativos Windows
 El uso que se le puede dar al sistema WiMic son numerosas, en ésta documentación explicaremos dos modos o maneras básicas de poder usarlo, uno es usándolo como un simple megáfono remoto grupal y la otra es usándolo como "micrófono virtual" para una video conferencia de clases virtuales, así poder explicar estando alejado de la PC, necesitaremos un driver de un tercero para habilitarlo, la prueba lo realizaremos con Jitsi, la configuración funciona para cualquier otra aplicaciones que use el micrófono y los altavoces de la PC, ya que el Servidor WiMic se comunica a nivel de hardware.
 
 
-[Windows - Android]
-===================
+[Windows] (Instalación recomendada)
+================================================
+
+Si deseas, puedes instalar de manera automatizada y sencilla el WiMic Server/Client en tu PC eligiendo éste paso.
+
+
+    **A)** Descarga el instalador WiMic desde éste botón:
+
+    ..
+
+        .. image:: https://img.shields.io/github/downloads/hiro2233/wimic/total?label=Download%20Installer&style=for-the-badge
+            :alt: GitHub All Releases
+            :target: https://github.com/hiro2233/wimic/releases/download/v1.0.3-pre-win32/wimic_setup.exe
+            :align: left
+
+|
+|
+
+
+[Windows - Android] (Instalación y Configuración manual)
+========================================================
 
     **A)**  Descarga e instala el driver de "Virtual Audio Cable" desde éste link:
 
@@ -64,7 +83,7 @@ El uso que se le puede dar al sistema WiMic son numerosas, en ésta documentaci�
 
     ..
 
-        .. image:: https://img.shields.io/github/downloads/hiro2233/wimic/total?label=Download%20WiMic&style=for-the-badge
+        .. image:: https://img.shields.io/github/downloads/hiro2233/wimic/total?label=Download%20WiMic.Zip&style=for-the-badge
             :alt: GitHub All Releases
             :target: https://github.com/hiro2233/wimic/releases/download/v1.0.3-pre-win32/wimic.zip
             :align: left
