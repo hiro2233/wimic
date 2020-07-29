@@ -1,4 +1,4 @@
-[![Build Status](https://semaphoreci.com/api/v1/hiro2233/wimic/branches/master/badge.svg)](https://semaphoreci.com/hiro2233/wimic) [![Build Status](https://travis-ci.org/hiro2233/wimic.svg?branch=master)](https://travis-ci.org/hiro2233/wimic) ![Hits](https://visitor-badge.laobi.icu/badge?page_id=hiro2233-github-io-wimic-docs)
+[![Build Status](https://semaphoreci.com/api/v1/hiro2233/wimic/branches/master/badge.svg)](https://semaphoreci.com/hiro2233/wimic) [![Build Status](https://travis-ci.org/hiro2233/wimic.svg?branch=master)](https://travis-ci.org/hiro2233/wimic) ![Hits](https://visitor-badge.laobi.icu/badge?page_id=github-hiro2233-wimic)
 
 # WiMic Server/Client
 
