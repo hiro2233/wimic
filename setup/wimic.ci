@@ -430,6 +430,31 @@ This step is an installer's helper to download and install the driver for you.</
                         <ifexist >overnewer</>
                         <if ></>
                      </>
+                     <_ id = unpack >
+                        <desc ></>
+                        <comptype >default</>
+                        <ratio >r5</>
+                        <solid >0</>
+                        <varlist >
+                           <rows ></>
+                        </>
+                        <srclist >
+                           <rows >
+                              <_ >
+                                 <filename >$prjpath$\..\resources\logo_wimic.ico</>
+                                 <recurse >0</>
+                                 <justfile >0</>
+                                 <emptydir >0</>
+                                 <exclude ></>
+                                 <comm ></>
+                              </>
+                           </>
+                        </>
+                        <path >custom</>
+                        <custpath >$userpath$</>
+                        <ifexist >overnewer</>
+                        <if ></>
+                     </>
                      <_ tag = 0 id = run disabled = 1 >
                         <desc ></>
                         <path >inst</>
@@ -543,7 +568,7 @@ This step is an installer's helper to download and install the driver for you.</
                         <shfile >WiMic Server & Client</>
                         <path >inst</>
                         <file >wimic.exe</>
-                        <icon >$prjpath$\..\resources\logo_wimic.ico</>
+                        <icon >$userpath$\logo_wimic.ico</>
                         <cmdline ></>
                         <comment ></>
                         <work >inst</>
@@ -558,7 +583,7 @@ This step is an installer's helper to download and install the driver for you.</
                         <shfile >WiMic Server & Client</>
                         <path >inst</>
                         <file >wimic.exe</>
-                        <icon >$prjpath$\..\resources\logo_wimic.ico</>
+                        <icon >$userpath$\logo_wimic.ico</>
                         <cmdline ></>
                         <comment ></>
                         <work >inst</>
@@ -584,7 +609,7 @@ This step is an installer's helper to download and install the driver for you.</
                         <shfile >#lunname#</>
                         <path >inst</>
                         <file >uninstall.exe</>
-                        <icon >$prjpath$\..\resources\logo_wimic.ico</>
+                        <icon >$userpath$\logo_wimic.ico</>
                         <cmdline ></>
                         <comment ></>
                         <work >inst</>
