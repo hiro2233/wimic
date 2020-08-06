@@ -573,12 +573,12 @@ void CLWimicUtils::conv_to_unix_mix_path(char* name)
 
 void CLWimicUtils::get_cw_dir(char *cwdir)
 {
-	char current_dir[MAX_CHAR_PATH];
+	char current_dir[MAX_CHAR_PATH] = {0};
 	getcwd(current_dir, MAX_CHAR_PATH);
 
-    char respath[MAX_CHAR_PATH];
+    char respath[MAX_CHAR_PATH] = {0};
     uint32_t cntpath = readlink("/proc/self/exe", respath, MAX_CHAR_PATH);
-    const char *path;
+    const char *path = nullptr;
 
     if (cntpath != -1) {
         path = dirname(respath);
@@ -596,8 +596,8 @@ void CLWimicUtils::get_cw_dir(char *cwdir)
 
 void CLWimicUtils::init_fs_urus_cygmsys()
 {
-    char wimic_mnt_data_path[MAX_CHAR_PATH];
-    char current_dir[MAX_CHAR_PATH];
+    char wimic_mnt_data_path[MAX_CHAR_PATH] = {0};
+    char current_dir[MAX_CHAR_PATH] = {0};
 #ifdef __MSYS__
     mount("none", "/", MOUNT_CYGDRIVE | MOUNT_BINARY | MOUNT_NOPOSIX | MOUNT_NOACL | MOUNT_USER_TEMP);
 
@@ -625,8 +625,8 @@ void CLWimicUtils::init_fs_urus_cygmsys()
 
 void CLWimicUtils::log_wimic(char current_dir[], uint8_t **conf_buff, uint32_t sizewimic_conf)
 {
-    char buf[MAX_CHAR_PATH];
-    char hdir[50];
+    char buf[MAX_CHAR_PATH] = {0};
+    char hdir[50] = {0};
     struct passwd *pw = getpwuid(getuid());
     const char *username = pw->pw_name;
 
@@ -662,7 +662,7 @@ void CLWimicUtils::make_userdatadir()
 {
     uint8_t *cbuff[1];
     uint32_t sizewimic_conf;
-    char current_dir[MAX_CHAR_PATH];
+    char current_dir[MAX_CHAR_PATH] = {0};
 
     get_cw_dir(current_dir);
 
