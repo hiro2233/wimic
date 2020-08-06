@@ -23,7 +23,6 @@
 					<Add option="-Wl,-rpath=.:/system/urus/lib/urusstudio/wxContribItems:/system/urus/lib" />
 					<Add library="boost_system" />
 					<Add library="umurmur" />
-					<Add library="mumlib" />
 					<Add library="wxled" />
 					<Add library="ssl" />
 					<Add library="crypto" />
@@ -56,6 +55,7 @@
 					<Add option="-s" />
 					<Add option="`wx-config  --version=2.8 --static=no --unicode=yes --debug=no --libs`" />
 					<Add option="-Wl,-rpath=.:/system/urus/lib/urusstudio/wxContribItems:/system/urus/lib" />
+					<Add option="-Wl,--gc-sections" />
 					<Add library="umurmur" />
 					<Add library="wxled" />
 					<Add library="portaudio" />
@@ -256,71 +256,19 @@
 			<Option target="Debug_unix" />
 			<Option target="Release_unix" />
 		</Unit>
-		<Unit filename="modules/mumpi/deps/mumlib/include/mumlib.hpp">
-			<Option target="Debug_win32" />
-			<Option target="Release_win32" />
-			<Option target="Release_unix" />
-		</Unit>
-		<Unit filename="modules/mumpi/deps/mumlib/include/mumlib/Audio.hpp">
-			<Option target="Debug_win32" />
-			<Option target="Release_win32" />
-			<Option target="Release_unix" />
-		</Unit>
-		<Unit filename="modules/mumpi/deps/mumlib/include/mumlib/Callback.hpp">
-			<Option target="Debug_win32" />
-			<Option target="Release_win32" />
-			<Option target="Release_unix" />
-		</Unit>
-		<Unit filename="modules/mumpi/deps/mumlib/include/mumlib/CryptState.hpp">
-			<Option target="Debug_win32" />
-			<Option target="Release_win32" />
-			<Option target="Release_unix" />
-		</Unit>
-		<Unit filename="modules/mumpi/deps/mumlib/include/mumlib/Transport.hpp">
-			<Option target="Debug_win32" />
-			<Option target="Release_win32" />
-			<Option target="Release_unix" />
-		</Unit>
-		<Unit filename="modules/mumpi/deps/mumlib/include/mumlib/VarInt.hpp">
-			<Option target="Debug_win32" />
-			<Option target="Release_win32" />
-			<Option target="Release_unix" />
-		</Unit>
-		<Unit filename="modules/mumpi/deps/mumlib/include/mumlib/enums.hpp">
-			<Option target="Debug_win32" />
-			<Option target="Release_win32" />
-			<Option target="Release_unix" />
-		</Unit>
-		<Unit filename="modules/mumpi/deps/mumlib/src/Audio.cpp">
-			<Option target="Debug_win32" />
-			<Option target="Release_win32" />
-			<Option target="Release_unix" />
-		</Unit>
-		<Unit filename="modules/mumpi/deps/mumlib/src/Callback.cpp">
-			<Option target="Debug_win32" />
-			<Option target="Release_win32" />
-			<Option target="Release_unix" />
-		</Unit>
-		<Unit filename="modules/mumpi/deps/mumlib/src/CryptState.cpp">
-			<Option target="Debug_win32" />
-			<Option target="Release_win32" />
-			<Option target="Release_unix" />
-		</Unit>
-		<Unit filename="modules/mumpi/deps/mumlib/src/Transport.cpp">
-			<Option target="Debug_win32" />
-			<Option target="Release_win32" />
-			<Option target="Release_unix" />
-		</Unit>
-		<Unit filename="modules/mumpi/deps/mumlib/src/VarInt.cpp">
-			<Option target="Debug_win32" />
-			<Option target="Release_win32" />
-			<Option target="Release_unix" />
-		</Unit>
-		<Unit filename="modules/mumpi/deps/mumlib/src/mumlib.cpp">
-			<Option target="Debug_win32" />
-			<Option target="Release_win32" />
-			<Option target="Release_unix" />
-		</Unit>
+		<Unit filename="modules/mumpi/deps/mumlib/include/mumlib.hpp" />
+		<Unit filename="modules/mumpi/deps/mumlib/include/mumlib/Audio.hpp" />
+		<Unit filename="modules/mumpi/deps/mumlib/include/mumlib/Callback.hpp" />
+		<Unit filename="modules/mumpi/deps/mumlib/include/mumlib/CryptState.hpp" />
+		<Unit filename="modules/mumpi/deps/mumlib/include/mumlib/Transport.hpp" />
+		<Unit filename="modules/mumpi/deps/mumlib/include/mumlib/VarInt.hpp" />
+		<Unit filename="modules/mumpi/deps/mumlib/include/mumlib/enums.hpp" />
+		<Unit filename="modules/mumpi/deps/mumlib/src/Audio.cpp" />
+		<Unit filename="modules/mumpi/deps/mumlib/src/Callback.cpp" />
+		<Unit filename="modules/mumpi/deps/mumlib/src/CryptState.cpp" />
+		<Unit filename="modules/mumpi/deps/mumlib/src/Transport.cpp" />
+		<Unit filename="modules/mumpi/deps/mumlib/src/VarInt.cpp" />
+		<Unit filename="modules/mumpi/deps/mumlib/src/mumlib.cpp" />
 		<Unit filename="modules/mumpi/include/EmptyBufferException.hpp" />
 		<Unit filename="modules/mumpi/include/MumpiCallback.hpp" />
 		<Unit filename="modules/mumpi/include/RingBuffer.hpp" />
