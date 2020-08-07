@@ -23,12 +23,15 @@ const char *message_usage[] = {"Usage: wimic [options]\n\n"
                                "Options:\n"
                                "-h, --help          Show this help.\n"
                                "-a, --autostart     autostart mode.\n"
-                               "-s, --silent        disables the GUI\n"};
+                               "-s, --silent        disables the GUI\n"
+                               "-d, --device        specify default Nr. output device\n"};
 
 void wimic_help() {
 	printf(message_logo[0]);
 	printf(message_usage[0]);
-	//exit(1);
+#ifdef __WXGTK__
+	exit(1);
+#endif
 }
 
 int wimic_main(int argc, char **argv)
@@ -38,12 +41,13 @@ int wimic_main(int argc, char **argv)
     wmsystem_status.help_opt = false;
 
 	int next_option;
-	const char* const short_options = "has";
+	const char* const short_options = "hasd:";
 	const struct option long_options[] =
 	{
 		{ "help", no_argument, NULL, 'h' },
 		{ "autostart", no_argument, NULL, 'a' },
 		{ "silent", no_argument, NULL, 's' },
+        { "device", required_argument, NULL, 'd'},
 		{ NULL, 0, NULL, 0 }
 	};
 
@@ -69,7 +73,12 @@ int wimic_main(int argc, char **argv)
 			wmsystem_status.silent_mode = true;
 			break;
 
+		case 'd':
+			wmsystem_status.default_dev = std::atoi(optarg);
+			break;
+
 		case '?':      // Invalid option
+		    wmsystem_status.help_opt = true;
 			wimic_help();
 
 		case -1:      // No more options
