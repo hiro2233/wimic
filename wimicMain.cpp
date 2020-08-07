@@ -423,6 +423,10 @@ void wimicDialog::_detect_devices()
         }
     }
 
+    if (wmsystem_status.default_dev > 0) {
+        wmdev.default_dev = wmsystem_status.default_dev;
+    }
+
     ListBox1->Clear();
     ListBox1->InsertItems(s1, 0);
     ListBox1->SetSelection(indextmp - 1);
