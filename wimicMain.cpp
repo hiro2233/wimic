@@ -52,6 +52,7 @@
 #endif
 
 extern wmdevices_t wmdev;
+extern wm_system_status_t wmsystem_status;
 
 bool wimicDialog::_started = false;
 bool wimicDialog::_server_started = false;
@@ -60,6 +61,7 @@ struct _argmain {
     char *argv[ARGVCNT];
 };
 
+/*
 struct _status_system {
     bool conected;
     bool close_app;
@@ -68,6 +70,7 @@ struct _status_system {
 };
 
 _status_system status_system;
+*/
 
 int main_start(int argc, char *argv[]);
 
@@ -203,11 +206,16 @@ wimicDialog::wimicDialog(wxWindow* parent,wxWindowID id)
     _wm_utils = new CLWimicUtils;
 
     stop_server->Enable(false);
-    status_system.close_app = false;
+    wmsystem_status.close_app = false;
     timer_connect_status.Stop();
     Led1->SetOnOrOff(false);
     _detect_devices();
     _make_about();
+
+    if (wmsystem_status.autostart_mode) {
+        wxCommandEvent event;
+        Onstart_clientClick(event);
+    }
 }
 
 wimicDialog::~wimicDialog()
@@ -218,13 +226,13 @@ wimicDialog::~wimicDialog()
 
 void wimicDialog::OnQuit(wxCommandEvent& event)
 {
-    status_system.conected = WIMIC::get_connected();
+    wmsystem_status.conected = WIMIC::get_connected();
     WIMIC::stop_threading();
 
-    status_system.server_shuttingdown = true;
-    status_system.close_app = true;
+    wmsystem_status.server_shuttingdown = true;
+    wmsystem_status.close_app = true;
 
-    if (!status_system.conected) {
+    if (!wmsystem_status.conected) {
         Close();
     }
 }
@@ -309,7 +317,7 @@ void wimicDialog::Onstart_clientClick(wxCommandEvent& event)
 void wimicDialog::Onstop_clientClick(wxCommandEvent& event)
 {
     WIMIC::stop_threading();
-    status_system.server_shuttingdown = true;
+    wmsystem_status.server_shuttingdown = true;
 }
 
 void wimicDialog::_start_server()
@@ -342,31 +350,31 @@ void wimicDialog::_start_server()
 
 void wimicDialog::Ontimer_connect_statusTrigger(wxTimerEvent& event)
 {
-    if (!status_system.server_running) {
+    if (!wmsystem_status.server_running) {
         if (UMSERVER::server_is_running()) {
-            status_system.server_running = true;
+            wmsystem_status.server_running = true;
             _start_client();
         }
     }
 
-    if (!status_system.conected) {
-        if (status_system.server_shuttingdown) {
-            status_system.server_shuttingdown = false;
+    if (!wmsystem_status.conected) {
+        if (wmsystem_status.server_shuttingdown) {
+            wmsystem_status.server_shuttingdown = false;
             UMSERVER::Server_shutdown();
-            status_system.server_running = false;
+            wmsystem_status.server_running = false;
             _detect_devices();
-            if (status_system.close_app) {
+            if (wmsystem_status.close_app) {
                 Close();
             }
         }
     }
 
-    status_system.conected = WIMIC::get_connected();
+    wmsystem_status.conected = WIMIC::get_connected();
 
-    Led1->SetOnOrOff(status_system.conected);
-    stop_server->Enable(status_system.conected);
-    start_client->Enable(!status_system.conected);
-    select_dev->Enable(!status_system.conected);
+    Led1->SetOnOrOff(wmsystem_status.conected);
+    stop_server->Enable(wmsystem_status.conected);
+    start_client->Enable(!wmsystem_status.conected);
+    select_dev->Enable(!wmsystem_status.conected);
 }
 
 void wimicDialog::OnPaint(wxPaintEvent& event)
