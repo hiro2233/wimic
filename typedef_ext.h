@@ -29,6 +29,7 @@ typedef struct __wm_system_status_t {
     bool silent_mode;
     bool autostart_mode;
     bool help_opt;
+    uint8_t default_dev;
 } wm_system_status_t;
 
 extern wmdevices_t wmdev;
