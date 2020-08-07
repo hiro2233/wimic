@@ -21,4 +21,15 @@ typedef struct __wmdevices_t {
     uint8_t index_tmp_out[50];
 } wmdevices_t;
 
+typedef struct __wm_system_status_t {
+    bool conected;
+    bool close_app;
+    bool server_running;
+    bool server_shuttingdown;
+    bool silent_mode;
+    bool autostart_mode;
+    bool help_opt;
+} wm_system_status_t;
+
 extern wmdevices_t wmdev;
+extern wm_system_status_t wmsystem_status;
