@@ -17,6 +17,7 @@
  */
 
 #include "wimic_Callback.h"
+#include "typedef_ext.h"
 #include <speex/speex_resampler.h>
 #include <math.h>
 #include <string.h>
@@ -31,6 +32,8 @@ uint16_t wimic_Callback::_chan_speak_cnt = 0;
 
 int16_t wimic_Callback::_pcmbuf_out[MAX_PCM_INTERNAL_BUF] = {0};
 int16_t wimic_Callback::_pcmbuf_in[MAX_PCM_INTERNAL_BUF] = {0};
+
+extern wm_system_status_t wmsystem_status;
 
 wimic_Callback::wimic_Callback()
 {
@@ -269,6 +272,9 @@ void *wimic_Callback::_timer_buf(void *arg)
     _started = false;
 
     printf("Exit timer buf\n");
+    if (wmsystem_status.silent_mode) {
+        exit(1);
+    }
     pthread_exit(NULL);
 }
 
