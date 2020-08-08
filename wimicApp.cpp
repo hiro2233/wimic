@@ -115,8 +115,7 @@ bool wimicApp::OnInit()
         Dlg = new wimicDialog(0);
         SetTopWindow(Dlg);
         if (!wmsystem_status.silent_mode) {
-            Dlg->ShowModal();
-            wxsOK = false;
+            Dlg->Show();
         }
     }
     //*)
