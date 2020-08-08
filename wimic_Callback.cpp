@@ -272,9 +272,6 @@ void *wimic_Callback::_timer_buf(void *arg)
     _started = false;
 
     printf("Exit timer buf\n");
-    if (wmsystem_status.silent_mode) {
-        exit(1);
-    }
     pthread_exit(NULL);
 }
 
