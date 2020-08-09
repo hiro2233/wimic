@@ -33,8 +33,6 @@ uint16_t wimic_Callback::_chan_speak_cnt = 0;
 int16_t wimic_Callback::_pcmbuf_out[MAX_PCM_INTERNAL_BUF] = {0};
 int16_t wimic_Callback::_pcmbuf_in[MAX_PCM_INTERNAL_BUF] = {0};
 
-extern wm_system_status_t wmsystem_status;
-
 wimic_Callback::wimic_Callback()
 {
 }
