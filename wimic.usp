@@ -90,6 +90,7 @@
 					<Add option="-DwxDEBUG_LEVEL=0" />
 					<Add option="-DLOG4CPP_FIX_ERROR_COLLISION=1" />
 					<Add option="-D__USE_W32_SOCKETS" />
+					<Add option="-DBOOST_ERROR_CODE_HEADER_ONLY" />
 					<Add directory="$(#wxsetup.include)" />
 					<Add directory="$(#wx.include)" />
 					<Add directory="$(HOME)/UrusStudio/src/plugins/contrib/wxContribItems/wxled/led/include" />
@@ -98,6 +99,7 @@
 					<Add option="-static" />
 					<Add option="-Wl,--no-undefined" />
 					<Add option="-Wl,--allow-multiple-definition" />
+					<Add option="-fopenmp" />
 					<Add library="$(#wx.wxlibs)" />
 					<Add library="wxled" />
 					<Add library="wxscintilla_urus-3.1" />
@@ -156,6 +158,7 @@
 					<Add option="-DwxDEBUG_LEVEL=0" />
 					<Add option="-DLOG4CPP_FIX_ERROR_COLLISION=1" />
 					<Add option="-D__USE_W32_SOCKETS" />
+					<Add option="-DBOOST_ERROR_CODE_HEADER_ONLY" />
 					<Add directory="$(#wxsetup.include)" />
 					<Add directory="$(#wx.include)" />
 					<Add directory="$(HOME)/UrusStudio/src/plugins/contrib/wxContribItems/wxled/led/include" />
@@ -165,7 +168,7 @@
 					<Add option="-static" />
 					<Add option="-Wl,--no-undefined" />
 					<Add option="-Wl,--allow-multiple-definition" />
-					<Add option="-mthreads" />
+					<Add option="-fopenmp" />
 					<Add library="$(#wx.wxlibs)" />
 					<Add library="wxled" />
 					<Add library="wxscintilla_urus-3.1" />
@@ -238,6 +241,7 @@
 			<Add directory="modules/mumpi/deps/mumlib" />
 			<Add directory="$(WORKSPACEDIR)" />
 			<Add directory="../wimic" />
+			<Add directory="$(WORKSPACEDIR)/UrusStudio/modules/boost" />
 		</Compiler>
 		<Linker>
 			<Add library="portaudio" />
