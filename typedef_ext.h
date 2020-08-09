@@ -33,4 +33,4 @@ typedef struct __wm_system_status_t {
 } wm_system_status_t;
 
 extern wmdevices_t wmdev;
-extern wm_system_status_t wmsystem_status;
+extern volatile wm_system_status_t wmsystem_status;
