@@ -19,7 +19,6 @@
 #ifndef WIMICMAIN_H
 #define WIMICMAIN_H
 
-#include <wx/taskbar.h>
 #include <wx/xrc/xmlres.h>
 
 //(*Headers(wimicDialog)
@@ -36,6 +35,8 @@
 #include <wx/textctrl.h>
 #include <wx/timer.h>
 //*)
+
+#include "typedef_ext.h"
 
 class CLWimicUtils
 {
@@ -56,10 +57,13 @@ private:
 
 class wimicDialog: public wxDialog
 {
+    friend class wimic_TaskBar;
     public:
 
         wimicDialog(wxWindow* parent,wxWindowID id = -1);
         virtual ~wimicDialog();
+
+        void OnCloseWindow(wxCloseEvent& event);
 
     private:
 
@@ -75,7 +79,7 @@ class wimicDialog: public wxDialog
         void _detect_devices();
         const char *_get_local_ip();
         void _make_about();
-        int lookup_host(const char *host);
+        int _lookup_host(const char *host);
 
         //(*Handlers(wimicDialog)
         void OnQuit(wxCommandEvent& event);

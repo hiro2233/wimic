@@ -21,7 +21,6 @@
 #include <wx/stdpaths.h>
 #include <wx/filename.h>
 
-#include "typedef_ext.h"
 #include <pthread.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -50,9 +49,6 @@
 #ifdef __WXGTK__
 #include "resources/logo_wimic.xpm"
 #endif
-
-extern wmdevices_t wmdev;
-extern wm_system_status_t wmsystem_status;
 
 bool wimicDialog::_started = false;
 bool wimicDialog::_server_started = false;
@@ -120,6 +116,7 @@ const long wimicDialog::ID_TIMER1 = wxNewId();
 BEGIN_EVENT_TABLE(wimicDialog,wxDialog)
     //(*EventTable(wimicDialog)
     //*)
+    EVT_CLOSE(wimicDialog::OnCloseWindow)
 END_EVENT_TABLE()
 
 wimicDialog::wimicDialog(wxWindow* parent,wxWindowID id)
@@ -220,8 +217,14 @@ wimicDialog::wimicDialog(wxWindow* parent,wxWindowID id)
 
 wimicDialog::~wimicDialog()
 {
+    exit(1);
     //(*Destroy(wimicDialog)
     //*)
+}
+
+void wimicDialog::OnCloseWindow(wxCloseEvent& event)
+{
+    Destroy();
 }
 
 void wimicDialog::OnQuit(wxCommandEvent& event)
@@ -233,7 +236,7 @@ void wimicDialog::OnQuit(wxCommandEvent& event)
     wmsystem_status.close_app = true;
 
     if (!wmsystem_status.conected) {
-        Close();
+        Close(true);
     }
 }
 
@@ -364,7 +367,7 @@ void wimicDialog::Ontimer_connect_statusTrigger(wxTimerEvent& event)
             wmsystem_status.server_running = false;
             _detect_devices();
             if (wmsystem_status.close_app) {
-                Close();
+                Close(true);
             }
         }
     }
@@ -392,12 +395,12 @@ void wimicDialog::_make_dir(const char *dir, int perm)
 
 void wimicDialog::OnKillFocus(wxFocusEvent& event)
 {
-    event.Skip();
+    //event.Skip();
 }
 
 void wimicDialog::OnPanel1KillFocus(wxFocusEvent& event)
 {
-    event.Skip();
+    //event.Skip();
 }
 
 void wimicDialog::OnButton1Click(wxCommandEvent& event)
@@ -499,7 +502,7 @@ void wimicDialog::_make_about()
     hyper_link_license->SetSize(Panel1->GetSize().GetWidth(), 20);
 }
 
-int wimicDialog::lookup_host(const char *host)
+int wimicDialog::_lookup_host(const char *host)
 {
     struct addrinfo hints, *res;
     int errcode;
