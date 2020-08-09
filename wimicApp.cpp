@@ -5,7 +5,11 @@
 #include <getopt.h>
 #include <signal.h>
 
-wm_system_status_t wmsystem_status;
+#ifdef __WXGTK__
+#include "resources/logo_wimic.xpm"
+#endif
+
+volatile wm_system_status_t wmsystem_status;
 
 //(*AppHeaders
 #include "wimicMain.h"
@@ -107,6 +111,13 @@ bool wimicApp::OnInit()
         exit(1);
     }
 
+    m_wimic_taskBarIcon = new wimic_TaskBar();
+#if defined(__WXCOCOA__)
+    m_wimic_dockIcon = new wimic_TaskBar(wxTaskBarIcon::DOCK);
+#endif
+    if (!m_wimic_taskBarIcon->SetIcon(wxICON(logo_wimic), wxT("WiMic Server/Client")))
+        wxMessageBox(wxT("Could not set icon."));
+
     //(*AppInitialize
     bool wxsOK = true;
     wxInitAllImageHandlers();
@@ -119,11 +130,108 @@ bool wimicApp::OnInit()
         }
     }
     //*)
-    return wxsOK;
 
+    return wxsOK;
 }
 
 int wimicApp::OnExit()
 {
     return 0;
+}
+
+//////////////////////////////////////////
+//          WiMic TaskBar
+//////////////////////////////////////////
+
+bool wimic_TaskBar::_start_enabled = true;
+bool wimic_TaskBar::_stop_enabled = false;
+bool wimic_TaskBar::_show_enabled = false;
+
+BEGIN_EVENT_TABLE(wimic_TaskBar,wxTaskBarIcon)
+    EVT_MENU(TSKBR_SHOW,        wimic_TaskBar::OnMenuShow)
+    EVT_MENU(TSKBR_HIDE,        wimic_TaskBar::OnMenuHide)
+    EVT_MENU(TSKBR_EXIT,        wimic_TaskBar::OnMenuExit)
+    EVT_TASKBAR_LEFT_DCLICK(    wimic_TaskBar::OnLeftButtonDClick)
+    EVT_MENU(TSKBR_START,       wimic_TaskBar::OnMenuSubStart)
+    EVT_UPDATE_UI(TSKBR_START,  wimic_TaskBar::OnMenuUIStart)
+    EVT_MENU(TSKBR_STOP,        wimic_TaskBar::OnMenuSubStop)
+    EVT_UPDATE_UI(TSKBR_STOP,   wimic_TaskBar::OnMenuUIStop)
+END_EVENT_TABLE()
+
+#if defined(__WXCOCOA__)
+wimic_TaskBar::wimic_TaskBar(wxTaskBarIconType iconType = DEFAULT_TYPE)
+    : wxTaskBarIcon(iconType)
+#else
+wimic_TaskBar::wimic_TaskBar()
+#endif
+{
+}
+
+void wimic_TaskBar::OnMenuShow(wxCommandEvent& event)
+{
+    wimicApp *wimicapp = &wxGetApp();
+    wimicapp->Dlg->Show(true);
+}
+
+void wimic_TaskBar::OnMenuHide(wxCommandEvent& event)
+{
+    wimicApp *wimicapp = &wxGetApp();
+    wimicapp->Dlg->Show(false);
+}
+
+void wimic_TaskBar::OnMenuExit(wxCommandEvent& event)
+{
+    wimicApp *wimicapp = &wxGetApp();
+    wimicapp->Dlg->OnQuit(event);
+}
+
+void wimic_TaskBar::OnMenuSubStart(wxCommandEvent& event)
+{
+    wimicApp *wimicapp = &wxGetApp();
+    wimicapp->Dlg->Onstart_clientClick(event);
+}
+
+void wimic_TaskBar::OnMenuSubStop(wxCommandEvent& event)
+{
+    wimicApp *wimicapp = &wxGetApp();
+    wimicapp->Dlg->Onstop_clientClick(event);
+}
+
+wxMenu *wimic_TaskBar::CreatePopupMenu()
+{
+    wxMenu *menu = new wxMenu;
+    menu->Append(TSKBR_SHOW, _T("&Show"));
+    menu->Append(TSKBR_HIDE, _T("&Hide"));
+    menu->AppendSeparator();
+    wxMenu *submenu = new wxMenu;
+    submenu->Append(TSKBR_START, _T("Star&t"));
+    submenu->Append(TSKBR_STOP, _T("Sto&p"));
+    menu->Append(TSKBR_SUBMAIN, _T("&WiMic"), submenu);
+
+#ifndef __WXMAC_OSX__ // Mac has built-in quit menu
+    menu->AppendSeparator();
+    menu->Append(TSKBR_EXIT,    _T("&Close"));
+#endif
+
+    _start_enabled = !wmsystem_status.conected;
+    _stop_enabled = !_start_enabled;
+
+    return menu;
+}
+
+void wimic_TaskBar::OnLeftButtonDClick(wxTaskBarIconEvent& event)
+{
+    wimicApp *wimicapp = &wxGetApp();
+    _show_enabled = !_show_enabled;
+    wimicapp->Dlg->Show(_show_enabled);
+}
+
+void wimic_TaskBar::OnMenuUIStart(wxUpdateUIEvent &event)
+{
+    event.Enable(_start_enabled);
+}
+
+void wimic_TaskBar::OnMenuUIStop(wxUpdateUIEvent &event)
+{
+    event.Enable(_stop_enabled);
 }
