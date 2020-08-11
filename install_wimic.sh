@@ -25,7 +25,12 @@ tar -xvzf wimic.tar.gz 2>/dev/null
 cp -rf wimic/* . 2>/dev/null
 rm -rf wimic 2>/dev/null
 
-./install_deps.sh
+. install_deps.sh
+
+mkdir -p $URUSSPATH
 
 cp -f ./bin/Release/wimic $URUSSPATH
 cp -f ./wimic.conf  $URUSSPATH
+cp -rP lib $URUSSPATH/../
+
+sudo ldconfig
