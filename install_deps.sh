@@ -72,6 +72,10 @@ else
 	echo "File structure present"
 fi
 
+if [ ! -e "/etc/profile.d/wimic_service.sh" ] ; then
+	sudo cp -f ./scripts/wimic_service.sh /etc/profile.d/
+fi
+
 if [ `printf "$PLATOS" | grep -ri - -e "raspbian" | wc -l` -gt 0 ] ; then
 	if [ ! -e /etc/alsa/conf.d/10-wimic-device.conf ] ; then
 		sudo mkdir -p /etc/alsa/conf.d
