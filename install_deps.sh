@@ -92,5 +92,3 @@ echo "Installed mimes"
 fi
 
 ./clone_urusstudio.sh
-
-exit 0
