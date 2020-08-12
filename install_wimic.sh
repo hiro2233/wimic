@@ -21,6 +21,13 @@ rm -f CHANGELOG.txt
 wget -O CHANGELOG.txt $URLCHANGELOG
 grep -ri CHANGELOG.txt -e "version pre-$TRIPLETNAME:" | awk '{print $3}' | cut -f2 -d: | head -n1 | xargs printf %s > version.txt
 wget -c $URLDOWNLOAD/$(cat version.txt)/wimic.tar.gz
+wget -c $URLDOWNLOAD/$(cat version.txt)/wimic.tar.gz.md5
+
+if [ `md5sum -c wimic.tar.gz.md5 | grep -ri - -e 'ok' | wc -l` -eq 0 ] ; then
+printf "MD5SUM mismatch!\nInstall stopped.\n\n"
+return
+fi
+
 tar -xvzf wimic.tar.gz 2>/dev/null
 cp -rf wimic/* . 2>/dev/null
 rm -rf wimic 2>/dev/null
