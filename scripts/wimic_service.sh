@@ -10,6 +10,10 @@
 # Description:       	WiMic Server/Client service
 ### END INIT INFO
 
+if [ ! "x$SSH_CLIENT" = "x" ] || [ ! "x$SSH_TTY" = "x" ] && [ "$0" = "-bash" ] ; then
+return
+fi
+
 export PATH=/system/urus/bin:/bin:/sbin:/usr/bin:/usr/sbin:$PATH
 export DISPLAY=:0
 
@@ -26,12 +30,16 @@ DELAYSTART=10
 START=$1
 if [ "$1" = "/etc/profile" ] ; then
 START=start
+elif [ "$1" = "start" ] ; then
+START=start
+elif [ "$0" = "-bash" ] ; then
+START=start
 fi
+
 echo $START > /system/urus/slotdata/log.txt
 case "$START" in
 #case "$1" in
 	start)
-	if [ "x$SSH_CLIENT" = "x" ] || [ "x$SSH_TTY" = "x" ] ; then
 	printf "Starting WiMic...\n"
 		if [ "$MIC_DISABLED" = 1 ] || [ ! -n $MIC_DISABLED ] ; then
 			sudo rmmod snd-aloop 2>/dev/null
@@ -47,7 +55,6 @@ case "$START" in
 		elif [ `printf "$PLATOS" | grep -ri - -e "ubuntu" | wc -l` -gt 0 ] ; then
 			sh -c "sleep $DELAYSTART && DISPLAY=:0 /system/urus/bin/wimic -a &>/dev/null &"
 		fi
-	fi
 		;;
 	stop)
 		sudo killall -s KILL wimic
