@@ -91,4 +91,6 @@ sudo update-desktop-database
 echo "Installed mimes"
 fi
 
+if [ "x$CLONE_URUSSTUDIO" = "x" ] ; then
 ./clone_urusstudio.sh
+fi
