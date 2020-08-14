@@ -3,6 +3,10 @@
 URUSSPATH=/system/urus/bin/
 export CLONE_URUSSTUDIO=0
 
+if [ "x$INSTALL_BASE_LIBS" = "x" ] ; then
+export INSTALL_BASE_LIBS="yes"
+fi
+
 BITARCH=`uname -m`
 OSKERNEL=`uname -s | awk '{print tolower($0)}'`
 PLATOS=`cat /etc/os-release | grep -rwi - -e "ID" | cut -f2 -d=`

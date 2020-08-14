@@ -18,6 +18,9 @@ PLATOS=$(cat /etc/os-release | grep -ri - -e "ID")
 if [ `printf "$PLATOS" | grep -ri - -e "raspbian" | wc -l` -gt 0 ] ; then
     SCOWPWRCMD="apt-get"
     YESNOCMD="-qy"
+	if [ "$INSTALL_BASE_LIBS" = "yes" ] ; then
+		BASEPKG="libgtk2.0-0 libprotobuf17 libprotobuf-c1 libconfig9 libboost-system1.67.0 liblog4cpp5v5 libopus0 libspeexdsp1 portaudio19-dev mime-support shared-mime-info desktop-file-utils"
+	fi
 	BASEPKG="libssl1.0-dev "$BASEPKG
     #sudo add-apt-repository ppa:openjdk-r/ppa -y
     #sudo apt-get update $YESNOCMD
