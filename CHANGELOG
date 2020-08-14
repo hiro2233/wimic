@@ -1,3 +1,11 @@
+version pre-linux-raspbian-armv7l: v1.0.4-pre-linux-raspbian-armv7l
+
+- Added support for Raspberry Pi OS.
+- Added wimic alsa devices alias for phisical and aloop.
+- Added service mode for Raspberry Pi OS.
+- Added System tray taskbar control.
+- Added command line executing mode.
+
 version pre-win32: v1.0.3-pre-win32
 
 - Added resampling.
