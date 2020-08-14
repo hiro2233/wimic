@@ -39,6 +39,7 @@ clean: clean_umurmur_unix clean_release_unix
 before_release_unix: 
 	protoc --cpp_out=. modules/mumpi/deps/mumlib/Mumble.proto
 	test -d bin/Release || mkdir -p bin/Release
+	cp wimic.conf bin/Release/
 	test -d $(OBJDIR_RELEASE_UNIX)/modules/mumpi/deps/mumlib/src || mkdir -p $(OBJDIR_RELEASE_UNIX)/modules/mumpi/deps/mumlib/src
 	test -d $(OBJDIR_RELEASE_UNIX) || mkdir -p $(OBJDIR_RELEASE_UNIX)
 	test -d $(OBJDIR_RELEASE_UNIX)/modules/mumpi/src || mkdir -p $(OBJDIR_RELEASE_UNIX)/modules/mumpi/src
