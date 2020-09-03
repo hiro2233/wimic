@@ -469,7 +469,7 @@ const char *wimicDialog::_get_local_ip()
                 printf("Unknown AF\n");
         }
 
-        if (!(strstr(hostip, "127.")) && (ifa->ifa_addr->sa_family == AF_INET)) {
+        if (!(strstr(hostip, "127.")) && (strstr(hostip, "192.") || strstr(hostip, "10.")) && (ifa->ifa_addr->sa_family == AF_INET)) {
             if (s != 0) {
                 printf("getnameinfo() failed: %s\n", gai_strerror(s));
                 exit(EXIT_FAILURE);
