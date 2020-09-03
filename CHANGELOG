@@ -1,3 +1,9 @@
+version pre-win32: v1.0.4-pre-win32
+
+- Fixed output device delay time.
+- Added System tray taskbar control.
+- Added command line executing mode.
+
 version pre-linux-raspbian-armv7l: v1.0.4-pre-linux-raspbian-armv7l
 
 - Added support for Raspberry Pi OS.
