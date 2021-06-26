@@ -66,7 +66,7 @@ make
 
 You can connect to the server with WiMic Android App, this was designed and optimized to work with WiMic Server/Client.
 
-<a href='https://play.google.com/store/apps/details?id=bo.htakey.wimic&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='resources/google-play-badge.png' width="50%"/></a>
+<a href='https://play.google.com/store/apps/details?id=bo.htakey.wimic&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='resources/google-play-badge.png' width="30%"/></a>
 
 Official repo:
 
