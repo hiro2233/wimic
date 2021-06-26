@@ -118,16 +118,28 @@ bool wimicApp::OnInit()
     if (!m_wimic_taskBarIcon->SetIcon(wxICON(logo_wimic), wxT("WiMic Server/Client")))
         wxMessageBox(wxT("Could not set icon."));
 
-    //(*AppInitialize
-    bool wxsOK = true;
+    bool wxs_ok = true;
     wxInitAllImageHandlers();
-    if ( wxsOK )
+    if ( wxs_ok )
     {
         Dlg = new wimicDialog(0);
         SetTopWindow(Dlg);
         if (!wmsystem_status.silent_mode) {
             Dlg->Show();
         }
+    }
+
+    return wxs_ok;
+
+    //(*AppInitialize
+    bool wxsOK = true;
+    wxInitAllImageHandlers();
+    if ( wxsOK )
+    {
+    	wimicDialog Dlg(0);
+    	SetTopWindow(&Dlg);
+    	Dlg.ShowModal();
+    	wxsOK = false;
     }
     //*)
 
