@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <UrusStudio_workspace_file>
 	<Workspace title="Workspace">
-		<Project filename="wimic.usp" />
+		<Project filename="wimic.usp">
+			<Depends filename="modules/umurmur/umurmur.usp" />
+		</Project>
 		<Project filename="modules/mumpi/deps/mumlib/mumlib.usp" />
-		<Project filename="modules/mumpi/mumpi.usp" />
+		<Project filename="modules/mumpi/mumpi.usp">
+			<Depends filename="modules/mumpi/deps/mumlib/mumlib.usp" />
+		</Project>
 		<Project filename="modules/umurmur/umurmur.usp" />
 	</Workspace>
 </UrusStudio_workspace_file>
