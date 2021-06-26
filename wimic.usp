@@ -8,18 +8,19 @@
 		<Build>
 			<Target title="Debug_unix">
 				<Option output="bin/Debug/wimic" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="$(WORKSPACEDIR)/" />
 				<Option object_output="obj/Debug/" />
 				<Option type="0" />
 				<Option compiler="gcc" />
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
+					<Add option="-std=gnu++11" />
 					<Add option="-g" />
 					<Add option="`wx-config --static=no --unicode=yes --debug=no --cflags`" />
-					<Add option="-std=gnu++11" />
 					<Add option="-DBOOST_ERROR_CODE_HEADER_ONLY" />
 				</Compiler>
 				<Linker>
-					<Add option="`wx-config  --version=2.8 --static=no --unicode=yes --debug=no --libs`" />
+					<Add option="`wx-config  --static=no --unicode=yes --debug=no --libs`" />
 					<Add option="-Wl,-rpath=.:/system/urus/lib/urusstudio/wxContribItems:/system/urus/lib" />
 					<Add library="boost_system" />
 					<Add library="umurmur" />
@@ -41,19 +42,20 @@
 			</Target>
 			<Target title="Release_unix">
 				<Option output="bin/Release/wimic" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="$(WORKSPACEDIR)/" />
 				<Option object_output="obj/Release/" />
 				<Option type="0" />
 				<Option compiler="gcc" />
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-O2" />
-					<Add option="`wx-config --static=no --unicode=yes --debug=no --cflags`" />
 					<Add option="-std=gnu++11" />
+					<Add option="`wx-config --static=no --unicode=yes --debug=no --cflags`" />
 					<Add option="-DBOOST_ERROR_CODE_HEADER_ONLY" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add option="`wx-config  --version=2.8 --static=no --unicode=yes --debug=no --libs`" />
+					<Add option="`wx-config  --static=no --unicode=yes --debug=no --libs`" />
 					<Add option="-Wl,-rpath=.:/system/urus/lib/urusstudio/wxContribItems:/system/urus/lib" />
 					<Add option="-Wl,--gc-sections" />
 					<Add library="umurmur" />
@@ -150,70 +152,42 @@
 				<Option object_output="build/.obj/Release/" />
 				<Option type="0" />
 				<Option compiler="gcc" />
+				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-O2" />
 					<Add option="-std=gnu++11" />
-					<Add option="-D__WXMSW__" />
-					<Add option="-D_FILE_OFFSET_BITS=64" />
-					<Add option="-DwxDEBUG_LEVEL=0" />
-					<Add option="-DLOG4CPP_FIX_ERROR_COLLISION=1" />
-					<Add option="-D__USE_W32_SOCKETS" />
+					<Add option="`wx-config --static=no --unicode=yes --debug=no --cflags`" />
 					<Add option="-DBOOST_ERROR_CODE_HEADER_ONLY" />
-					<Add directory="$(#wxsetup.include)" />
-					<Add directory="$(#wx.include)" />
-					<Add directory="$(HOME)/UrusStudio/src/plugins/contrib/wxContribItems/wxled/led/include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add option="-static" />
-					<Add option="-Wl,--no-undefined" />
-					<Add option="-Wl,--allow-multiple-definition" />
-					<Add option="-fopenmp" />
-					<Add library="$(#wx.wxlibs)" />
-					<Add library="wxled" />
-					<Add library="wxscintilla_urus-3.1" />
-					<Add library="wxtiff_urus-3.1" />
-					<Add library="wxjpeg_urus-3.1" />
-					<Add library="wxpng_urus-3.1" />
-					<Add library="wxregexu_urus-3.1" />
-					<Add library="wxexpat_urus-3.1" />
-					<Add library="z" />
-					<Add library="rpcrt4" />
-					<Add library="oleaut32" />
-					<Add library="ole32" />
-					<Add library="uuid" />
-					<Add library="uxtheme" />
-					<Add library="winspool" />
-					<Add library="winmm" />
-					<Add library="shell32" />
-					<Add library="shlwapi" />
-					<Add library="comctl32" />
-					<Add library="comdlg32" />
-					<Add library="advapi32" />
-					<Add library="version" />
-					<Add library="wsock32" />
-					<Add library="gdi32" />
-					<Add library="oleacc" />
-					<Add library="kernel32" />
-					<Add library="user32" />
-					<Add library="lzma" />
+					<Add option="`wx-config  --static=no --unicode=yes --debug=no --libs`" />
+					<Add option="-Wl,-rpath=.:/system/urus/lib/urusstudio/wxContribItems:/system/urus/lib" />
+					<Add option="-Wl,--gc-sections" />
 					<Add library="umurmur" />
+					<Add library="wxled" />
+					<Add library="portaudio" />
+					<Add library="log4cpp" />
+					<Add library="config" />
+					<Add library="protobuf-c" />
+					<Add library="protobuf" />
+					<Add library="opus" />
+					<Add library="speexdsp" />
 					<Add library="ssl" />
 					<Add library="crypto" />
-					<Add library="config" />
-					<Add library="log4cpp" />
-					<Add library="speexdsp" />
-					<Add library="opus" />
-					<Add library="protobuf" />
-					<Add library="ws2_32" />
-					<Add library="protobuf-c" />
-					<Add directory="$(#wx.lib)" />
 					<Add directory="modules/mumpi/bin/Release" />
 					<Add directory="modules/umurmur/bin/Release" />
 					<Add directory="modules/mumpi/deps/mumlib/bin/Release" />
 				</Linker>
+				<ExtraCommands>
+					<Add before="protoc --cpp_out=. modules/mumpi/deps/mumlib/Mumble.proto" />
+				</ExtraCommands>
 			</Target>
 		</Build>
+		<VirtualTargets>
+			<Add alias="Debug_unix_wimic" targets="Debug_unix;" />
+			<Add alias="Release_unix_wimic" targets="Release_unix;" />
+		</VirtualTargets>
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-Wno-unused-local-typedefs" />
@@ -293,15 +267,12 @@
 		<Unit filename="wimic_Callback.h" />
 		<Unit filename="wxsmith/wimicdialog.wxs" />
 		<Extensions>
-			<envvars />
-			<code_completion />
 			<wxsmith version="1">
 				<gui name="wxWidgets" src="wimicApp.cpp" main="wimicDialog" init_handlers="necessary" language="CPP" />
 				<resources>
 					<wxDialog wxs="wxsmith/wimicdialog.wxs" src="wimicMain.cpp" hdr="wimicMain.h" fwddecl="0" i18n="1" name="wimicDialog" language="CPP" />
 				</resources>
 			</wxsmith>
-			<debugger />
 		</Extensions>
 	</Project>
 </UrusStudio_project_file>
