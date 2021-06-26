@@ -50,6 +50,14 @@
 #include "resources/logo_wimic.xpm"
 #endif
 
+#define DEF_CONF_STRING \
+            "channels = ( {\n" \
+            "   name = \"WiMic\";\n" \
+            "   parent = \"\";\n" \
+            "   description = \"WiMic channel.\";\n" \
+            "   }\n" \
+            ");\n"
+
 bool wimicDialog::_started = false;
 bool wimicDialog::_server_started = false;
 
@@ -562,9 +570,15 @@ uint32_t CLWimicUtils::read_file_to_buff(const char file_conf[], uint8_t **cbuff
 {
     uint32_t sizewimic_conf;
 
-    FILE *fwimicconf= fopen(file_conf, "r");
+    FILE *fwimicconf= fopen(file_conf, "a+");
     fseek(fwimicconf, 0, SEEK_END);
     sizewimic_conf = ftell(fwimicconf);
+
+    if (sizewimic_conf == 0) {
+        fprintf(fwimicconf, "%s", DEF_CONF_STRING);
+        sizewimic_conf = ftell(fwimicconf);
+    }
+
     fseek(fwimicconf, 0, SEEK_SET);
 
     cbuff[0] = new uint8_t[sizewimic_conf + 1];
@@ -640,35 +654,62 @@ void CLWimicUtils::init_fs_urus_cygmsys()
 
 void CLWimicUtils::log_wimic(char current_dir[], uint8_t **conf_buff, uint32_t sizewimic_conf)
 {
+    char urus_path[] = "/system/urus/slotdata";
     char buf[MAX_CHAR_PATH] = {0};
     char hdir[50] = {0};
     struct passwd *pw = getpwuid(getuid());
     const char *username = pw->pw_name;
 
     printf("USER: %s\n", username);
-    sprintf(hdir, "%s/%s\n", username, "nopassws");
+    sprintf(hdir, "%s\n", username);
 
-    FILE *flogwimic= fopen("logfile.txt", "w");
+    FILE *flogwimic= fopen("logfile.txt", "a+");
+
+    fprintf(flogwimic, "\n-----------------\n");
+    fprintf(flogwimic, "WiMic log start!\n");
 	fprintf(flogwimic, "current working directory BEFORE: %s\n", current_dir);
 
     fprintf(flogwimic, "USER: %s\n", hdir);
-    fprintf(flogwimic, "CYGCONVERT: %s Size: %d\ndata:\n\n%s\n", current_dir, sizewimic_conf, conf_buff[0]);
+    if (sizewimic_conf > 0) {
+        fprintf(flogwimic, "CYGCONVERT: %s \nSize buf conf: %d\ndata:\n\n%s\n", current_dir, sizewimic_conf, conf_buff[0]);
+    } else {
+        fprintf(flogwimic, "CYGCONVERT: %s \nSize buf conf: %d\ndata:\n%s\n\n", current_dir, sizewimic_conf, "buf conf empty");
+    }
 
+    fprintf(flogwimic, "Listing file dirs on '%s':\n\n", urus_path);
     DIR *dirunix;
     struct dirent *ent;
-    if ((dirunix = opendir("/system/urus/slotdata")) != NULL) {
+    if ((dirunix = opendir(urus_path)) != NULL) {
       while ((ent = readdir(dirunix)) != NULL) {
-        printf("%s\n", ent->d_name);
-        fprintf(flogwimic, "%s\n", ent->d_name);
+        if(strcmp(ent->d_name, ".") == 0 || strcmp(ent->d_name, "..") == 0) {
+            continue;
+        }
+
+        char fdir[FILENAME_MAX] = {0};
+        char fdirtmp[FILENAME_MAX] = {0};
+        struct stat path_stat;
+
+        strcat(fdirtmp, urus_path);
+        strcat(fdirtmp, "/");
+        strcat(fdirtmp, ent->d_name);
+        stat(fdirtmp, &path_stat);
+        if (S_ISDIR(path_stat.st_mode)) {
+            sprintf(fdir, "%s/", ent->d_name);
+        } else {
+            sprintf(fdir, "%s", ent->d_name);
+        }
+
+        printf("--> %s\n", fdir);
+        fprintf(flogwimic, "--> %s\n", fdir);
       }
       closedir(dirunix);
     } else {
-      printf("Can't open dir\n");
-      fprintf(flogwimic, "Can't open dir\n");
+      printf("Can't open dir %s\n", urus_path);
+      fprintf(flogwimic, "Can't open dir %s\n", urus_path);
     }
 
 	getcwd(buf, MAX_CHAR_PATH);
-	fprintf(flogwimic, "current working directory AFTER: %s\n", buf);
+	fprintf(flogwimic, "\ncurrent working directory AFTER: %s\n", buf);
 
     fclose(flogwimic);
 }
