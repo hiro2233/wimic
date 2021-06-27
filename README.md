@@ -14,7 +14,7 @@ https://github.com/hiro2233/wimic
 | Host | Arch | Link |
 | ---- | ---- | ---- |
 | win  |  x86  | [![Download-win32](https://img.shields.io/github/downloads/hiro2233/wimic/v1.0.4-pre-win32/total?style=for-the-badge)](https://github.com/hiro2233/wimic/releases/download/v1.0.4-pre-win32/wimic_setup.exe)|
-| raspbian | arm32 | ![Download-raspbian32](https://img.shields.io/github/downloads/hiro2233/wimic/v1.0.4-pre-linux-raspbian-armv7l/total?style=for-the-badge) |
+| raspbian | arm32 | [![Download-raspbian32](https://img.shields.io/github/downloads/hiro2233/wimic/v1.0.4-pre-linux-raspbian-armv7l/total?style=for-the-badge)](https://github.com/hiro2233/wimic/releases/download/v1.0.4-pre-linux-raspbian-armv7l/wimic.tar.gz) |
 
 [See instruction at bottom for a brief about installation.](#Basic-install-steps)
 
@@ -83,7 +83,7 @@ Download the [win host setup installer](#Download-Installer), then execute and f
 On terminal execute:
 
 ```bash
-$ wget https://github.com/hiro2233/wimic/raw... 
+$ wget https://github.com/hiro2233/wimic/raw/master/install_wimic.sh
 $ chmod +x install_wimic.sh
 $ source install_wimic.sh
 ```
